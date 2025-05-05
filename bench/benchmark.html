@@ -22,10 +22,11 @@
       white-space: pre-wrap;
     }
   </style>
+  <link rel="modulepreload" href="../dist/lightning-Levenshtein.min.js">
 </head>
 
 <body>
-  <h1>⚡ lightning-Levenshtein Benchmark</h1>
+  <h1>Levenshtein Benchmark</h1>
 
   <label>
     String length:
@@ -34,30 +35,67 @@
 
   <button id="runBtn">Run Benchmark</button>
 
-  <div class="result" id="output">Running...</div>
+
+
+  <div style="display: flex; gap: 2rem;">
+    <div style="flex: 2;">
+      <h1>⚡ lightning-Levenshtein</h1>
+      <!-- <pre id="output">Loading...</pre>  -->
+      <div class="result" id="output">Running...</div>
+    </div>
+    <div style="flex: 1; border-left: 1px solid #333; padding-left: 1rem;">
+      <h2>📦 Other Libraries</h2>
+      <pre id="otherOutput">Pending...</pre>
+    </div>
+  </div>
+
 
   <script type="module">
-    // import { distance, distanceMax, closest } from '../dist/lightning-Levenshtein.min.js';
+    import { distance, distanceMax, closest } from '../dist/lightning-Levenshtein.min.js';
+    import fastLevenshteinPkg from 'https://esm.sh/fast-levenshtein';
+    const { get: fastLevenshtein } = fastLevenshteinPkg;
 
-    const q = new Uint32Array(65536); function z(c, k, m, e) { var b = 0, d = -1; let l = m; for (var g = m; g--;)q[c.charCodeAt(g)] |= 1 << g; for (g = 0; g < e; g++) { var a = q[k.charCodeAt(g)]; const h = a | b; a |= (a & d) + d ^ d; b |= ~(a | d); d &= a; l += (b >>> m - 1 & 1) - (d >>> m - 1 & 1); b = b << 1 | 1; d <<= 1; d |= ~(h | b); b &= h } for (g = m; g--;)q[c.charCodeAt(g)] = 0; return l }; function A(c, k, m, e) {
-      var b = Math.ceil(m / 32), d = Math.ceil(e / 32); const l = Array(b), g = Array(b); for (; b--;)g[b] = -1, l[b] = 0; for (b = 0; b < d - 1; b++) { var a = -1, h = 0, t = 32 * b, p = Math.min(t + 32, e); for (var f = t; f < p; f++)q[k.charCodeAt(f)] |= 1 << f - t; for (f = 0; f < m; f++) { var n = q[c.charCodeAt(f)], u = f >> 5, r = f & 31, v = g[u] >>> r & 1, w = l[u] >>> r & 1, x = n | h; n = ((n | w) & a) + a ^ a | n | w; h |= ~(n | a); a &= n; g[u] ^= (h >>> 31 ^ v) << r; l[u] ^= (a >>> 31 ^ w) << r; h = h << 1 | v; a = a << 1 | w; a |= ~(x | h); h &= x } for (; t < p; t++)q[k.charCodeAt(t)] = 0 } d = -1; a = 0; p = 32 * b; b = Math.min(p + 32, e); t = b - p - 1; for (f = p; f <
-        b; f++)q[k.charCodeAt(f)] |= 1 << f - p; for (f = 0; f < m; f++)h = q[c.charCodeAt(f)], u = f >> 5, r = f & 31, v = g[u] >>> r & 1, w = l[u] >>> r & 1, x = h | a, h = ((h | w) & d) + d ^ d | h | w, a |= ~(h | d), d &= h, e += (a >>> t & 1) - (d >>> t & 1), g[u] ^= (a >>> 31 ^ v) << r, l[u] ^= (d >>> 31 ^ w) << r, a = a << 1 | v, d = d << 1 | w, d |= ~(x | a), a &= x; for (c = p; c < b; c++)q[k.charCodeAt(c)] = 0; return e
-    }; function B(c, k, m = Number.MAX_SAFE_INTEGER) {
-      if (c === k) return 0; var e = c.length, b = k.length; if (0 === e) return b; if (0 === b) return e; e < b && ([c, k] = [k, c], [e, b] = [b, e]); var d = e; if (32 >= e) if (m > d) c = z(c, k, e, b); else { var l = 0, g = -1; d = e; m += b; for (var a = e; a--;)q[c.charCodeAt(a)] |= 1 << a; for (a = 0; a < b; a++) { var h = q[k.charCodeAt(a)], t = h | l; h |= (h & g) + g ^ g; l |= ~(h | g); g &= h; d += (l >>> e - 1 & 1) - (g >>> e - 1 & 1); if (d > m--) break; l = l << 1 | 1; g <<= 1; g |= ~(t | l); l &= t } for (a = e; a--;)q[c.charCodeAt(a)] = 0; c = d } else if (m > d) c = A(c, k, e, b); else {
-        g = b; l = Math.ceil(e / 32); a = Math.ceil(g /
-          32); b = Array(l); for (d = Array(l); l--;)d[l] = -1, b[l] = 0; for (l = 0; l < a - 1; l++) { var p = -1, f = 0; h = 32 * l; t = Math.min(h + 32, g); for (var n = h; n < t; n++)q[k.charCodeAt(n)] |= 1 << n - h; for (n = 0; n < e; n++) { var u = q[c.charCodeAt(n)], r = n >> 5, v = n & 31, w = d[r] >>> v & 1, x = b[r] >>> v & 1, y = u | f; u = ((u | x) & p) + p ^ p | u | x; f |= ~(u | p); p &= u; d[r] ^= (f >>> 31 ^ w) << v; b[r] ^= (p >>> 31 ^ x) << v; f = f << 1 | w; p = p << 1 | x; p |= ~(y | f); f &= y } for (; h < t; h++)q[k.charCodeAt(h)] = 0 } a = -1; p = 0; t = 32 * l; l = Math.min(t + 32, g); h = l - t - 1; for (n = t; n < l; n++)q[k.charCodeAt(n)] |= 1 << n - t; m += e; for (n = 0; n < e; n++) {
-            f = q[c.charCodeAt(n)];
-            r = n >> 5; v = n & 31; w = d[r] >>> v & 1; x = b[r] >>> v & 1; y = f | p; f = ((f | x) & a) + a ^ a | f | x; p |= ~(f | a); a &= f; g += (p >>> h & 1) - (a >>> h & 1); if (g > m--) break; d[r] ^= (p >>> 31 ^ w) << v; b[r] ^= (a >>> 31 ^ x) << v; p = p << 1 | w; a = a << 1 | x; a |= ~(y | p); p &= y
-          } for (c = t; c < l; c++)q[k.charCodeAt(c)] = 0; c = g
-      } return c
-    }; function C(c, k) { if (c === k) return 0; let m = c.length, e = k.length; if (0 === m) return e; if (0 === e) return m; m < e && ([c, k] = [k, c], [m, e] = [e, m]); return 32 >= m ? z(c, k, m, e) : A(c, k, m, e) }; function D(c, k, m = Number.MAX_SAFE_INTEGER) { let e = -1; m += 1; for (let b = 0; b < k.length; b++) { const d = B(c, k[b], m); if (d < m && (m = d, e = b, 0 === d)) break } return 0 <= e ? k[e] : null };
-    // export { C as distance, B as distanceMax, D as closest };
-    globalThis.distance = C;
-    globalThis.distanceMax = B;
-    globalThis.closest = D;
+    import jslevenshtein from 'https://esm.sh/js-levenshtein';
+    import leven from 'https://esm.sh/leven';
+    // import { levenshteinEditDistance } from 'https://esm.sh/levenshtein-edit-distance';
+
+    import * as led from 'https://esm.sh/levenshtein-edit-distance';
+    const levenshteinEditDistance = led.levenshteinEditDistance ?? led.default;
+
+    if (typeof levenshteinEditDistance !== 'function') {
+      throw new Error('levenshteinEditDistance is not a function');
+    }
+
+    import { distance as fastestLevenshtein } from 'https://esm.sh/fastest-levenshtein';
+
+
+    // console.log('fastestLevenshtein:', typeof fastestLevenshtein);
+    // console.log('fastLevenshtein:', typeof fastLevenshtein);
+    // console.log('leven:', typeof leven);
+    // console.log('jslevenshtein:', typeof jslevenshtein);
+    // console.log('levenshteinEditDistance:', typeof levenshteinEditDistance);
+
+
+    // const q = new Uint32Array(65536); function z(c, k, m, e) { var b = 0, d = -1; let l = m; for (var g = m; g--;)q[c.charCodeAt(g)] |= 1 << g; for (g = 0; g < e; g++) { var a = q[k.charCodeAt(g)]; const h = a | b; a |= (a & d) + d ^ d; b |= ~(a | d); d &= a; l += (b >>> m - 1 & 1) - (d >>> m - 1 & 1); b = b << 1 | 1; d <<= 1; d |= ~(h | b); b &= h } for (g = m; g--;)q[c.charCodeAt(g)] = 0; return l }; function A(c, k, m, e) {
+    //   var b = Math.ceil(m / 32), d = Math.ceil(e / 32); const l = Array(b), g = Array(b); for (; b--;)g[b] = -1, l[b] = 0; for (b = 0; b < d - 1; b++) { var a = -1, h = 0, t = 32 * b, p = Math.min(t + 32, e); for (var f = t; f < p; f++)q[k.charCodeAt(f)] |= 1 << f - t; for (f = 0; f < m; f++) { var n = q[c.charCodeAt(f)], u = f >> 5, r = f & 31, v = g[u] >>> r & 1, w = l[u] >>> r & 1, x = n | h; n = ((n | w) & a) + a ^ a | n | w; h |= ~(n | a); a &= n; g[u] ^= (h >>> 31 ^ v) << r; l[u] ^= (a >>> 31 ^ w) << r; h = h << 1 | v; a = a << 1 | w; a |= ~(x | h); h &= x } for (; t < p; t++)q[k.charCodeAt(t)] = 0 } d = -1; a = 0; p = 32 * b; b = Math.min(p + 32, e); t = b - p - 1; for (f = p; f <
+    //     b; f++)q[k.charCodeAt(f)] |= 1 << f - p; for (f = 0; f < m; f++)h = q[c.charCodeAt(f)], u = f >> 5, r = f & 31, v = g[u] >>> r & 1, w = l[u] >>> r & 1, x = h | a, h = ((h | w) & d) + d ^ d | h | w, a |= ~(h | d), d &= h, e += (a >>> t & 1) - (d >>> t & 1), g[u] ^= (a >>> 31 ^ v) << r, l[u] ^= (d >>> 31 ^ w) << r, a = a << 1 | v, d = d << 1 | w, d |= ~(x | a), a &= x; for (c = p; c < b; c++)q[k.charCodeAt(c)] = 0; return e
+    // }; function B(c, k, m = Number.MAX_SAFE_INTEGER) {
+    //   if (c === k) return 0; var e = c.length, b = k.length; if (0 === e) return b; if (0 === b) return e; e < b && ([c, k] = [k, c], [e, b] = [b, e]); var d = e; if (32 >= e) if (m > d) c = z(c, k, e, b); else { var l = 0, g = -1; d = e; m += b; for (var a = e; a--;)q[c.charCodeAt(a)] |= 1 << a; for (a = 0; a < b; a++) { var h = q[k.charCodeAt(a)], t = h | l; h |= (h & g) + g ^ g; l |= ~(h | g); g &= h; d += (l >>> e - 1 & 1) - (g >>> e - 1 & 1); if (d > m--) break; l = l << 1 | 1; g <<= 1; g |= ~(t | l); l &= t } for (a = e; a--;)q[c.charCodeAt(a)] = 0; c = d } else if (m > d) c = A(c, k, e, b); else {
+    //     g = b; l = Math.ceil(e / 32); a = Math.ceil(g /
+    //       32); b = Array(l); for (d = Array(l); l--;)d[l] = -1, b[l] = 0; for (l = 0; l < a - 1; l++) { var p = -1, f = 0; h = 32 * l; t = Math.min(h + 32, g); for (var n = h; n < t; n++)q[k.charCodeAt(n)] |= 1 << n - h; for (n = 0; n < e; n++) { var u = q[c.charCodeAt(n)], r = n >> 5, v = n & 31, w = d[r] >>> v & 1, x = b[r] >>> v & 1, y = u | f; u = ((u | x) & p) + p ^ p | u | x; f |= ~(u | p); p &= u; d[r] ^= (f >>> 31 ^ w) << v; b[r] ^= (p >>> 31 ^ x) << v; f = f << 1 | w; p = p << 1 | x; p |= ~(y | f); f &= y } for (; h < t; h++)q[k.charCodeAt(h)] = 0 } a = -1; p = 0; t = 32 * l; l = Math.min(t + 32, g); h = l - t - 1; for (n = t; n < l; n++)q[k.charCodeAt(n)] |= 1 << n - t; m += e; for (n = 0; n < e; n++) {
+    //         f = q[c.charCodeAt(n)];
+    //         r = n >> 5; v = n & 31; w = d[r] >>> v & 1; x = b[r] >>> v & 1; y = f | p; f = ((f | x) & a) + a ^ a | f | x; p |= ~(f | a); a &= f; g += (p >>> h & 1) - (a >>> h & 1); if (g > m--) break; d[r] ^= (p >>> 31 ^ w) << v; b[r] ^= (a >>> 31 ^ x) << v; p = p << 1 | w; a = a << 1 | x; a |= ~(y | p); p &= y
+    //       } for (c = t; c < l; c++)q[k.charCodeAt(c)] = 0; c = g
+    //   } return c
+    // }; function C(c, k) { if (c === k) return 0; let m = c.length, e = k.length; if (0 === m) return e; if (0 === e) return m; m < e && ([c, k] = [k, c], [m, e] = [e, m]); return 32 >= m ? z(c, k, m, e) : A(c, k, m, e) }; function D(c, k, m = Number.MAX_SAFE_INTEGER) { let e = -1; m += 1; for (let b = 0; b < k.length; b++) { const d = B(c, k[b], m); if (d < m && (m = d, e = b, 0 === d)) break } return 0 <= e ? k[e] : null };
+    // // export { C as distance, B as distanceMax, D as closest };
+    // globalThis.distance = C;
+    // globalThis.distanceMax = B;
+    // globalThis.closest = D;
 
 
     const out = document.getElementById('output');
+    const otherOutput = document.getElementById('otherOutput')
 
     // Sample data
     const samples = [
@@ -84,8 +122,7 @@
 
 
 
-
-    async function benchmark(fn, label, samples, timeLimit = 50) {
+    async function benchmark(fn, label, samples, timeLimit = 5) {
       let total = 0;
       let calls = 0;
       const start = performance.now();
@@ -97,45 +134,84 @@
         }
       }
 
-      const elapsed = performance.now() - start;
-      const ops = (calls * 1000) / elapsed;
+      const elapsed = performance.now() - start; // ms
+      const opsPerMs = calls / elapsed;
+
+      // Format ops per millisecond
+      const ops =
+        opsPerMs >= 1
+          ? Math.round(opsPerMs)
+          : Number(opsPerMs.toFixed(3)); // retain precision for sub-ms speeds
 
       return { label, ops, time: elapsed, total };
     }
 
-
     async function runBenchmarks() {
-
+      const timeLimit = 500; // or make it user-adjustable later
       const runBtn = document.getElementById('runBtn');
       runBtn.textContent = 'RUNNING...';
       runBtn.disabled = true;
       out.textContent = "Running...";
+      otherOutput.textContent = "Pending..."
 
       // ✅ Give the DOM a chance to paint
       await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      await Promise.resolve();
+
+
+
 
       const strLen = parseInt(document.getElementById('strlen').value);
       const pairs = randomStringArr(asciiString, strLen, 20);
       const samples = pairs.map(s => [s, asciiString(strLen)]); // random pairs
+      await runOtherBenchmarks(samples, timeLimit); // comparison set
 
       const results = [];
-
-      results.push(await benchmark(distance, 'lightningLevenshtein: distance()', samples));
-      results.push(await benchmark((a, b) => distanceMax(a, b, 10), 'lightningLevenshtein: distanceMax(a, b, 10)', samples));
-      results.push(await benchmark((a, b) => { closest(a, [b]); return 0; }, 'lightningLevenshtein: closest()', samples));
+      for (let i = 0; i < 500; i++) {
+        distance('kitten', 'sitting');
+        distanceMax('kitten', 'sitting', 4);
+      }
+      results.push(await benchmark(distance, 'lightningLevenshtein: distance()', samples, timeLimit));
+      results.push(await benchmark((a, b) => distanceMax(a, b, 10), 'lightningLevenshtein: distanceMax(a, b, 10)', samples, timeLimit));
+      results.push(await benchmark((a, b) => { closest(a, [b]); return 0; }, 'lightningLevenshtein: closest()', samples, timeLimit));
 
       out.textContent = results.map(r =>
-        `${r.label}\n  → ${formatNum(r.ops)} ops/sec  (Time: ${formatNum(r.time)}ms)\n`).join('\n');
+        `${r.label}\n  → ${formatNum(r.ops)} ops/ms  (Time: ${formatNum(r.time)}ms)\n`).join('\n');
+
+
+
+
 
       runBtn.disabled = false;
       runBtn.textContent = 'Run Benchmark';
     }
 
 
+
+    async function runOtherBenchmarks(samples, timeLimit = 200) {
+      const otherOut = document.getElementById('otherOutput');
+      const results = [];
+
+      results.push(await benchmark(fastestLevenshtein, 'fastest-Levenshtein', samples, timeLimit));
+      results.push(await benchmark(fastLevenshtein, 'fast-levenshtein', samples, timeLimit));
+      results.push(await benchmark(jslevenshtein, 'js-levenshtein', samples, timeLimit));
+      results.push(await benchmark(leven, 'leven', samples, timeLimit));
+      results.push(await benchmark(levenshteinEditDistance, 'levenshtein-edit-distance', samples, timeLimit));
+
+
+
+
+      otherOut.textContent = results.map(r =>
+        `${r.label}\n  → ${formatNum(r.ops)} ops/ms (Time: ${formatNum(r.time)}ms)`).join('\n\n');
+    }
+
+
+
     document.getElementById('runBtn').addEventListener('click', runBenchmarks);
-
-
     runBenchmarks();
+
   </script>
 </body>
 

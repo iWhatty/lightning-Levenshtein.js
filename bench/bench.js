@@ -11,7 +11,7 @@ const Benchmark = require("benchmark");
 
 
 // import { distanceMax as distMax, distance } from "../src/index.js";
-import { closest, distance, distanceMax } from "../dist/mod_max_gcc.js";
+import { closest, distance, distanceMax } from "../dist/lightning-Levenshtein.min.js";
 
 
 

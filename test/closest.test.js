@@ -3,7 +3,7 @@
 // import { distance } from "../src/distance.js";
 // import { closest } from "../src/closest.js";
 
-import { closest, distance } from "../dist/mod_max_gcc.js";
+import { closest, distance } from "../dist/lightning-Levenshtein.min.js";
 
 
 const levenshtein = (a, b) => {

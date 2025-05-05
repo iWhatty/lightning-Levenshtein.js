@@ -2,3 +2,6 @@ package-lock.json
 node_modules/
 .eslintrc
 data.json
+externs.js
+build-gcc.mjs
+bench/
