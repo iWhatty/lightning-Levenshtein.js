@@ -1,0 +1,35 @@
+{
+    "name": "lightning-levenshtein",
+    "version": "0.0.1",
+    "description": "Blazing-fast Levenshtein distance with bit-parallel Myers algorithm and early exits.",
+    "main": "index.js",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.js"
+    },
+    "scripts": {
+        
+        "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+        "bench": "node bench/bench.js"
+
+    },
+    "keywords": [
+        "levenshtein",
+        "fuzzy",
+        "distance",
+        "bit-parallel",
+        "fast",
+        "js"
+    ],
+    "author": "J W",
+    "license": "Dr.Watt",
+    "devDependencies": {
+        "jest": "^29.0.0"
+    },
+    "dependencies": {
+        "benchmark": "^2.1.4",
+        "fast-levenshtein": "^3.0.0",
+        "js-levenshtein": "^1.1.6",
+        "levenshtein-edit-distance": "^3.0.1"
+    }
+}
