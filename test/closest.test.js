@@ -1,7 +1,10 @@
 // const { closest, distance } = require("./mod.js");
 // import { closest, distance } from "./mod_max.js";
-import { distance } from "../src/distance.js";
-import { closest } from "../src/closest.js";
+// import { distance } from "../src/distance.js";
+// import { closest } from "../src/closest.js";
+
+import { closest, distance } from "../dist/mod_max_gcc.js";
+
 
 const levenshtein = (a, b) => {
   if (a.length === 0) {
@@ -52,7 +55,7 @@ const makeid = (length) => {
 };
 
 test("test compare", () => {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     const rnd_num1 = (Math.random() * 1000) | 0;
     const rnd_num2 = (Math.random() * 1000) | 0;
     const rnd_string1 = makeid(rnd_num1);

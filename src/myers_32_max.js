@@ -2,8 +2,8 @@
 // ./src/myers_32_max.js
 
 // Global pattern equality table shared across invocations
-const peq = new Uint32Array(0x10000); // One bitmask per Unicode char (up to 16-bit space)
-// import { peq } from './peq.js';
+// const peq = new Uint32Array(0x10000); // One bitmask per Unicode char (up to 16-bit space)
+import { peq } from './peq.js';
 
 
 /**

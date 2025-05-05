@@ -8,7 +8,7 @@
         ".": "./src/index.js"
     },
     "scripts": {
-        
+        "build": "node ./build-gcc.mjs",
         "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
         "bench": "node bench/bench.js"
 

@@ -7,22 +7,22 @@ const require = createRequire(import.meta.url);
 const fs = require("fs");
 const Benchmark = require("benchmark");
 
+
+
+
+// import { distanceMax as distMax, distance } from "../src/index.js";
+import { closest, distance, distanceMax } from "../dist/mod_max_gcc.js";
+
+
+
 import { distance as distFast } from "./mod.js";
-// import { distance as dBranchless, distanceMax as distMax, distanceW as distW } from "./mod_max.js";
-// import { distance as dmax } from "./mod_max_gcc.js";
-// import { distance } from "../src/distance.js";
-// import { distanceMax as distMax } from "../src/distanceMax.js";
-
-
-import { distanceMax as distMax, distance } from "../src/index.js";
 
 import fastLevenshteinPkg from "fast-levenshtein";
 const { get: fastLevenshtein } = fastLevenshteinPkg;
 
-
 const leven = require("leven");
 const jslevenshtein = require("js-levenshtein");
-const levenshteinEditDistance = (await import("levenshtein-edit-distance")).default;
+import { levenshteinEditDistance } from "levenshtein-edit-distance"
 
 const suite = new Benchmark.Suite();
 
@@ -46,7 +46,7 @@ const randomstringArr = (stringSize, arraySize) => {
     return arr;
 };
 
-const arrSize = 10;
+const arrSize = 1000;
 if (!fs.existsSync("data.json")) {
     const data = [
         randomstringArr(4, arrSize),
@@ -69,29 +69,29 @@ const data = JSON.parse(fs.readFileSync("data.json", "utf8"));
 for (let i = 0; i < 9; i++) {
     const datapick = data[i];
 
-    if (process.argv[2] !== "no") {
-      suite
-        .add(`${i} - js-levenshtein            `, () => {
-          for (let j = 0; j < arrSize - 1; j += 2) {
-            jslevenshtein(datapick[j], datapick[j + 1]);
-          }
-        })
-        .add(`${i} - leven                      `, () => {
-          for (let j = 0; j < arrSize - 1; j += 2) {
-            leven(datapick[j], datapick[j + 1]);
-          }
-        })
-        .add(`${i} - fast-levenshtein           `, () => {
-          for (let j = 0; j < arrSize - 1; j += 2) {
-            fastLevenshtein(datapick[j], datapick[j + 1]);
-          }
-        })
-        .add(`${i} - levenshtein-edit-distance   `, () => {
-          for (let j = 0; j < arrSize - 1; j += 2) {
-            levenshteinEditDistance(datapick[j], datapick[j + 1]);
-          }
-        });
-    }
+    // if (process.argv[2] !== "no") {
+    //   suite
+    //     .add(`${i} - js-levenshtein            `, () => {
+    //       for (let j = 0; j < arrSize - 1; j += 2) {
+    //         jslevenshtein(datapick[j], datapick[j + 1]);
+    //       }
+    //     })
+    //     .add(`${i} - leven                      `, () => {
+    //       for (let j = 0; j < arrSize - 1; j += 2) {
+    //         leven(datapick[j], datapick[j + 1]);
+    //       }
+    //     })
+    //     .add(`${i} - fast-levenshtein           `, () => {
+    //       for (let j = 0; j < arrSize - 1; j += 2) {
+    //         fastLevenshtein(datapick[j], datapick[j + 1]);
+    //       }
+    //     })
+    //     .add(`${i} - levenshtein-edit-distance   `, () => {
+    //       for (let j = 0; j < arrSize - 1; j += 2) {
+    //         levenshteinEditDistance(datapick[j], datapick[j + 1]);
+    //       }
+    //     });
+    // }
 
     suite.add(`${i} - fastest-levenshtein        `, () => {
         for (let j = 0; j < arrSize - 1; j += 2) {
@@ -105,7 +105,7 @@ for (let i = 0; i < 9; i++) {
     });
     suite.add(`${i} - lightning-Levenshtein-d10   `, () => {
         for (let j = 0; j < arrSize - 1; j += 2) {
-            distMax(datapick[j], datapick[j + 1], 10);
+            distanceMax(datapick[j], datapick[j + 1], 10);
         }
     });
 

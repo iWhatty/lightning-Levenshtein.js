@@ -1,37 +1,30 @@
 
-// /** @externs */
-// /** @fileoverview Fastest Levenshtein exposed externs. */
-
-// /**
-//  * @type {(a: string, b: string, maxDistance?: number) => number}
-//  */
-// var distance;
-
-// /**
-//  * @type {(str: string, arr: !Array<string>, maxDistance?: number) => (string|null)}
-//  */
-// var closest;
+/** 
+ * @externs
+ * @fileoverview Fastest Levenshtein exposed externs.
+ **/
 
 
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {number}
+ */
+function distance(a, b) {}
 
-// /**
-//  * @fileoverview World's Fastest Levenstein.
-//  * @externs
-//  */
+/**
+ * @param {string} a
+ * @param {string} b
+ * @param {number=} maxDistance
+ * @return {number}
+ */
+function distanceMax(a, b, maxDistance) {}
 
 
-// /**
-//  * @param {string} a
-//  * @param {string} b
-//  * @param {number=} maxDistance
-//  * @return {number}
-//  */
-// function distance(a, b, maxDistance) {}
-
-// /**
-//  * @param {string} str
-//  * @param {!Array<string>} arr
-//  * @param {number=} maxDistance
-//  * @return {string|null}
-//  */
-// function closest(str, arr, maxDistance) {}
+/**
+ * @param {string} str
+ * @param {!Array<string>} arr
+ * @param {number=} maxDistance
+ * @return {string|null}
+ */
+function closest(str, arr, maxDistance) {}

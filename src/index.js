@@ -7,6 +7,8 @@ export { myers_x } from './myers_x.js';
 export { myers_x_max } from './myers_x_max.js';
 
 // Public APIs
-export { distance } from './distance.js';
-export { distanceMax } from './distanceMax.js';
-export { closest } from './closest.js';
+import { distanceMax } from './distanceMax.js';
+import { distance } from './distance.js';
+import { closest } from './closest.js';
+
+export { distance, distanceMax, closest };
