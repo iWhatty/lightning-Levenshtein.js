@@ -26,6 +26,14 @@
 
 <body>
   <h1>⚡ lightning-Levenshtein Benchmark</h1>
+
+  <label>
+    String length:
+    <input type="number" id="strlen" value="12" min="1" max="1000" step="1" style="width: 5em;">
+  </label>
+
+  <button id="runBtn">Run Benchmark</button>
+
   <div class="result" id="output">Running...</div>
 
   <script type="module">
@@ -65,31 +73,67 @@
 
     const formatNum = n => n.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
-    async function benchmark(fn, label, reps = 5000) {
+    const asciiString = (length) => {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      const arr = Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]);
+      return arr.join('');
+    };
+
+    const randomStringArr = (genFn, strLen, arrLen) =>
+      Array.from({ length: arrLen }, () => genFn(strLen));
+
+
+
+
+    async function benchmark(fn, label, samples, timeLimit = 50) {
       let total = 0;
+      let calls = 0;
       const start = performance.now();
-      for (let i = 0; i < reps; i++) {
+
+      while (performance.now() - start < timeLimit) {
         for (const [a, b] of samples) {
           total += fn(a, b);
+          calls++;
         }
       }
-      const end = performance.now();
-      const time = end - start;
-      const ops = (reps * samples.length * 1000) / time;
-      return { label, ops, time, total };
+
+      const elapsed = performance.now() - start;
+      const ops = (calls * 1000) / elapsed;
+
+      return { label, ops, time: elapsed, total };
     }
+
 
     async function runBenchmarks() {
+
+      const runBtn = document.getElementById('runBtn');
+      runBtn.textContent = 'RUNNING...';
+      runBtn.disabled = true;
+      out.textContent = "Running...";
+
+      // ✅ Give the DOM a chance to paint
+      await new Promise(requestAnimationFrame);
+
+      const strLen = parseInt(document.getElementById('strlen').value);
+      const pairs = randomStringArr(asciiString, strLen, 20);
+      const samples = pairs.map(s => [s, asciiString(strLen)]); // random pairs
+
       const results = [];
 
-      results.push(await benchmark(distance, 'lightningLevenshtein: distance()'));
-      results.push(await benchmark(distanceMax, 'lightningLevenshtein: distanceMax(a, b, 10)', 2000));
-      results.push(await benchmark((a, b) => { closest(a, [b]); return 0; }, 'lightningLevenshtein: closest()', 2000));
-
+      results.push(await benchmark(distance, 'lightningLevenshtein: distance()', samples));
+      results.push(await benchmark((a, b) => distanceMax(a, b, 10), 'lightningLevenshtein: distanceMax(a, b, 10)', samples));
+      results.push(await benchmark((a, b) => { closest(a, [b]); return 0; }, 'lightningLevenshtein: closest()', samples));
 
       out.textContent = results.map(r =>
-        `${r.label}\n  → ${formatNum(r.ops)} ops/sec  (Total dist: ${r.total})\n`).join('\n');
+        `${r.label}\n  → ${formatNum(r.ops)} ops/sec  (Time: ${formatNum(r.time)}ms)\n`).join('\n');
+
+      runBtn.disabled = false;
+      runBtn.textContent = 'Run Benchmark';
     }
+
+
+    document.getElementById('runBtn').addEventListener('click', runBenchmarks);
+
 
     runBenchmarks();
   </script>
