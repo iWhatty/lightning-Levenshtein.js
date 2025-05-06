@@ -18,6 +18,7 @@
     
     "scripts": {
         "build": "node ./build-gcc.mjs",
+        "build-bolt": "node ./build-gcc-bolt.mjs",
         "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
         "bench": "node bench/bench.js"
 

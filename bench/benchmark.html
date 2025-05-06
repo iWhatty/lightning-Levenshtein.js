@@ -23,6 +23,7 @@
     }
   </style>
   <link rel="modulepreload" href="../dist/lightning-Levenshtein.min.js">
+  <link rel="modulepreload" href="./lightning-Levenshtein-v2.min.js">
 </head>
 
 <body>
@@ -52,6 +53,8 @@
 
   <script type="module">
     import { distance, distanceMax, closest } from '../dist/lightning-Levenshtein.min.js';
+    import { levenshteinLightning } from './lightning-Levenshtein-v2.min.js';
+
     import fastLevenshteinPkg from 'https://esm.sh/fast-levenshtein';
     const { get: fastLevenshtein } = fastLevenshteinPkg;
 
@@ -169,10 +172,10 @@
       await runOtherBenchmarks(samples, timeLimit); // comparison set
 
       const results = [];
-      for (let i = 0; i < 500; i++) {
-        distance('kitten', 'sitting');
-        distanceMax('kitten', 'sitting', 4);
-      }
+      // for (let i = 0; i < 500; i++) {
+      //   distance('kitten', 'sitting');
+      //   distanceMax('kitten', 'sitting', 4);
+      // }
       results.push(await benchmark(distance, 'lightningLevenshtein: distance()', samples, timeLimit));
       results.push(await benchmark((a, b) => distanceMax(a, b, 10), 'lightningLevenshtein: distanceMax(a, b, 10)', samples, timeLimit));
       results.push(await benchmark((a, b) => { closest(a, [b]); return 0; }, 'lightningLevenshtein: closest()', samples, timeLimit));
@@ -194,6 +197,8 @@
       const otherOut = document.getElementById('otherOutput');
       const results = [];
 
+      
+      results.push(await benchmark(levenshteinLightning, 'levenshteinLightning-v2', samples, timeLimit));
       results.push(await benchmark(fastestLevenshtein, 'fastest-Levenshtein', samples, timeLimit));
       results.push(await benchmark(fastLevenshtein, 'fast-levenshtein', samples, timeLimit));
       results.push(await benchmark(jslevenshtein, 'js-levenshtein', samples, timeLimit));

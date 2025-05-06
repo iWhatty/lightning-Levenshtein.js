@@ -3,3 +3,5 @@ node_modules/
 .eslintrc
 data.json
 build-gcc.mjs
+
+data*.json

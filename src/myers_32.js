@@ -69,22 +69,37 @@ export function myers_32(a, b, n, m) {
     //     mv = newMv & xv;
     //   }
 
-    for (i = 0; i < m; i++) {
-        var eq = peq[b.charCodeAt(i)];
-        var xv = eq | mv;
+
+    for (let i = 0; i < m; i++) {
+        let eq = peq[b.charCodeAt(i)];
+        const xv = eq | mv;
         eq |= ((eq & pv) + pv) ^ pv;
         mv |= ~(eq | pv);
         pv &= eq;
-        if (mv & lst) {
-            score++;
-        }
-        if (pv & lst) {
-            score--;
-        }
-        mv = (mv << 1) | 1;
-        pv = (pv << 1) | ~(xv | mv);
+        if (mv & lst) score++;
+        if (pv & lst) score--;
+        mv = ((mv << 1) | 1) >>> 0;
+        pv = ((pv << 1) | ~(xv | mv)) >>> 0;
         mv &= xv;
-    }
+      }
+
+
+    // for (i = 0; i < m; i++) {
+    //     var eq = peq[b.charCodeAt(i)];
+    //     var xv = eq | mv;
+    //     eq |= ((eq & pv) + pv) ^ pv;
+    //     mv |= ~(eq | pv);
+    //     pv &= eq;
+    //     if (mv & lst) {
+    //         score++;
+    //     }
+    //     if (pv & lst) {
+    //         score--;
+    //     }
+    //     mv = (mv << 1) | 1;
+    //     pv = (pv << 1) | ~(xv | mv);
+    //     mv &= xv;
+    // }
 
     // for (let i = 0; i < m; i++) {
     //     let eq = peq[b.charCodeAt(i)];
@@ -201,7 +216,7 @@ export function myers_32(a, b, n, m) {
 //     let ph = mv | ~(xh | pv);                   // Insertions
 //     let mh = pv & xh;                           // Deletions
   
-//     // 🔀 Branch-based score update — same logic, different perf profile
+//     // Branch-based score update — same logic, different perf profile
 //     if ((ph >>> (n - 1)) & 1) score++;
 //     if ((mh >>> (n - 1)) & 1) score--;
   

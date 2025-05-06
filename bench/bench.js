@@ -8,14 +8,18 @@ const fs = require("fs");
 const Benchmark = require("benchmark");
 
 
-
+import { levenshteinLightning } from './lightning-Levenshtein-v2.min.js'
 
 // import { distanceMax as distMax, distance } from "../src/index.js";
 import { closest, distance, distanceMax } from "../dist/lightning-Levenshtein.min.js";
 
-
+import { myers32_fast } from './bolt/myers32-fast.js'
 
 import { distance as distFast } from "./mod.js";
+
+
+
+
 
 import fastLevenshteinPkg from "fast-levenshtein";
 const { get: fastLevenshtein } = fastLevenshteinPkg;
@@ -37,6 +41,17 @@ const randomstring = (length) => {
     return result;
 };
 
+// Mixed-length data generator
+const randomMixedStringArr = (arraySize, minLen = 1, maxLen = 64) => {
+    const arr = [];
+    for (let i = 0; i < arraySize; i++) {
+        const len = Math.floor(Math.random() * (maxLen - minLen + 1)) + minLen;
+        arr.push(randomstring(len));
+    }
+    return arr;
+};
+
+
 const randomstringArr = (stringSize, arraySize) => {
     let i = 0;
     const arr = [];
@@ -47,26 +62,62 @@ const randomstringArr = (stringSize, arraySize) => {
 };
 
 const arrSize = 1000;
-if (!fs.existsSync("data.json")) {
-    const data = [
-        randomstringArr(4, arrSize),
-        randomstringArr(8, arrSize),
-        randomstringArr(16, arrSize),
-        randomstringArr(32, arrSize),
-        randomstringArr(64, arrSize),
-        randomstringArr(128, arrSize),
-        randomstringArr(256, arrSize),
-        randomstringArr(512, arrSize),
-        randomstringArr(1024, arrSize),
-    ];
+const dataStr = "dataMix.json";
+// const dataStr = "data10.json";
+// const dataStr = "data2.json";
+if (!fs.existsSync(dataStr)) {
 
-    fs.writeFileSync("data.json", JSON.stringify(data));
+    // const data = [
+    //     randomstringArr(1, arrSize), // 0
+    //     randomstringArr(2, arrSize), // 1
+    //     randomstringArr(3, arrSize), // 2
+    //     randomstringArr(4, arrSize), // 3
+    //     randomstringArr(5, arrSize), // 4
+    //     randomstringArr(6, arrSize), // 5
+    //     randomstringArr(7, arrSize), // 6
+    //     randomstringArr(8, arrSize), // 7
+    //     randomstringArr(9, arrSize), // 8
+    //     randomstringArr(10, arrSize), // 9
+    // ];
+    // data.push(randomMixedStringArr(arrSize, 1, 32)); // add one mixed-length block // 10
+
+    // const data = [];
+    // for (let i = 4; i <= 32; i+=4) {
+    //     data.push(randomstringArr(i, arrSize)); // keeps uniform blocks
+    // }
+    // data.push(randomMixedStringArr(arrSize, 1, 16)); // add one mixed-length block // 8
+    // data.push(randomMixedStringArr(arrSize, 1, 32)); // add one mixed-length block // 9
+
+
+
+    const data = [];
+    for (let i = 4; i <= 32; i+=4) {
+        data.push(randomMixedStringArr(arrSize, 1, i)); // add one mixed-length block //
+    }
+
+
+
+    // const data = [
+    //     randomstringArr(4, arrSize),
+    //     randomstringArr(8, arrSize),
+    //     randomstringArr(16, arrSize),
+    //     randomstringArr(32, arrSize),
+    //     randomstringArr(64, arrSize),
+    //     randomstringArr(128, arrSize),
+    //     randomstringArr(256, arrSize),
+    //     randomstringArr(512, arrSize),
+    //     randomstringArr(1024, arrSize),
+    // ];
+
+    fs.writeFileSync(dataStr, JSON.stringify(data));
 }
 
-const data = JSON.parse(fs.readFileSync("data.json", "utf8"));
+const data = JSON.parse(fs.readFileSync(dataStr, "utf8"));
 
 // BENCHMARKS
-for (let i = 0; i < 9; i++) {
+// for (let i = 0; i < 9; i++) {
+for (let i = 0; i < data.length; i++) {
+
     const datapick = data[i];
 
     // if (process.argv[2] !== "no") {
@@ -103,11 +154,26 @@ for (let i = 0; i < 9; i++) {
             distance(datapick[j], datapick[j + 1]);
         }
     });
-    suite.add(`${i} - lightning-Levenshtein-d10   `, () => {
+    // suite.add(`${i} - lightning-Levenshtein-d10   `, () => {
+    //     for (let j = 0; j < arrSize - 1; j += 2) {
+    //         distanceMax(datapick[j], datapick[j + 1], 10);
+    //     }
+    // });
+
+    suite.add(`${i} - lightning-Unrolled_32  `, () => {
         for (let j = 0; j < arrSize - 1; j += 2) {
-            distanceMax(datapick[j], datapick[j + 1], 10);
+            myers32_fast(datapick[j], datapick[j + 1]);
         }
     });
+
+    suite.add(`${i} - lightning-v2-dispatch   `, () => {
+        for (let j = 0; j < arrSize - 1; j += 2) {
+            levenshteinLightning(datapick[j], datapick[j + 1]);
+        }
+    });
+
+    
+
 
 }
 

@@ -1,24 +1,27 @@
+"use strict";
+
+
 // Auto-generated: Optimized Myers 32-bit variants
 const peq = new Uint32Array(256);
-const myers_table = [];
+export const myers_table = [];
 
 function myers_1(a, b) {
-  const m = b.length;
+  // const m = b.length;
   const lst = 1;
   let pv = -1 >>> 0, mv = 0, sc = 1;
   peq[a.charCodeAt(0)] |= 1;
-  for (let i = 0; i < m; i++) {
-    let eq = peq[b.charCodeAt(i)];
-    const xv = eq | mv;
-    eq |= ((eq & pv) + pv) ^ pv;
-    mv |= ~(eq | pv);
-    pv &= eq;
-    if (mv & lst) sc++;
-    if (pv & lst) sc--;
-    mv = ((mv << 1) | 1) >>> 0;
-    pv = ((pv << 1) | ~(xv | mv)) >>> 0;
-    mv &= xv;
-  }
+
+  let eq = peq[b.charCodeAt(0)];
+  // const xv = eq | mv;
+  eq |= ((eq & pv) + pv) ^ pv;
+  mv |= ~(eq | pv);
+  pv &= eq;
+  if (mv & lst) sc++;
+  if (pv & lst) sc--;
+  // mv = ((mv << 1) | 1) >>> 0;
+  // pv = ((pv << 1) | ~(xv | mv)) >>> 0;
+  // mv &= xv;
+
   peq[a.charCodeAt(0)] = 0;
   return sc;
 }
@@ -30,18 +33,32 @@ function myers_2(a, b) {
   let pv = -1 >>> 0, mv = 0, sc = 2;
   peq[a.charCodeAt(0)] |= 1;
   peq[a.charCodeAt(1)] |= 2;
-  for (let i = 0; i < m; i++) {
-    let eq = peq[b.charCodeAt(i)];
-    const xv = eq | mv;
-    eq |= ((eq & pv) + pv) ^ pv;
-    mv |= ~(eq | pv);
-    pv &= eq;
-    if (mv & lst) sc++;
-    if (pv & lst) sc--;
-    mv = ((mv << 1) | 1) >>> 0;
-    pv = ((pv << 1) | ~(xv | mv)) >>> 0;
-    mv &= xv;
-  }
+  // for (let i = 0; i < m; i++) {
+  let eq = peq[b.charCodeAt(0)];
+  let xv = eq | mv;
+  eq |= ((eq & pv) + pv) ^ pv;
+  mv |= ~(eq | pv);
+  pv &= eq;
+  if (mv & lst) sc++;
+  if (pv & lst) sc--;
+  mv = ((mv << 1) | 1) >>> 0;
+  pv = ((pv << 1) | ~(xv | mv)) >>> 0;
+  mv &= xv;
+
+
+  eq = peq[b.charCodeAt(1)];
+  // xv = eq | mv;
+  eq |= ((eq & pv) + pv) ^ pv;
+  mv |= ~(eq | pv);
+  pv &= eq;
+  if (mv & lst) sc++;
+  if (pv & lst) sc--;
+  // mv = ((mv << 1) | 1) >>> 0;
+  // pv = ((pv << 1) | ~(xv | mv)) >>> 0;
+  // mv &= xv;
+
+
+  // }
   peq[a.charCodeAt(0)] = 0;
   peq[a.charCodeAt(1)] = 0;
   return sc;
@@ -1699,6 +1716,13 @@ function myers_32(a, b) {
 myers_table[32] = myers_32;
 
 export function myers32_fast(a, b) {
+  let n = a.length;
+  let m = b.length;
+  // Always process with the longer string as `a` for bitmask consistency
+  if (n < m) {
+    [a, b] = [b, a];
+    [n, m] = [m, n];
+  }
   const fn = myers_table[a.length];
   return fn ? fn(a, b) : null;
 }
