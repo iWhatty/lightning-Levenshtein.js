@@ -1723,6 +1723,6 @@ export function myers32_fast(a, b) {
     [a, b] = [b, a];
     [n, m] = [m, n];
   }
-  const fn = myers_table[a.length];
+  const fn = myers_table[n];
   return fn ? fn(a, b) : null;
 }

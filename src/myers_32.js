@@ -80,6 +80,8 @@ export function myers_32(a, b, n, m) {
         if (pv & lst) score--;
         mv = ((mv << 1) | 1) >>> 0;
         pv = ((pv << 1) | ~(xv | mv)) >>> 0;
+        // mv = ((mv << 1) | 1);
+        // pv = ((pv << 1) | ~(xv | mv));
         mv &= xv;
       }
 

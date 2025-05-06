@@ -2,7 +2,7 @@
 // ./lev-direct.js
 "use strict";
 
-import { lev_3x3 } from './levenshtein_small.js';
+import { lev_3x3, lev_4x4, lev_4x3, lev_4x2, lev_4x1  } from './levenshtein_Direct_Matrix.js';
 
 /* ==== 2-char Cases ==== */
 
@@ -85,6 +85,19 @@ export function lev3_dispatch(a, b) {
   if (lb === 2) return lev32_direct(a, b);
   if (lb === 1) return lev31_direct(a, b);
   return 3
+}
 
-  //   return levenshtein_small(a, b);
+
+
+/**
+ * Dispatcher for 1–4 length combinations. !!Assumes a >= b
+ */
+export function lev4_dispatch(a, b) {
+  const lb = b.length;
+  if (lb === 4) return lev_4x4(a, b);
+  if (lb === 3) return lev_4x3(a, b);
+  if (lb === 2) return lev_4x2(a, b);
+  if (lb === 1) return lev_4x1(a, b);
+  return 4
+
 }

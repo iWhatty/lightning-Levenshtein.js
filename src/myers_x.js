@@ -98,7 +98,9 @@ export function myers_x(a, b, n, m) {
         let mh = pv & xh;
 
         // Update score based on bit shifted to `shift` position (MSB in final block)
-        score += ((ph >>> shift) & 1) - ((mh >>> shift) & 1);
+        // score += ((ph >>> shift) & 1) - ((mh >>> shift) & 1);
+        score += ((ph >>> shift) & 1);
+        score -= ((mh >>> shift) & 1);
 
         phc[idx] ^= ((ph >>> 31) ^ pb) << bit;
         mhc[idx] ^= ((mh >>> 31) ^ mb) << bit;
