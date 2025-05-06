@@ -27,6 +27,48 @@ export function myers_32(a, b, n, m) {
     var lst = 1 << (n - 1);
     while (i--) peq[a.charCodeAt(i)] |= 1 << i;
 
+    // for (let i = 0; i < m; i++) {
+    //     const bCode = b.charCodeAt(i);
+    //     const eq = peq[bCode];
+        
+    //     const xv = eq | mv;
+    //     const eqv = eq | (((eq & pv) + pv) ^ pv); // merged eq update inline
+      
+    //     const nh = ~(eqv | pv);
+    //     const ph = mv | nh;
+    //     const mh = pv & eqv;
+      
+    //     const phLst = ph & lst;
+    //     const mhLst = mh & lst;
+      
+    //     score += (phLst !== 0) - (mhLst !== 0); // branchless scoring
+      
+    //     const newMv = (ph << 1) | 1;
+    //     const newPv = (mh << 1) | ~(xv | newMv);
+      
+    //     pv = newPv;
+    //     mv = newMv & xv;
+    //   }
+      
+    // for (let i = 0; i < m; i++) {
+    //     const bCode = b.charCodeAt(i);
+    //     let eq = peq[bCode];
+      
+    //     const xv = eq | mv;
+    //     eq |= ((eq & pv) + pv) ^ pv;
+      
+    //     const nh = ~(eq | pv);
+    //     const ph = mv | nh;
+    //     const mh = pv & eq;
+      
+    //     if (ph & lst) score++;
+    //     if (mh & lst) score--;
+      
+    //     const newMv = (ph << 1) | 1;
+    //     pv = (mh << 1) | ~(xv | newMv);
+    //     mv = newMv & xv;
+    //   }
+
     for (i = 0; i < m; i++) {
         var eq = peq[b.charCodeAt(i)];
         var xv = eq | mv;
@@ -94,6 +136,58 @@ export function myers_32(a, b, n, m) {
 };
 
 
+
+
+
+
+///// v5
+
+// for (let i = 0; i < m; i++) {
+//     const bCode = b.charCodeAt(i);
+//     const eq = peq[bCode];
+    
+//     const xv = eq | mv;
+//     const eqv = eq | (((eq & pv) + pv) ^ pv); // merged eq update inline
+  
+//     const nh = ~(eqv | pv);
+//     const ph = mv | nh;
+//     const mh = pv & eqv;
+  
+//     const phLst = ph & lst;
+//     const mhLst = mh & lst;
+  
+//     score += (phLst !== 0) - (mhLst !== 0); // branchless scoring
+  
+//     const newMv = (ph << 1) | 1;
+//     const newPv = (mh << 1) | ~(xv | newMv);
+  
+//     pv = newPv;
+//     mv = newMv & xv;
+//   }
+  
+
+
+
+//// v4
+
+// for (let i = 0; i < m; i++) {
+//     const bCode = b.charCodeAt(i);
+//     let eq = peq[bCode];
+  
+//     const xv = eq | mv;
+//     eq |= ((eq & pv) + pv) ^ pv;
+  
+//     const nh = ~(eq | pv);
+//     const ph = mv | nh;
+//     const mh = pv & eq;
+  
+//     if (ph & lst) score++;
+//     if (mh & lst) score--;
+  
+//     const newMv = (ph << 1) | 1;
+//     pv = (mh << 1) | ~(xv | newMv);
+//     mv = newMv & xv;
+//   }
 
 
 //  /// v1
