@@ -14,6 +14,7 @@ import { levenshteinLightning } from './lightning-Levenshtein-v2.min.js'
 import { closest, distance, distanceMax } from "../dist/lightning-Levenshtein.min.js";
 
 import { myers32_fast } from './bolt/myers32-fast.js'
+import { myers32_unrolledB } from './bolt/myers32-unrolledB.js'
 
 import { distance as distFast } from "./mod.js";
 
@@ -62,7 +63,7 @@ const randomstringArr = (stringSize, arraySize) => {
 };
 
 const arrSize = 1000;
-const dataStr = "dataMix.json";
+const dataStr = "data10.json";
 // const dataStr = "data10.json";
 // const dataStr = "data2.json";
 if (!fs.existsSync(dataStr)) {
@@ -166,12 +167,20 @@ for (let i = 0; i < data.length; i++) {
         }
     });
 
+    suite.add(`${i} - lightning-Unrolled_B  `, () => {
+        for (let j = 0; j < arrSize - 1; j += 2) {
+            myers32_unrolledB(datapick[j], datapick[j + 1]);
+        }
+    });
+
     suite.add(`${i} - lightning-v2-dispatch   `, () => {
         for (let j = 0; j < arrSize - 1; j += 2) {
             levenshteinLightning(datapick[j], datapick[j + 1]);
         }
     });
 
+
+    
     
 
 
