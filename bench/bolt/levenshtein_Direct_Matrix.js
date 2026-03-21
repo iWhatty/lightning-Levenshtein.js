@@ -1,10 +1,56 @@
 
+
+
+// bench\bolt\levenshtein_Direct_Matrix.js
 "use strict";
 
 
 function min3(x, y, z) {
   return (x < y ? (x < z ? x : z) : (y < z ? y : z));
 }
+
+
+export function lev_2x2(a, b) {
+  const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1);
+  const b0 = b.charCodeAt(0), b1 = b.charCodeAt(1);
+
+  const d00 = 0;
+  const d01 = 1, d02 = 2;
+
+  const d10 = 1;
+  const d11 = min3(d01 + 1, d10 + 1, d00 + (a0 !== b0));
+  const d12 = min3(d02 + 1, d11 + 1, d01 + (a0 !== b1));
+
+  const d20 = 2;
+  const d21 = min3(d11 + 1, d20 + 1, d10 + (a1 !== b0));
+  const d22 = min3(d12 + 1, d21 + 1, d11 + (a1 !== b1));
+
+  return d22;
+}
+
+
+export function lev_3x2(a, b) {
+  const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2);
+  const b0 = b.charCodeAt(0), b1 = b.charCodeAt(1);
+
+  const d00 = 0;
+  const d01 = 1, d02 = 2;
+
+  const d10 = 1;
+  const d11 = min3(d01 + 1, d10 + 1, d00 + (a0 !== b0));
+  const d12 = min3(d02 + 1, d11 + 1, d01 + (a0 !== b1));
+
+  const d20 = 2;
+  const d21 = min3(d11 + 1, d20 + 1, d10 + (a1 !== b0));
+  const d22 = min3(d12 + 1, d21 + 1, d11 + (a1 !== b1));
+
+  const d30 = 3;
+  const d31 = min3(d21 + 1, d30 + 1, d20 + (a2 !== b0));
+  const d32 = min3(d22 + 1, d31 + 1, d21 + (a2 !== b1));
+
+  return d32;
+}
+
 
 export function lev_3x3(a, b) {
   const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2);

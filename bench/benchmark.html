@@ -12,8 +12,31 @@
       color: #0f0;
     }
 
-    h1 {
-      font-size: 1.8rem;
+    h1, h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, max-content);
+      gap: 0.75rem 1.25rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    input, select, button {
+      font: inherit;
+    }
+
+    input[type="number"] {
+      width: 6em;
     }
 
     .result {
@@ -21,7 +44,35 @@
       font-family: monospace;
       white-space: pre-wrap;
     }
+
+    .muted {
+      color: #8f8;
+      opacity: 0.8;
+      font-size: 0.95rem;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .row {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .panel-left {
+      flex: 2;
+    }
+
+    .panel-right {
+      flex: 1;
+      border-left: 1px solid #333;
+      padding-left: 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
+
   <link rel="modulepreload" href="../dist/lightning-Levenshtein.min.js">
   <link rel="modulepreload" href="./lightning-Levenshtein-v2.min.js">
 </head>
@@ -29,27 +80,66 @@
 <body>
   <h1>Levenshtein Benchmark</h1>
 
-  <label>
-    String length:
-    <input type="number" id="strlen" value="12" min="1" max="1000" step="1" style="width: 5em;">
-  </label>
+  <div class="controls">
+    <label>
+      Mode:
+      <select id="lengthMode">
+        <option value="fixed">Fixed length</option>
+        <option value="range">Length range</option>
+      </select>
+    </label>
 
-  <button id="runBtn">Run Benchmark</button>
+    <label id="fixedLenWrap">
+      String length:
+      <input type="number" id="strlen" value="12" min="1" max="1000" step="1">
+    </label>
 
+    <label id="minLenWrap" class="hidden">
+      Min length:
+      <input type="number" id="minLen" value="2" min="1" max="1000" step="1">
+    </label>
 
+    <label id="maxLenWrap" class="hidden">
+      Max length:
+      <input type="number" id="maxLen" value="15" min="1" max="1000" step="1">
+    </label>
 
-  <div style="display: flex; gap: 2rem;">
-    <div style="flex: 2;">
-      <h1>⚡ lightning-Levenshtein</h1>
-      <!-- <pre id="output">Loading...</pre>  -->
+    <label>
+      Sample pairs:
+      <input type="number" id="sampleCount" value="200" min="1" max="100000" step="1">
+    </label>
+
+    <label>
+      Time / lib (ms):
+      <input type="number" id="timeLimit" value="500" min="10" max="10000" step="10">
+    </label>
+
+    <label>
+      distanceMax cap:
+      <input type="number" id="distanceMaxCap" value="10" min="0" max="100000" step="1">
+    </label>
+
+    <label>
+      Seed:
+      <input type="number" id="seed" value="1337" min="0" max="999999999" step="1">
+    </label>
+
+    <button id="runBtn">Run Benchmark</button>
+  </div>
+
+  <div class="muted" id="datasetInfo">Dataset: pending...</div>
+
+  <div class="row">
+    <div class="panel-left">
+      <h2>⚡ lightning-Levenshtein</h2>
       <div class="result" id="output">Running...</div>
     </div>
-    <div style="flex: 1; border-left: 1px solid #333; padding-left: 1rem;">
+
+    <div class="panel-right">
       <h2>📦 Other Libraries</h2>
       <pre id="otherOutput">Pending...</pre>
     </div>
   </div>
-
 
   <script type="module">
     import { distance, distanceMax, closest } from '../dist/lightning-Levenshtein.min.js';
@@ -60,72 +150,91 @@
 
     import jslevenshtein from 'https://esm.sh/js-levenshtein';
     import leven from 'https://esm.sh/leven';
-    // import { levenshteinEditDistance } from 'https://esm.sh/levenshtein-edit-distance';
-
     import * as led from 'https://esm.sh/levenshtein-edit-distance';
-    const levenshteinEditDistance = led.levenshteinEditDistance ?? led.default;
+    import { distance as fastestLevenshtein } from 'https://esm.sh/fastest-levenshtein';
 
+    const levenshteinEditDistance = led.levenshteinEditDistance ?? led.default;
     if (typeof levenshteinEditDistance !== 'function') {
       throw new Error('levenshteinEditDistance is not a function');
     }
 
-    import { distance as fastestLevenshtein } from 'https://esm.sh/fastest-levenshtein';
-
-
-    // console.log('fastestLevenshtein:', typeof fastestLevenshtein);
-    // console.log('fastLevenshtein:', typeof fastLevenshtein);
-    // console.log('leven:', typeof leven);
-    // console.log('jslevenshtein:', typeof jslevenshtein);
-    // console.log('levenshteinEditDistance:', typeof levenshteinEditDistance);
-
-
-    // const q = new Uint32Array(65536); function z(c, k, m, e) { var b = 0, d = -1; let l = m; for (var g = m; g--;)q[c.charCodeAt(g)] |= 1 << g; for (g = 0; g < e; g++) { var a = q[k.charCodeAt(g)]; const h = a | b; a |= (a & d) + d ^ d; b |= ~(a | d); d &= a; l += (b >>> m - 1 & 1) - (d >>> m - 1 & 1); b = b << 1 | 1; d <<= 1; d |= ~(h | b); b &= h } for (g = m; g--;)q[c.charCodeAt(g)] = 0; return l }; function A(c, k, m, e) {
-    //   var b = Math.ceil(m / 32), d = Math.ceil(e / 32); const l = Array(b), g = Array(b); for (; b--;)g[b] = -1, l[b] = 0; for (b = 0; b < d - 1; b++) { var a = -1, h = 0, t = 32 * b, p = Math.min(t + 32, e); for (var f = t; f < p; f++)q[k.charCodeAt(f)] |= 1 << f - t; for (f = 0; f < m; f++) { var n = q[c.charCodeAt(f)], u = f >> 5, r = f & 31, v = g[u] >>> r & 1, w = l[u] >>> r & 1, x = n | h; n = ((n | w) & a) + a ^ a | n | w; h |= ~(n | a); a &= n; g[u] ^= (h >>> 31 ^ v) << r; l[u] ^= (a >>> 31 ^ w) << r; h = h << 1 | v; a = a << 1 | w; a |= ~(x | h); h &= x } for (; t < p; t++)q[k.charCodeAt(t)] = 0 } d = -1; a = 0; p = 32 * b; b = Math.min(p + 32, e); t = b - p - 1; for (f = p; f <
-    //     b; f++)q[k.charCodeAt(f)] |= 1 << f - p; for (f = 0; f < m; f++)h = q[c.charCodeAt(f)], u = f >> 5, r = f & 31, v = g[u] >>> r & 1, w = l[u] >>> r & 1, x = h | a, h = ((h | w) & d) + d ^ d | h | w, a |= ~(h | d), d &= h, e += (a >>> t & 1) - (d >>> t & 1), g[u] ^= (a >>> 31 ^ v) << r, l[u] ^= (d >>> 31 ^ w) << r, a = a << 1 | v, d = d << 1 | w, d |= ~(x | a), a &= x; for (c = p; c < b; c++)q[k.charCodeAt(c)] = 0; return e
-    // }; function B(c, k, m = Number.MAX_SAFE_INTEGER) {
-    //   if (c === k) return 0; var e = c.length, b = k.length; if (0 === e) return b; if (0 === b) return e; e < b && ([c, k] = [k, c], [e, b] = [b, e]); var d = e; if (32 >= e) if (m > d) c = z(c, k, e, b); else { var l = 0, g = -1; d = e; m += b; for (var a = e; a--;)q[c.charCodeAt(a)] |= 1 << a; for (a = 0; a < b; a++) { var h = q[k.charCodeAt(a)], t = h | l; h |= (h & g) + g ^ g; l |= ~(h | g); g &= h; d += (l >>> e - 1 & 1) - (g >>> e - 1 & 1); if (d > m--) break; l = l << 1 | 1; g <<= 1; g |= ~(t | l); l &= t } for (a = e; a--;)q[c.charCodeAt(a)] = 0; c = d } else if (m > d) c = A(c, k, e, b); else {
-    //     g = b; l = Math.ceil(e / 32); a = Math.ceil(g /
-    //       32); b = Array(l); for (d = Array(l); l--;)d[l] = -1, b[l] = 0; for (l = 0; l < a - 1; l++) { var p = -1, f = 0; h = 32 * l; t = Math.min(h + 32, g); for (var n = h; n < t; n++)q[k.charCodeAt(n)] |= 1 << n - h; for (n = 0; n < e; n++) { var u = q[c.charCodeAt(n)], r = n >> 5, v = n & 31, w = d[r] >>> v & 1, x = b[r] >>> v & 1, y = u | f; u = ((u | x) & p) + p ^ p | u | x; f |= ~(u | p); p &= u; d[r] ^= (f >>> 31 ^ w) << v; b[r] ^= (p >>> 31 ^ x) << v; f = f << 1 | w; p = p << 1 | x; p |= ~(y | f); f &= y } for (; h < t; h++)q[k.charCodeAt(h)] = 0 } a = -1; p = 0; t = 32 * l; l = Math.min(t + 32, g); h = l - t - 1; for (n = t; n < l; n++)q[k.charCodeAt(n)] |= 1 << n - t; m += e; for (n = 0; n < e; n++) {
-    //         f = q[c.charCodeAt(n)];
-    //         r = n >> 5; v = n & 31; w = d[r] >>> v & 1; x = b[r] >>> v & 1; y = f | p; f = ((f | x) & a) + a ^ a | f | x; p |= ~(f | a); a &= f; g += (p >>> h & 1) - (a >>> h & 1); if (g > m--) break; d[r] ^= (p >>> 31 ^ w) << v; b[r] ^= (a >>> 31 ^ x) << v; p = p << 1 | w; a = a << 1 | x; a |= ~(y | p); p &= y
-    //       } for (c = t; c < l; c++)q[k.charCodeAt(c)] = 0; c = g
-    //   } return c
-    // }; function C(c, k) { if (c === k) return 0; let m = c.length, e = k.length; if (0 === m) return e; if (0 === e) return m; m < e && ([c, k] = [k, c], [m, e] = [e, m]); return 32 >= m ? z(c, k, m, e) : A(c, k, m, e) }; function D(c, k, m = Number.MAX_SAFE_INTEGER) { let e = -1; m += 1; for (let b = 0; b < k.length; b++) { const d = B(c, k[b], m); if (d < m && (m = d, e = b, 0 === d)) break } return 0 <= e ? k[e] : null };
-    // // export { C as distance, B as distanceMax, D as closest };
-    // globalThis.distance = C;
-    // globalThis.distanceMax = B;
-    // globalThis.closest = D;
-
-
     const out = document.getElementById('output');
-    const otherOutput = document.getElementById('otherOutput')
+    const otherOutput = document.getElementById('otherOutput');
+    const datasetInfo = document.getElementById('datasetInfo');
 
-    // Sample data
-    const samples = [
-      ['kitten', 'sitting'],
-      ['book', 'back'],
-      ['intention', 'execution'],
-      ['abcde', 'abfde'],
-      ['flaw', 'lawn'],
-      ['abcdefg', 'xacdefz'],
-      ['saturday', 'sunday'],
-      ['levenshtein', 'frankenstein'],
-    ];
+    const lengthModeEl = document.getElementById('lengthMode');
+    const fixedLenWrap = document.getElementById('fixedLenWrap');
+    const minLenWrap = document.getElementById('minLenWrap');
+    const maxLenWrap = document.getElementById('maxLenWrap');
 
     const formatNum = n => n.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
-    const asciiString = (length) => {
+    function mulberry32(seed) {
+      let t = seed >>> 0;
+      return function () {
+        t += 0x6D2B79F5;
+        let r = Math.imul(t ^ (t >>> 15), t | 1);
+        r ^= r + Math.imul(r ^ (r >>> 7), r | 61);
+        return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function randInt(rng, min, max) {
+      return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    function asciiString(length, rng) {
       const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      const arr = Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]);
-      return arr.join('');
-    };
+      let s = "";
+      for (let i = 0; i < length; i++) {
+        s += chars[(rng() * chars.length) | 0];
+      }
+      return s;
+    }
 
-    const randomStringArr = (genFn, strLen, arrLen) =>
-      Array.from({ length: arrLen }, () => genFn(strLen));
+    function generateSamples(config) {
+      const rng = mulberry32(config.seed);
+      const samples = [];
 
+      let minObserved = Infinity;
+      let maxObserved = -Infinity;
+      let totalLenA = 0;
+      let totalLenB = 0;
 
+      for (let i = 0; i < config.sampleCount; i++) {
+        let lenA, lenB;
 
-    async function benchmark(fn, label, samples, timeLimit = 5) {
+        if (config.mode === 'fixed') {
+          lenA = config.fixedLength;
+          lenB = config.fixedLength;
+        } else {
+          lenA = randInt(rng, config.minLength, config.maxLength);
+          lenB = randInt(rng, config.minLength, config.maxLength);
+        }
+
+        const a = asciiString(lenA, rng);
+        const b = asciiString(lenB, rng);
+        samples.push([a, b]);
+
+        minObserved = Math.min(minObserved, lenA, lenB);
+        maxObserved = Math.max(maxObserved, lenA, lenB);
+        totalLenA += lenA;
+        totalLenB += lenB;
+      }
+
+      return {
+        samples,
+        summary: {
+          count: samples.length,
+          minObserved,
+          maxObserved,
+          avgLenA: totalLenA / samples.length,
+          avgLenB: totalLenB / samples.length
+        }
+      };
+    }
+
+    async function benchmark(fn, label, samples, timeLimit = 500) {
       let total = 0;
       let calls = 0;
       const start = performance.now();
@@ -137,86 +246,150 @@
         }
       }
 
-      const elapsed = performance.now() - start; // ms
+      const elapsed = performance.now() - start;
       const opsPerMs = calls / elapsed;
+      const ops = opsPerMs >= 1
+        ? Math.round(opsPerMs)
+        : Number(opsPerMs.toFixed(3));
 
-      // Format ops per millisecond
-      const ops =
-        opsPerMs >= 1
-          ? Math.round(opsPerMs)
-          : Number(opsPerMs.toFixed(3)); // retain precision for sub-ms speeds
-
-      return { label, ops, time: elapsed, total };
+      return { label, ops, time: elapsed, total, calls };
     }
 
-    async function runBenchmarks() {
-      const timeLimit = 500; // or make it user-adjustable later
-      const runBtn = document.getElementById('runBtn');
-      runBtn.textContent = 'RUNNING...';
-      runBtn.disabled = true;
-      out.textContent = "Running...";
-      otherOutput.textContent = "Pending..."
+    function readConfig() {
+      const mode = lengthModeEl.value;
+      const fixedLength = parseInt(document.getElementById('strlen').value, 10);
+      const minLength = parseInt(document.getElementById('minLen').value, 10);
+      const maxLength = parseInt(document.getElementById('maxLen').value, 10);
+      const sampleCount = parseInt(document.getElementById('sampleCount').value, 10);
+      const timeLimit = parseInt(document.getElementById('timeLimit').value, 10);
+      const distanceMaxCap = parseInt(document.getElementById('distanceMaxCap').value, 10);
+      const seed = parseInt(document.getElementById('seed').value, 10);
 
-      // ✅ Give the DOM a chance to paint
-      await new Promise(requestAnimationFrame);
-      await new Promise(requestAnimationFrame);
-      await new Promise(requestAnimationFrame);
-      await Promise.resolve();
+      if (!Number.isFinite(sampleCount) || sampleCount < 1) {
+        throw new Error('Sample pairs must be >= 1');
+      }
+      if (!Number.isFinite(timeLimit) || timeLimit < 1) {
+        throw new Error('Time per lib must be >= 1');
+      }
 
+      if (mode === 'fixed') {
+        if (!Number.isFinite(fixedLength) || fixedLength < 1) {
+          throw new Error('Fixed string length must be >= 1');
+        }
+      } else {
+        if (!Number.isFinite(minLength) || minLength < 1) {
+          throw new Error('Min length must be >= 1');
+        }
+        if (!Number.isFinite(maxLength) || maxLength < minLength) {
+          throw new Error('Max length must be >= min length');
+        }
+      }
 
-
-
-      const strLen = parseInt(document.getElementById('strlen').value);
-      const pairs = randomStringArr(asciiString, strLen, 20);
-      const samples = pairs.map(s => [s, asciiString(strLen)]); // random pairs
-      await runOtherBenchmarks(samples, timeLimit); // comparison set
-
-      const results = [];
-      // for (let i = 0; i < 500; i++) {
-      //   distance('kitten', 'sitting');
-      //   distanceMax('kitten', 'sitting', 4);
-      // }
-      results.push(await benchmark(distance, 'lightningLevenshtein: distance()', samples, timeLimit));
-      results.push(await benchmark((a, b) => distanceMax(a, b, 10), 'lightningLevenshtein: distanceMax(a, b, 10)', samples, timeLimit));
-      results.push(await benchmark((a, b) => { closest(a, [b]); return 0; }, 'lightningLevenshtein: closest()', samples, timeLimit));
-
-      out.textContent = results.map(r =>
-        `${r.label}\n  → ${formatNum(r.ops)} ops/ms  (Time: ${formatNum(r.time)}ms)\n`).join('\n');
-
-
-
-
-
-      runBtn.disabled = false;
-      runBtn.textContent = 'Run Benchmark';
+      return {
+        mode,
+        fixedLength,
+        minLength,
+        maxLength,
+        sampleCount,
+        timeLimit,
+        distanceMaxCap,
+        seed
+      };
     }
 
+    function renderDatasetInfo(config, summary) {
+      const modeText = config.mode === 'fixed'
+        ? `fixed length ${config.fixedLength}`
+        : `range ${config.minLength}-${config.maxLength}`;
 
+      datasetInfo.textContent =
+        `Dataset: ${summary.count} pairs | mode: ${modeText} | observed lengths: ${summary.minObserved}-${summary.maxObserved} | avg A: ${formatNum(summary.avgLenA)} | avg B: ${formatNum(summary.avgLenB)} | seed: ${config.seed}`;
+    }
 
-    async function runOtherBenchmarks(samples, timeLimit = 200) {
-      const otherOut = document.getElementById('otherOutput');
+    function formatResults(results) {
+      return results.map(r =>
+        `${r.label}\n  → ${formatNum(r.ops)} ops/ms  (Time: ${formatNum(r.time)}ms, Calls: ${formatNum(r.calls)})`
+      ).join('\n\n');
+    }
+
+    function toggleModeUI() {
+      const mode = lengthModeEl.value;
+      const isFixed = mode === 'fixed';
+
+      fixedLenWrap.classList.toggle('hidden', !isFixed);
+      minLenWrap.classList.toggle('hidden', isFixed);
+      maxLenWrap.classList.toggle('hidden', isFixed);
+    }
+
+    async function runOtherBenchmarks(samples, timeLimit = 500) {
       const results = [];
 
-      
       results.push(await benchmark(levenshteinLightning, 'levenshteinLightning-v2', samples, timeLimit));
-      results.push(await benchmark(fastestLevenshtein, 'fastest-Levenshtein', samples, timeLimit));
+      results.push(await benchmark(fastestLevenshtein, 'fastest-levenshtein', samples, timeLimit));
       results.push(await benchmark(fastLevenshtein, 'fast-levenshtein', samples, timeLimit));
       results.push(await benchmark(jslevenshtein, 'js-levenshtein', samples, timeLimit));
       results.push(await benchmark(leven, 'leven', samples, timeLimit));
       results.push(await benchmark(levenshteinEditDistance, 'levenshtein-edit-distance', samples, timeLimit));
 
-
-
-
-      otherOut.textContent = results.map(r =>
-        `${r.label}\n  → ${formatNum(r.ops)} ops/ms (Time: ${formatNum(r.time)}ms)`).join('\n\n');
+      results.sort((a, b) => b.ops - a.ops);
+      otherOutput.textContent = formatResults(results);
     }
 
+    async function runBenchmarks() {
+      const runBtn = document.getElementById('runBtn');
 
+      try {
+        const config = readConfig();
 
+        runBtn.textContent = 'RUNNING...';
+        runBtn.disabled = true;
+        out.textContent = 'Running...';
+        otherOutput.textContent = 'Pending...';
+        datasetInfo.textContent = 'Generating dataset...';
+
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+
+        // Generate ONE shared dataset and reuse it for every benchmark in this run.
+        const { samples, summary } = generateSamples(config);
+        renderDatasetInfo(config, summary);
+
+        await runOtherBenchmarks(samples, config.timeLimit);
+
+        const lightningResults = [];
+        lightningResults.push(await benchmark(distance, 'lightningLevenshtein: distance()', samples, config.timeLimit));
+        lightningResults.push(await benchmark(
+          (a, b) => distanceMax(a, b, config.distanceMaxCap),
+          `lightningLevenshtein: distanceMax(a, b, ${config.distanceMaxCap})`,
+          samples,
+          config.timeLimit
+        ));
+        lightningResults.push(await benchmark(
+          (a, b) => { closest(a, [b]); return 0; },
+          'lightningLevenshtein: closest()',
+          samples,
+          config.timeLimit
+        ));
+
+        lightningResults.sort((a, b) => b.ops - a.ops);
+        out.textContent = formatResults(lightningResults);
+      } catch (err) {
+        out.textContent = `Error: ${err.message}`;
+        otherOutput.textContent = 'Aborted.';
+        datasetInfo.textContent = 'Dataset: invalid config';
+        console.error(err);
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = 'Run Benchmark';
+      }
+    }
+
+    lengthModeEl.addEventListener('change', toggleModeUI);
     document.getElementById('runBtn').addEventListener('click', runBenchmarks);
-    runBenchmarks();
 
+    toggleModeUI();
+    runBenchmarks();
   </script>
 </body>
 
