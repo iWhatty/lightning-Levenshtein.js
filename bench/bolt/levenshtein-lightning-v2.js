@@ -3,7 +3,7 @@
 
 
 // Core imports (adjust as needed if you modularize)
-import { myers_table } from './myers32-fast.js';
+import { myers_table } from './myers32-unrolledA.js';
 import { lev2_dispatch, lev3_dispatch, lev4_dispatch } from './lev-direct-dispatch.js';
 
 import { myers_x } from './myers_x.js'

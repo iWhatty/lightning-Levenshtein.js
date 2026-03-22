@@ -10,7 +10,7 @@ const out = [];
 out.push('// Auto-generated: Optimized Myers 32-bit variants with fixed b.length');
 out.push('// Source: codegen/tools/generateMyers32-B.cjs');
 out.push('const peq = new Uint32Array(65535);');
-out.push('const myers_table = [];');
+out.push('export const myers_table = [];');
 
 for (let n = 1; n <= 32; n++) {
   out.push('');
