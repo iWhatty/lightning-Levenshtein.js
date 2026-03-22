@@ -1,14 +1,13 @@
 
-// ./src/myers_x.js
-
-// FROM --> myers-x-variants\myers_x_old_v2.js
-
-
-"use strict";
+// myers-x-variants\myers_x_old_v2.js
 
 // Global pattern equality table shared across invocations
 // const peq = new Uint32Array(0x10000); // One bitmask per Unicode char (up to 16-bit space)
+
+"use strict";
+
 const peq = new Uint32Array(65536);
+
 
 
 let phcBuf = new Int32Array(0);
@@ -39,12 +38,10 @@ const ensureScratch = (size) => {
  * @param {number} m - Length of string `b`.
  * @returns {number} edit distance (or score) from `a` to `b`
  */
-export function myers_x(a1, b1) {
-    
+export function myers_x(a1, b1, n, m) {
+
     const a = a1;
     const b = b1;
-    const n = a.length;
-    const m = b.length;
 
     // Horizontal word size: number of 32-bit chunks needed for string `a`
     const hsize = (n + 31) >> 5;

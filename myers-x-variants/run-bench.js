@@ -16,7 +16,7 @@ import { levenshteinLightning } from "../bench/lightning-Levenshtein-v2.min.js"
 
 import { myers_x as myers_x_old } from "../src/myers_x.js";
 import { myers_x as myers_x_old_v2 } from "./myers_x_old_v2.js";
-
+import { myers_x as myers_x_old_v3 } from "./myers_x_old_v3.js";
 
 
 const VARIANTS = [
@@ -25,6 +25,7 @@ const VARIANTS = [
     ["baseline", myers_x_baseline],
     ["myers_x_old", myers_x_old],
     ["myers_x_old_v2", myers_x_old_v2],
+    ["myers_x_old_v3", myers_x_old_v3],
     ["myers_x1", myers_x1],
     ["myers_x2", myers_x2],
     ["myers_x3", myers_x3],
