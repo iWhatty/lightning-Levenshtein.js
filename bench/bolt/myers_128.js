@@ -30,34 +30,19 @@ export function myers_128(a1, b1) {
     let i = 0;
 
     // Build PEQ
+    i = 0;
     for (; i < 32; i++) {
-        peq0[a.charCodeAt(i)] |= (1 << i);
+        peq0[a.charCodeAt(i)] |= 1 << i;
+        peq1[a.charCodeAt(i + 32)] |= 1 << i;
+        peq2[a.charCodeAt(i + 64)] |= 1 << i;
     }
-    for (; i < 64; i++) {
-        peq1[a.charCodeAt(i)] |= (1 << (i - 32));
-    }
-    for (; i < 96; i++) {
-        peq2[a.charCodeAt(i)] |= (1 << (i - 64));
-    }
-    for (; i < n; i++) {
-        peq3[a.charCodeAt(i)] |= (1 << (i - 96));
+    for (i = 96; i < n; i++) {
+        peq3[a.charCodeAt(i)] |= 1 << (i & 31);
     }
 
-    let lastWord, lastBit;
-    if (n <= 32) {
-        lastWord = 0;
-        lastBit = n - 1;
-    } else if (n <= 64) {
-        lastWord = 1;
-        lastBit = n - 33;
-    } else if (n <= 96) {
-        lastWord = 2;
-        lastBit = n - 65;
-    } else {
-        lastWord = 3;
-        lastBit = n - 97;
-    }
-
+    const lastIndex = n - 1;
+    // const lastWord = lastIndex >>> 5;
+    const lastBit = lastIndex & 31;
     const lastMask = 1 << lastBit;
 
     for (i = 0; i < m; i++) {
@@ -77,10 +62,10 @@ export function myers_128(a1, b1) {
         const carryPh0 = (ph0 >>> 31) & 1;
         const carryMh0 = (mh0 >>> 31) & 1;
 
-        if (lastWord === 0) {
-            if (ph0 & lastMask) score++;
-            if (mh0 & lastMask) score--;
-        }
+        // if (lastWord === 0) {
+        //     if (ph0 & lastMask) score++;
+        //     if (mh0 & lastMask) score--;
+        // }
 
         ph0 = (ph0 << 1) | 1;
         mh0 = (mh0 << 1);
@@ -100,10 +85,10 @@ export function myers_128(a1, b1) {
         const carryPh1 = (ph1 >>> 31) & 1;
         const carryMh1 = (mh1 >>> 31) & 1;
 
-        if (lastWord === 1) {
-            if (ph1 & lastMask) score++;
-            if (mh1 & lastMask) score--;
-        }
+        // if (lastWord === 1) {
+        //     if (ph1 & lastMask) score++;
+        //     if (mh1 & lastMask) score--;
+        // }
 
         ph1 = (ph1 << 1) | carryPh0;
         mh1 = (mh1 << 1) | carryMh0;
@@ -123,10 +108,10 @@ export function myers_128(a1, b1) {
         const carryPh2 = (ph2 >>> 31) & 1;
         const carryMh2 = (mh2 >>> 31) & 1;
 
-        if (lastWord === 2) {
-            if (ph2 & lastMask) score++;
-            if (mh2 & lastMask) score--;
-        }
+        // if (lastWord === 2) {
+        //     if (ph2 & lastMask) score++;
+        //     if (mh2 & lastMask) score--;
+        // }
 
         ph2 = (ph2 << 1) | carryPh1;
         mh2 = (mh2 << 1) | carryMh1;
@@ -142,10 +127,10 @@ export function myers_128(a1, b1) {
         let ph3 = mv3 | ~(xh3 | pv3);
         let mh3 = pv3 & xh3;
 
-        if (lastWord === 3) {
-            if (ph3 & lastMask) score++;
-            if (mh3 & lastMask) score--;
-        }
+        // if (lastWord === 3) {
+        if (ph3 & lastMask) score++;
+        if (mh3 & lastMask) score--;
+        // }
 
         ph3 = (ph3 << 1) | carryPh2;
         mh3 = (mh3 << 1) | carryMh2;
@@ -154,18 +139,14 @@ export function myers_128(a1, b1) {
         mv3 = ph3 & xv3;
     }
 
-    // Clear PEQ
+    // Clear PEQ 128
     i = 0;
     for (; i < 32; i++) {
         peq0[a.charCodeAt(i)] = 0;
+        peq1[a.charCodeAt(i + 32)] = 0;
+        peq2[a.charCodeAt(i + 64)] = 0;
     }
-    for (; i < 64; i++) {
-        peq1[a.charCodeAt(i)] = 0;
-    }
-    for (; i < 96; i++) {
-        peq2[a.charCodeAt(i)] = 0;
-    }
-    for (; i < n; i++) {
+    for (i = 96; i < n; i++) {
         peq3[a.charCodeAt(i)] = 0;
     }
 

@@ -1,5 +1,5 @@
 
-// myers-x-variants\data.js
+// bench\data.js
 
 export const mulberry32 = (seed) => {
   let t = seed >>> 0;
@@ -29,4 +29,22 @@ export const buildPairs = ({ count, lenA, lenB, seed, alphabet }) => {
     ];
   }
   return pairs;
+};
+
+export const median = (values) => {
+  if (!values.length) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = sorted.length >> 1;
+  return (sorted.length & 1)
+    ? sorted[mid]
+    : (sorted[mid - 1] + sorted[mid]) / 2;
+};
+
+export const mean = (values) => {
+  if (!values.length) return 0;
+  let total = 0;
+  for (let i = 0; i < values.length; i++) {
+    total += values[i];
+  }
+  return total / values.length;
 };

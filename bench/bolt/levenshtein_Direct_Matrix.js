@@ -10,11 +10,50 @@ function min3(x, y, z) {
 }
 
 
+/* ==== 2-char Cases ==== */
+
+/**
+ * (2,1): Assumes a.length === 2 and b.length === 1
+ */
+export function lev_2x1(a, b) {
+    const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1);
+    const b0 = b.charCodeAt(0);
+
+    if (a0 === b0 || a1 === b0) return 1;
+    return 2;
+}
+
+/**
+ * (2,2): Assumes a.length === 2 and b.length === 2
+ */
+export function lev_2x2(a, b) {
+    const a0 = a.charCodeAt(0);
+    const a1 = a.charCodeAt(1);
+    const b0 = b.charCodeAt(0);
+    const b1 = b.charCodeAt(1);
+
+    return (a0 !== b0) + (a1 !== b1);
+}
+
+
+/* ==== 3-char Cases ==== */
+
+/**
+ * (3,1): Assumes a.length === 3 and b.length === 1
+ */
+export function lev3x1(a, b) {
+    const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2);
+    const b0 = b.charCodeAt(0);
+    return (a0 === b0 || a1 === b0 || a2 === b0) ? 2 : 3;
+}
+
+
 export function lev_3x2(a, b) {
     const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2);
     const b0 = b.charCodeAt(0), b1 = b.charCodeAt(1);
 
-    const d11 = min3(2, 2, (a0 !== b0));
+    const d11 = (a0 !== b0);
+    // const d11 = min3(2, 2, (a0 !== b0));
     const d12 = min3(3, d11 + 1, 1 + (a0 !== b1));
 
     const d21 = min3(d11 + 1, 3, 1 + (a1 !== b0));
@@ -26,11 +65,13 @@ export function lev_3x2(a, b) {
     return d32;
 }
 
+
 export function lev_3x3(a, b) {
     const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2);
     const b0 = b.charCodeAt(0), b1 = b.charCodeAt(1), b2 = b.charCodeAt(2);
 
-    const d11 = min3(2, 2, (a0 !== b0));
+    const d11 = (a0 !== b0);
+    // const d11 = min3(2, 2, (a0 !== b0));
     const d12 = min3(3, d11 + 1, 1 + (a0 !== b1));
     const d13 = min3(4, d12 + 1, 2 + (a0 !== b2));
 
@@ -45,11 +86,13 @@ export function lev_3x3(a, b) {
     return d33;
 }
 
+
 export function lev_4x4(a, b) {
     const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2), a3 = a.charCodeAt(3);
     const b0 = b.charCodeAt(0), b1 = b.charCodeAt(1), b2 = b.charCodeAt(2), b3 = b.charCodeAt(3);
 
-    const d11 = min3(2, 2, (a0 !== b0));
+    const d11 = (a0 !== b0);
+    // const d11 = min3(2, 2, (a0 !== b0));
     const d12 = min3(3, d11 + 1, 1 + (a0 !== b1));
     const d13 = min3(4, d12 + 1, 2 + (a0 !== b2));
     const d14 = min3(5, d13 + 1, 3 + (a0 !== b3));
@@ -75,7 +118,8 @@ export function lev_4x3(a, b) {
     const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2), a3 = a.charCodeAt(3);
     const b0 = b.charCodeAt(0), b1 = b.charCodeAt(1), b2 = b.charCodeAt(2);
 
-    const d11 = min3(2, 2, (a0 !== b0));
+    const d11 = (a0 !== b0);
+    // const d11 = min3(2, 2, (a0 !== b0));
     const d12 = min3(3, d11 + 1, 1 + (a0 !== b1));
     const d13 = min3(4, d12 + 1, 2 + (a0 !== b2));
 
@@ -99,7 +143,8 @@ export function lev_4x2(a, b) {
     const a0 = a.charCodeAt(0), a1 = a.charCodeAt(1), a2 = a.charCodeAt(2), a3 = a.charCodeAt(3);
     const b0 = b.charCodeAt(0), b1 = b.charCodeAt(1);
 
-    const d11 = min3(2, 2, (a0 !== b0));
+    const d11 = (a0 !== b0);
+    // const d11 = min3(2, 2, (a0 !== b0));
     const d12 = min3(3, d11 + 1, 1 + (a0 !== b1));
 
     const d21 = min3(d11 + 1, 3, 1 + (a1 !== b0));

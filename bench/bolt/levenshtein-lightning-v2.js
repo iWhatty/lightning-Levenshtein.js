@@ -4,12 +4,20 @@
 
 // Core imports (adjust as needed if you modularize)
 import { myers_table } from './myers32-unrolledA.js';
-import { lev2_dispatch, lev3_dispatch, lev4_dispatch } from './lev-direct-dispatch.js';
+import { myers32_v4 } from './myers32_v4.js';
+
+import { lev2_dispatch, lev3_dispatch, lev4_dispatch } from './lev-dispatch.js';
 
 import { myers_x } from './myers_x.js'
+import { myers_16 } from './myers_16.js'
 import { myers_64 } from './myers_64.js'
 import { myers_96 } from './myers_96.js';
 import { myers_128 } from './myers_128.js';
+import { myers_256 } from './myers_256.js';
+
+
+import { fast_16 } from './fast_16.js';
+
 
 /** Smart dispatcher strategy by input length */
 const strategy = new Array(33);
@@ -49,15 +57,24 @@ export function levenshteinLightning(a, b) {
   // Handle empty string edge cases
   if (b.length === 0) return n;
 
-  if (n > 128) return myers_x(a, b);
+  if (n > 256) return myers_x(a, b);
 
-  if (n <= 32) return strategy[n](a, b)
 
-  if (n <= 64) return myers_64(a, b);
+  // if (n <= 32) return strategy[n](a, b)
+  // if (n < 9) return strategy[n](a, b)
 
-  if (n <= 96) return myers_96(a, b);
+  // if (n < 17) return fast_16(a, b)
 
-  if (n <= 128) return myers_128(a, b);
+  if (n < 33) return strategy[n](a, b)
+  // if (n < 33) return myers32_v4(a, b, n, b.length)
+
+  if (n < 65) return myers_64(a, b);
+
+  if (n < 97) return myers_96(a, b);
+
+  if (n < 129) return myers_128(a, b);
+
+  if (n < 257) return myers_256(a, b);
 
   return myers_x(a, b);
 
@@ -70,7 +87,7 @@ export function levenshteinLightning(a, b) {
  * - Fully unrolled bit-parallel for midrange
  * - Correct and memory-safe for all input lengths
  */
-export function levenshteinLightning_prefix_suffix(a, b) {
+function levenshteinLightning_prefix_suffix(a, b) {
   if (a === b) return 0;
   if (a.length < b.length) [a, b] = [b, a];
 

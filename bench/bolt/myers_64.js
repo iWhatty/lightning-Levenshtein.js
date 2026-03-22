@@ -27,14 +27,15 @@ export function myers_64(a1, b1) {
     // Build split PEQ masks for a
     let i = 0;
     for (; i < 32; i++) {
-        peqLo[a.charCodeAt(i)] |= (1 << i);
+        peqLo[a.charCodeAt(i)] |= (1 << (i & 31));
     }
     for (; i < n; i++) {
-        peqHi[a.charCodeAt(i)] |= (1 << (i - 32));
+        peqHi[a.charCodeAt(i)] |= (1 << (i & 31));
     }
 
-    const lastWord = n <= 32 ? 0 : 1;
-    const lastBit = n <= 32 ? (n - 1) : (n - 33);
+    const lastIndex = n - 1;
+    // const lastWord = lastIndex >>> 5;
+    const lastBit = lastIndex & 31;
     const lastMask = 1 << lastBit;
 
     for (i = 0; i < m; i++) {
@@ -51,10 +52,10 @@ export function myers_64(a1, b1) {
         const carryPh0 = (ph0 >>> 31) & 1;
         const carryMh0 = (mh0 >>> 31) & 1;
 
-        if (lastWord === 0) {
-            if (ph0 & lastMask) score++;
-            if (mh0 & lastMask) score--;
-        }
+        // if (lastWord === 0) {
+        //     if (ph0 & lastMask) score++;
+        //     if (mh0 & lastMask) score--;
+        // }
 
         ph0 = (ph0 << 1) | 1;
         mh0 = (mh0 << 1);
@@ -69,10 +70,10 @@ export function myers_64(a1, b1) {
         let ph1 = mv1 | ~(eq1 | pv1);
         let mh1 = pv1 & eq1;
 
-        if (lastWord === 1) {
-            if (ph1 & lastMask) score++;
-            if (mh1 & lastMask) score--;
-        }
+        // if (lastWord === 1) {
+        if (ph1 & lastMask) score++;
+        if (mh1 & lastMask) score--;
+        // }
 
         ph1 = (ph1 << 1) | carryPh0;
         mh1 = (mh1 << 1) | carryMh0;

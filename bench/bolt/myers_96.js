@@ -31,28 +31,18 @@ export function myers_96(a1, b1) {
     let i = 0;
 
     // Build split PEQ masks for a
+    i = 0;
     for (; i < 32; i++) {
-        peq0[a.charCodeAt(i)] |= (1 << i);
+        peq0[a.charCodeAt(i)] |= 1 << i;
+        peq1[a.charCodeAt(i + 32)] |= 1 << i;
     }
-    for (; i < 64; i++) {
-        peq1[a.charCodeAt(i)] |= (1 << (i - 32));
-    }
-    for (; i < n; i++) {
-        peq2[a.charCodeAt(i)] |= (1 << (i - 64));
+    for (i = 64; i < n; i++) {
+        peq2[a.charCodeAt(i)] |= 1 << (i & 31);
     }
 
-    let lastWord, lastBit;
-    if (n <= 32) {
-        lastWord = 0;
-        lastBit = n - 1;
-    } else if (n <= 64) {
-        lastWord = 1;
-        lastBit = n - 33;
-    } else {
-        lastWord = 2;
-        lastBit = n - 65;
-    }
-
+    const lastIndex = n - 1;
+    // const lastWord = lastIndex >>> 5;
+    const lastBit = lastIndex & 31;
     const lastMask = 1 << lastBit;
 
     for (i = 0; i < m; i++) {
@@ -68,10 +58,10 @@ export function myers_96(a1, b1) {
         const carryPh0 = (ph0 >>> 31) & 1;
         const carryMh0 = (mh0 >>> 31) & 1;
 
-        if (lastWord === 0) {
-            if (ph0 & lastMask) score++;
-            if (mh0 & lastMask) score--;
-        }
+        // if (lastWord === 0) {
+        //     if (ph0 & lastMask) score++;
+        //     if (mh0 & lastMask) score--;
+        // }
 
         ph0 = (ph0 << 1) | 1;
         mh0 = (mh0 << 1);
@@ -89,10 +79,10 @@ export function myers_96(a1, b1) {
         const carryPh1 = (ph1 >>> 31) & 1;
         const carryMh1 = (mh1 >>> 31) & 1;
 
-        if (lastWord === 1) {
-            if (ph1 & lastMask) score++;
-            if (mh1 & lastMask) score--;
-        }
+        // if (lastWord === 1) {
+        //     if (ph1 & lastMask) score++;
+        //     if (mh1 & lastMask) score--;
+        // }
 
         ph1 = (ph1 << 1) | carryPh0;
         mh1 = (mh1 << 1) | carryMh0;
@@ -107,10 +97,10 @@ export function myers_96(a1, b1) {
         let ph2 = mv2 | ~(eq2 | pv2);
         let mh2 = pv2 & eq2;
 
-        if (lastWord === 2) {
-            if (ph2 & lastMask) score++;
-            if (mh2 & lastMask) score--;
-        }
+        // if (lastWord === 2) {
+        if (ph2 & lastMask) score++;
+        if (mh2 & lastMask) score--;
+        // }
 
         ph2 = (ph2 << 1) | carryPh1;
         mh2 = (mh2 << 1) | carryMh1;
@@ -119,15 +109,13 @@ export function myers_96(a1, b1) {
         mv2 = ph2 & xv2;
     }
 
-    // Clear PEQ
+    // Clear PEQ 96
     i = 0;
     for (; i < 32; i++) {
         peq0[a.charCodeAt(i)] = 0;
+        peq1[a.charCodeAt(i + 32)] = 0;
     }
-    for (; i < 64; i++) {
-        peq1[a.charCodeAt(i)] = 0;
-    }
-    for (; i < n; i++) {
+    for (i = 64; i < n; i++) {
         peq2[a.charCodeAt(i)] = 0;
     }
 
