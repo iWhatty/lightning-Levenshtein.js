@@ -130,3 +130,6 @@ function levenshteinLightning_prefix_suffix(a, b) {
   if (n <= 128) return myers_128(a, b);
   return myers_x(a, b, n, m);
 }
+if (typeof globalThis !== 'undefined') {
+  globalThis['levenshteinLightning'] = levenshteinLightning;
+}

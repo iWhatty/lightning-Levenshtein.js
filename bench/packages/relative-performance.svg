@@ -18,33 +18,39 @@
 <text x="80" y="74" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">2.0x</text>
 <line x1="90" y1="70" x2="90" y2="480" stroke="#94a3b8" stroke-width="1.5" />
 <line x1="90" y1="480" x2="950" y2="480" stroke="#94a3b8" stroke-width="1.5" />
-<rect x="111.78" y="254.09" width="52.00" height="225.91" rx="6" fill="#38bdf8"><title>N=4 | ratio=1.10x | lightning=48264797.29 | compare=43798202.87 | leader=lightning-levenshtein</title></rect>
-<text x="137.77777777777777" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">4</text>
-<text x="137.77777777777777" y="246.0938487187328" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.10x</text>
-<rect x="207.33" y="186.40" width="52.00" height="293.60" rx="6" fill="#38bdf8"><title>N=8 | ratio=1.43x | lightning=32890828.97 | compare=22965632.55 | leader=lightning-levenshtein</title></rect>
-<text x="233.33333333333331" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">8</text>
-<text x="233.33333333333331" y="178.40390924430312" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.43x</text>
-<rect x="302.89" y="175.76" width="52.00" height="304.24" rx="6" fill="#38bdf8"><title>N=16 | ratio=1.48x | lightning=12047973.49 | compare=8118162.21 | leader=lightning-levenshtein</title></rect>
-<text x="328.88888888888886" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">16</text>
-<text x="328.88888888888886" y="167.76432401881902" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.48x</text>
-<rect x="398.44" y="163.08" width="52.00" height="316.92" rx="6" fill="#38bdf8"><title>N=32 | ratio=1.55x | lightning=6519595.79 | compare=4217188.61 | leader=lightning-levenshtein</title></rect>
-<text x="424.44444444444446" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">32</text>
-<text x="424.44444444444446" y="155.07864347213865" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.55x</text>
-<rect x="494.00" y="136.33" width="52.00" height="343.67" rx="6" fill="#38bdf8"><title>N=64 | ratio=1.68x | lightning=1821869.19 | compare=1086757.00 | leader=lightning-levenshtein</title></rect>
-<text x="520" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">64</text>
-<text x="520" y="128.3323875369593" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.68x</text>
-<rect x="589.56" y="100.99" width="52.00" height="379.01" rx="6" fill="#38bdf8"><title>N=128 | ratio=1.85x | lightning=556479.91 | compare=300987.06 | leader=lightning-levenshtein</title></rect>
-<text x="615.5555555555557" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">128</text>
-<text x="615.5555555555557" y="92.98575510198708" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.85x</text>
-<rect x="685.11" y="72.11" width="52.00" height="407.89" rx="6" fill="#38bdf8"><title>N=256 | ratio=1.99x | lightning=156306.34 | compare=78558.34 | leader=lightning-levenshtein</title></rect>
-<text x="711.1111111111112" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">256</text>
-<text x="711.1111111111112" y="64.11461918601299" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.99x</text>
-<rect x="780.67" y="185.29" width="52.00" height="294.71" rx="6" fill="#38bdf8"><title>N=512 | ratio=1.44x | lightning=27794.54 | compare=19334.10 | leader=lightning-levenshtein</title></rect>
-<text x="806.6666666666667" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">512</text>
-<text x="806.6666666666667" y="177.29378805990672" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.44x</text>
-<rect x="876.22" y="188.68" width="52.00" height="291.32" rx="6" fill="#38bdf8"><title>N=1024 | ratio=1.42x | lightning=7075.56 | compare=4979.01 | leader=lightning-levenshtein</title></rect>
-<text x="902.2222222222223" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">1024</text>
-<text x="902.2222222222223" y="180.6788372233268" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.42x</text>
+<rect x="104.85" y="157.28" width="48.47" height="322.72" rx="6" fill="#38bdf8"><title>N=1 | ratio=1.57x | lightning=185534888.68 | compare=117858033.56 | leader=lightning-levenshtein</title></rect>
+<text x="129.0909090909091" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">1</text>
+<text x="129.0909090909091" y="149.28417801477565" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.57x</text>
+<rect x="183.04" y="272.63" width="48.47" height="207.37" rx="6" fill="#38bdf8"><title>N=2 | ratio=1.01x | lightning=88970039.12 | compare=87952841.68 | leader=lightning-levenshtein</title></rect>
+<text x="207.27272727272728" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">2</text>
+<text x="207.27272727272728" y="264.6291218005323" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.01x</text>
+<rect x="261.22" y="258.18" width="48.47" height="221.82" rx="6" fill="#38bdf8"><title>N=4 | ratio=1.08x | lightning=47915060.86 | compare=44281176.37 | leader=lightning-levenshtein</title></rect>
+<text x="285.4545454545455" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">4</text>
+<text x="285.4545454545455" y="250.17690760551727" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.08x</text>
+<rect x="339.40" y="188.40" width="48.47" height="291.60" rx="6" fill="#38bdf8"><title>N=8 | ratio=1.42x | lightning=33126151.97 | compare=23288203.54 | leader=lightning-levenshtein</title></rect>
+<text x="363.6363636363636" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">8</text>
+<text x="363.6363636363636" y="180.39909822637594" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.42x</text>
+<rect x="417.58" y="176.84" width="48.47" height="303.16" rx="6" fill="#38bdf8"><title>N=16 | ratio=1.48x | lightning=12010538.80 | compare=8121554.94 | leader=lightning-levenshtein</title></rect>
+<text x="441.81818181818187" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">16</text>
+<text x="441.81818181818187" y="168.83632363563004" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.48x</text>
+<rect x="495.76" y="162.40" width="48.47" height="317.60" rx="6" fill="#38bdf8"><title>N=32 | ratio=1.55x | lightning=6568423.29 | compare=4239671.85 | leader=lightning-levenshtein</title></rect>
+<text x="520" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">32</text>
+<text x="520" y="154.39834997133914" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.55x</text>
+<rect x="573.95" y="142.56" width="48.47" height="337.44" rx="6" fill="#38bdf8"><title>N=64 | ratio=1.65x | lightning=1790701.67 | compare=1087881.64 | leader=lightning-levenshtein</title></rect>
+<text x="598.1818181818182" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">64</text>
+<text x="598.1818181818182" y="134.5608621544859" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.65x</text>
+<rect x="652.13" y="87.08" width="48.47" height="392.92" rx="6" fill="#38bdf8"><title>N=128 | ratio=1.92x | lightning=574412.84 | compare=299693.59 | leader=lightning-levenshtein</title></rect>
+<text x="676.3636363636364" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">128</text>
+<text x="676.3636363636364" y="79.08325483024788" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.92x</text>
+<rect x="730.31" y="72.37" width="48.47" height="407.63" rx="6" fill="#38bdf8"><title>N=256 | ratio=1.99x | lightning=155690.43 | compare=78297.65 | leader=lightning-levenshtein</title></rect>
+<text x="754.5454545454546" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">256</text>
+<text x="754.5454545454546" y="64.36917874522675" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.99x</text>
+<rect x="808.49" y="101.17" width="48.47" height="378.83" rx="6" fill="#38bdf8"><title>N=512 | ratio=1.85x | lightning=35835.88 | compare=19392.05 | leader=lightning-levenshtein</title></rect>
+<text x="832.7272727272729" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">512</text>
+<text x="832.7272727272729" y="93.16668322416314" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.85x</text>
+<rect x="886.67" y="94.32" width="48.47" height="385.68" rx="6" fill="#38bdf8"><title>N=1024 | ratio=1.88x | lightning=9359.80 | compare=4975.02 | leader=lightning-levenshtein</title></rect>
+<text x="910.909090909091" y="502" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">1024</text>
+<text x="910.909090909091" y="86.3212611915016" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#e5e7eb">1.88x</text>
 <text x="520" y="536" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#e5e7eb">String length (N)</text>
 <text x="24" y="275" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#e5e7eb" transform="rotate(-90 24 275)">Times faster vs best competitor</text>
 <g transform="translate(730, 510)">

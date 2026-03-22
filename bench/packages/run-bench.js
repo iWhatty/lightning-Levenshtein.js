@@ -24,7 +24,7 @@ import { levenshteinLightning } from "../lightning-Levenshtein-v2.min.js";
 const OUT_DIR = path.resolve("bench/packages");
 const OUT_FILE = path.join(OUT_DIR, "results.json");
 
-const LENGTHS = [4, 8, 16, 32, 64, 128, 256, 512, 1024];
+const LENGTHS = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024];
 const SEEDS = [1337, 7331, 20250321];
 const PAIRS = 500;
 const DURATION_MS = 500;
@@ -140,12 +140,12 @@ for (const len of LENGTHS) {
     }
 
     const ranked = Object.entries(results.results[len])
-        .map(([name, data]) => [name, data.medianOpsPerSec])
+        .map(([name, data]) => [name, data.meanOpsPerMs])
         .sort((a, b) => b[1] - a[1]);
 
-    console.log("\nMedian ranking:");
+    console.log("\nMean ranking:");
     for (const [name, value] of ranked) {
-        console.log(`${name.padEnd(28)} ${value.toFixed(2).padStart(12)} ops/sec`);
+        console.log(`${name.padEnd(28)} ${value.toFixed(2).padStart(12)} ops/ms`);
     }
 }
 

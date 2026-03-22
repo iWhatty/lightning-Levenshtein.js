@@ -3,6 +3,10 @@
 
 import { buildPairs } from "../data.js";
 import { myers_x_baseline } from "./myers_x_baseline.js";
+
+
+
+import { myers_x64 } from "./myers_x64.js";
 import { myers_x1 } from "./myers_x1.js";
 import { myers_x2 } from "./myers_x2.js";
 import { myers_x3 } from "./myers_x3.js";
@@ -11,10 +15,10 @@ import { myers_x4 } from "./myers_x4.js";
 import { myers_x5 } from "./myers_x5.js";
 import { myers_x6 } from "./myers_x6.js";
 import { myers_x7 } from "./myers_x7.js";
-import { distance } from "../bench/mod.js"
-import { levenshteinLightning } from "../bench/lightning-Levenshtein-v2.min.js"
+import { distance } from "../mod.js"
+import { levenshteinLightning } from "../lightning-Levenshtein-v2.min.js"
 
-import { myers_x as myers_x_old } from "../src/myers_x.js";
+import { myers_x as myers_x_old } from "../../src/myers_x.js";
 import { myers_x as myers_x_old_v2 } from "./myers_x_old_v2.js";
 import { myers_x as myers_x_old_v3 } from "./myers_x_old_v3.js";
 
@@ -23,6 +27,7 @@ const VARIANTS = [
     ["fastest-levenstein", distance],
     ["Lightning-v2", levenshteinLightning],
     ["baseline", myers_x_baseline],
+    ["myers_x64", myers_x64],
     ["myers_x_old", myers_x_old],
     ["myers_x_old_v2", myers_x_old_v2],
     ["myers_x_old_v3", myers_x_old_v3],
