@@ -48,13 +48,13 @@ Benchmarks use the same generated dataset for every library.
 
 ### Median ops/sec
 
-| Library                   |       N=1 |      N=2 |      N=4 |      N=8 |     N=16 |    N=32 |    N=64 |  N=128 |  N=256 | N=512 | N=1024 |
-| ------------------------- | --------: | -------: | -------: | -------: | -------: | ------: | ------: | -----: | -----: | ----: | -----: |
-| lightning-levenshtein     | 185534889 | 88970039 | 47915061 | 33126152 | 12010539 | 6568423 | 1790702 | 574413 | 155690 | 35836 |   9360 |
-| fastest-levenshtein       |  99195484 | 74593269 | 44281176 | 23288204 |  8121555 | 4239672 | 1087882 | 299694 |  78298 | 19392 |   4975 |
-| js-levenshtein            | 117858034 | 87952842 | 23753040 | 11365064 |  3371731 |  922209 |  242691 |  62090 |  15934 |  4012 |   1008 |
-| leven                     |  82575042 | 41294182 | 21579827 |  8142399 |  1799231 |  417973 |  113628 |  29804 |   7607 |  1905 |    480 |
-| levenshtein-edit-distance | 115678422 | 56163472 | 24884806 |  8474653 |  1804582 |  396584 |  106452 |  27466 |   6992 |  1757 |    438 |
+| Library                   |      N=1 |     N=2 |     N=4 |     N=8 |    N=16 |   N=32 |   N=64 | N=128 | N=256 | N=512 | N=1024 |
+| ------------------------- | -------: | ------: | ------: | ------: | ------: | -----: | -----: | ----: | ----: | ----: | -----: |
+| lightning-levenshtein     | 185534.9 | 88970.0 | 47915.1 | 33126.2 | 12010.5 | 6568.4 | 1790.7 | 574.4 | 155.7 | 35.8  | 9.4    |
+| fastest-levenshtein       |  99195.5 | 74593.3 | 44281.2 | 23288.2 |  8121.6 | 4239.7 | 1087.9 | 299.7 |  78.3 | 19.4  | 5.0    |
+| js-levenshtein            | 117858.0 | 87952.8 | 23753.0 | 11365.1 |  3371.7 |  922.2 |  242.7 |  62.1 |  15.9 | 4.0   | 1.0    |
+| leven                     |  82575.0 | 41294.2 | 21579.8 |  8142.4 |  1799.2 |  418.0 |  113.6 |  29.8 |   7.6 | 1.9   | 0.5    |
+| levenshtein-edit-distance | 115678.4 | 56163.5 | 24884.8 |  8474.7 |  1804.6 |  396.6 |  106.5 |  27.5 |   7.0 | 1.8   | 0.4    |
 
 ### Relative throughput vs `fastest-levenshtein`
 
@@ -72,9 +72,9 @@ Mean ops/sec shown on a log-scaled Y axis across the full tested range.
 
 * `lightning-levenshtein` is the fastest library in this benchmark set at every tested length.
 * It leads at `N=1`, `N=2`, `N=4`, `N=8`, `N=16`, `N=32`, `N=64`, `N=128`, `N=256`, `N=512`, and `N=1024`.
-* At `N=1024`, median throughput is **9360 ops/sec** versus **4975 ops/sec** for `fastest-levenshtein`.
-* At `N=32`, median throughput is **6568423 ops/sec** versus **4239672 ops/sec** for `fastest-levenshtein`.
-* At `N=8`, median throughput is **33126152 ops/sec** versus **23288204 ops/sec** for `fastest-levenshtein`.
+* At `N=1024`, median throughput is **9.36 ops/ms** versus **4.98 ops/ms** for `fastest-levenshtein`.
+* At `N=32`, median throughput is **6568 ops/ms** versus **4240 ops/ms** for `fastest-levenshtein`.
+* At `N=8`, median throughput is **33126 ops/ms** versus **23288 ops/ms** for `fastest-levenshtein`.
 
 ## Reproducing the benchmark
 
