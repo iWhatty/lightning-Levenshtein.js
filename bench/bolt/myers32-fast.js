@@ -1716,13 +1716,13 @@ function myers_32(a, b) {
 myers_table[32] = myers_32;
 
 export function myers32_fast(a, b) {
-  let n = a.length;
-  let m = b.length;
-  // Always process with the longer string as `a` for bitmask consistency
-  if (n < m) {
-    [a, b] = [b, a];
-    [n, m] = [m, n];
-  }
-  const fn = myers_table[n];
+  // let n = a.length;
+  // let m = b.length;
+  // // Always process with the longer string as `a` for bitmask consistency
+  // if (n < m) {
+  //   [a, b] = [b, a];
+  //   [n, m] = [m, n];
+  // }
+  const fn = myers_table[a.length];
   return fn ? fn(a, b) : null;
 }

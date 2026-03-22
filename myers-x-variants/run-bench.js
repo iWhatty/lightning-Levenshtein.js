@@ -11,10 +11,20 @@ import { myers_x4 } from "./myers_x4.js";
 import { myers_x5 } from "./myers_x5.js";
 import { myers_x6 } from "./myers_x6.js";
 import { myers_x7 } from "./myers_x7.js";
+import { distance } from "../bench/mod.js"
+import { levenshteinLightning } from "../bench/lightning-Levenshtein-v2.min.js"
+
+import { myers_x as myers_x_old } from "../src/myers_x.js";
+import { myers_x as myers_x_old_v2 } from "./myers_x_old_v2.js";
+
 
 
 const VARIANTS = [
+    ["fastest-levenstein", distance],
+    ["Lightning-v2", levenshteinLightning],
     ["baseline", myers_x_baseline],
+    ["myers_x_old", myers_x_old],
+    ["myers_x_old_v2", myers_x_old_v2],
     ["myers_x1", myers_x1],
     ["myers_x2", myers_x2],
     ["myers_x3", myers_x3],
@@ -27,7 +37,8 @@ const LENGTHS = [129, 160, 200, 256, 512];
 const SEEDS = [1337, 7331, 20250321];
 const PAIRS = 200;
 const DURATION_MS = 500;
-const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+// const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const benchOne = (fn, pairs, durationMs) => {
     let calls = 0;

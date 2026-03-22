@@ -1,14 +1,13 @@
 
-// ./src/myers_x.js
-
-// FROM --> myers-x-variants\myers_x_old_v2.js
-
-
-"use strict";
+// myers-x-variants\myers_x_old_v2.js
 
 // Global pattern equality table shared across invocations
 // const peq = new Uint32Array(0x10000); // One bitmask per Unicode char (up to 16-bit space)
+
+"use strict";
+
 const peq = new Uint32Array(65536);
+
 
 
 let phcBuf = new Int32Array(0);

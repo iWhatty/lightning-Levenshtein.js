@@ -18,6 +18,7 @@ import { myers32_unrolledB } from './bolt/myers32-unrolledB.js'
 
 import { distance as distFast } from "./mod.js";
 
+import { myers_x as myers_x_old_v2 } from "../myers-x-variants/myers_x_old_v2.js";
 
 
 
@@ -33,8 +34,8 @@ const suite = new Benchmark.Suite();
 
 const randomstring = (length) => {
     let result = "";
-    const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    // const characters = "abcdefghijklmnopqrstuvwxyz";
     const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -62,8 +63,8 @@ const randomstringArr = (stringSize, arraySize) => {
     return arr;
 };
 
-const arrSize = 1000;
-const dataStr = "data10.json";
+const arrSize = 200;
+const dataStr = "data256.json";
 // const dataStr = "data10.json";
 // const dataStr = "data2.json";
 if (!fs.existsSync(dataStr)) {
@@ -91,24 +92,24 @@ if (!fs.existsSync(dataStr)) {
 
 
 
-    const data = [];
-    for (let i = 4; i <= 32; i+=4) {
-        data.push(randomMixedStringArr(arrSize, 1, i)); // add one mixed-length block //
-    }
+    // const data = [];
+    // for (let i = 4; i <= 32; i+=4) {
+    //     data.push(randomMixedStringArr(arrSize, 1, i)); // add one mixed-length block //
+    // }
 
 
 
-    // const data = [
-    //     randomstringArr(4, arrSize),
-    //     randomstringArr(8, arrSize),
-    //     randomstringArr(16, arrSize),
-    //     randomstringArr(32, arrSize),
-    //     randomstringArr(64, arrSize),
-    //     randomstringArr(128, arrSize),
-    //     randomstringArr(256, arrSize),
-    //     randomstringArr(512, arrSize),
-    //     randomstringArr(1024, arrSize),
-    // ];
+    const data = [
+        // randomstringArr(4, arrSize),
+        // randomstringArr(8, arrSize),
+        // randomstringArr(16, arrSize),
+        // randomstringArr(32, arrSize),
+        // randomstringArr(64, arrSize),
+        randomstringArr(128, arrSize),
+        randomstringArr(256, arrSize),
+        // randomstringArr(512, arrSize),
+        // randomstringArr(1024, arrSize),
+    ];
 
     fs.writeFileSync(dataStr, JSON.stringify(data));
 }
@@ -161,17 +162,17 @@ for (let i = 0; i < data.length; i++) {
     //     }
     // });
 
-    suite.add(`${i} - lightning-Unrolled_32  `, () => {
-        for (let j = 0; j < arrSize - 1; j += 2) {
-            myers32_fast(datapick[j], datapick[j + 1]);
-        }
-    });
+    // suite.add(`${i} - lightning-Unrolled_32  `, () => {
+    //     for (let j = 0; j < arrSize - 1; j += 2) {
+    //         myers32_fast(datapick[j], datapick[j + 1]);
+    //     }
+    // });
 
-    suite.add(`${i} - lightning-Unrolled_B  `, () => {
-        for (let j = 0; j < arrSize - 1; j += 2) {
-            myers32_unrolledB(datapick[j], datapick[j + 1]);
-        }
-    });
+    // suite.add(`${i} - lightning-Unrolled_B  `, () => {
+    //     for (let j = 0; j < arrSize - 1; j += 2) {
+    //         myers32_unrolledB(datapick[j], datapick[j + 1]);
+    //     }
+    // });
 
     suite.add(`${i} - lightning-v2-dispatch   `, () => {
         for (let j = 0; j < arrSize - 1; j += 2) {
@@ -179,6 +180,12 @@ for (let i = 0; i < data.length; i++) {
         }
     });
 
+
+    suite.add(`${i} - myers_x_old_v2   `, () => {
+        for (let j = 0; j < arrSize - 1; j += 2) {
+            myers_x_old_v2(datapick[j], datapick[j + 1], datapick[j].length, datapick[j + 1].length);
+        }
+    });
 
     
     
@@ -200,4 +207,4 @@ suite
         console.log(results);
     })
     // run async
-    .run({ async: true });
+    .run({ async: false });

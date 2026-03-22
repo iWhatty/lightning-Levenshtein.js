@@ -19,9 +19,10 @@
         "build": "node ./build-gcc.mjs",
         "build-bolt": "node ./build-gcc-bolt.mjs",
         "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-        "bench": "node bench/bench.js",
         "html": "http-server . -p 8000 -c-1",
         "html:open": "start http://localhost:8000/bench/benchmark.html",
+        "bench": "node bench/bench.js",
+        "bench:peq": "node ./bench/peq-benchmark.mjs",
         "bench:myersx": "node ./myers-x-variants/run-bench.js"
     },
     "keywords": [
