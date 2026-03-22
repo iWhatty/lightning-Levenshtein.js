@@ -1,7 +1,12 @@
+
+// codegen\tools\generateMyers32-A.cjs
+
 const fs = require('fs');
+const path = require('path');
 
 const out = [];
-out.push('// Auto-generated: Optimized Myers 32-bit variants');
+out.push('// Auto-generated: Optimized Myers 32-bit variants with fixed A.length');
+out.push('// Source: codegen/tools/generateMyers32-A.cjs');
 out.push('const peq = new Uint32Array(65535);');
 out.push('const myers_table = [];');
 
@@ -43,11 +48,16 @@ for (let n = 1; n <= 32; n++) {
 
 // Dispatcher
 out.push(``);
-out.push(`export function myers32_fast(a, b) {`);
+out.push(`export function myers32_unrolledA(a, b) {`);
 out.push(`  const fn = myers_table[a.length];`);
 out.push(`  return fn ? fn(a, b) : null;`);
 out.push(`}`);
 out.push(``);
 
-fs.writeFileSync('myers32-fast.js', out.join('\n'), 'utf8');
-console.log('✅ Generated myers32-fast.js');
+
+const outputPath = path.resolve(__dirname, '..', 'artifacts', 'myers32-unrolledA.js');
+
+fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+fs.writeFileSync(outputPath, out.join('\n'), 'utf8');
+
+console.log(`✅ Generated ${outputPath}`);

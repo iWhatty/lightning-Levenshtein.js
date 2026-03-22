@@ -1,9 +1,15 @@
-// Auto-generated: Optimized Myers 32-bit variants (unrolled for fixed b.length)
+
+
+// codegen\tools\generateMyers32-B.cjs
+
+// Optimized Myers 32-bit variants (unrolled for fixed b.length)
 const fs = require('fs');
+const path = require('path');
 
 const out = [];
 out.push('// Auto-generated: Optimized Myers 32-bit variants with fixed b.length');
-out.push('const peq = new Uint32Array(256);');
+out.push('// Source: codegen/tools/generateMyers32-B.cjs');
+out.push('const peq = new Uint32Array(65535);');
 out.push('const myers_table = [];');
 
 for (let n = 1; n <= 32; n++) {
@@ -65,5 +71,9 @@ out.push('  return fn ? fn(a, b) : null;');
 out.push('}');
 out.push('');
 
-fs.writeFileSync('myers32-unrolledB.js', out.join('\n'), 'utf8');
-console.log('✅ Generated myers32-unrolledB.js');
+const outputPath = path.resolve(__dirname, '..', 'artifacts', 'myers32-unrolledB.js');
+
+fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+fs.writeFileSync(outputPath, out.join('\n'), 'utf8');
+
+console.log(`✅ Generated ${outputPath}`);

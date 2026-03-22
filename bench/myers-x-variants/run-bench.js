@@ -1,7 +1,7 @@
 
 // myers-x-variants\run-bench.js
 
-import { buildPairs } from "./data.js";
+import { buildPairs } from "../data.js";
 import { myers_x_baseline } from "./myers_x_baseline.js";
 import { myers_x1 } from "./myers_x1.js";
 import { myers_x2 } from "./myers_x2.js";
