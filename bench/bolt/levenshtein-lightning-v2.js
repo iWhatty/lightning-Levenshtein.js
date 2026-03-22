@@ -7,7 +7,9 @@ import { myers32_fast, myers_table } from './myers32-fast.js';
 import { lev2_dispatch, lev3_dispatch, lev4_dispatch } from './lev-direct-dispatch.js';
 
 import { myers_x } from './myers_x.js'
-
+import { myers_64 } from './myers_64.js'
+import { myers_96 } from './myers_96.js';
+import { myers_128 } from './myers_128.js';
 
 /** Smart dispatcher strategy by input length */
 const strategy = new Array(33).fill((a, b) => myers32_fast(a, b));
@@ -53,12 +55,14 @@ export function levenshteinLightning(a, b) {
   if (m === 0) return n;
 
   // if (a.length < b.length) [a, b] = [b, a];
-  if (n <= 32) {
-    return strategy[n](a, b)
-  }
+  if (n <= 32) return strategy[n](a, b)
 
-  // return 0
+  if (n <= 64) return myers_64(a, b);
 
-  return myers_x(a, b, n, m);
+  if (n <= 96) return myers_96(a, b);
+
+  if (n <= 128) return myers_128(a, b);
+
+  return myers_x(a, b);
 
 }

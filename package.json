@@ -21,7 +21,8 @@
         "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
         "bench": "node bench/bench.js",
         "html": "http-server . -p 8000 -c-1",
-        "html:open": "start http://localhost:8000/bench/benchmark.html"
+        "html:open": "start http://localhost:8000/bench/benchmark.html",
+        "bench:myersx": "node ./myers-x-variants/run-bench.js"
     },
     "keywords": [
         "levenshtein",

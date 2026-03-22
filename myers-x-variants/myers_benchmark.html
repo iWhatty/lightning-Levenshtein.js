@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Myers X Browser Benchmark</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #0b1020;
+            --panel: #121933;
+            --panel-2: #182246;
+            --text: #e8ecff;
+            --muted: #9fb0e5;
+            --accent: #78a6ff;
+            --good: #7ee787;
+            --bad: #ff7b72;
+            --border: #2a396d;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            background: linear-gradient(180deg, #0a0f1f 0%, #0d1430 100%);
+            color: var(--text);
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        p {
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: rgba(18, 25, 51, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        input,
+        textarea,
+        button {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--panel-2);
+            color: var(--text);
+            padding: 10px 12px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 88px;
+            resize: vertical;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin: 18px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            width: auto;
+            min-width: 160px;
+            cursor: pointer;
+            background: linear-gradient(180deg, #2f6cff 0%, #2457d6 100%);
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 10px 24px rgba(36, 87, 214, 0.35);
+        }
+
+        button.secondary {
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            box-shadow: none;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin: 0 0 18px;
+            color: var(--muted);
+            min-height: 1.5em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 18px;
+            background: rgba(18, 25, 51, 0.9);
+            border: 1px solid var(--border);
+        }
+
+        th,
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(159, 176, 229, 0.12);
+            text-align: left;
+            font-variant-numeric: tabular-nums;
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .winner {
+            color: var(--good);
+            font-weight: 700;
+        }
+
+        .loser {
+            color: var(--bad);
+        }
+
+        .mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        .small {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .sticky-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(24, 34, 70, 0.8);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="sticky-head">
+            <div>
+                <h1>Myers X Browser Benchmark</h1>
+                <p>Standalone browser harness for <span class="mono">baseline</span>, <span
+                        class="mono">myers_x1</span>, <span class="mono">myers_x2</span>, <span
+                        class="mono">myers_x3</span>, <span class="mono">myers_x4</span>, and <span
+                        class="mono">myers_x5</span>.</p>
+            </div>
+            <div class="pill" id="env"></div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <label for="lengths">Lengths</label>
+                <input id="lengths" value="129,160,200,256,512" />
+            </div>
+            <div class="card">
+                <label for="seeds">Seeds</label>
+                <input id="seeds" value="1337,7331,20250321" />
+            </div>
+            <div class="card">
+                <label for="pairs">Pairs per dataset</label>
+                <input id="pairs" type="number" min="1" step="1" value="200" />
+            </div>
+            <div class="card">
+                <label for="duration">Duration per variant (ms)</label>
+                <input id="duration" type="number" min="50" step="50" value="500" />
+            </div>
+            <div class="card">
+                <label for="warm">Warm rounds</label>
+                <input id="warm" type="number" min="0" step="1" value="3" />
+            </div>
+            <div class="card">
+                <label for="alphabet">Alphabet</label>
+                <input id="alphabet" value="abcdefghijklmnopqrstuvwxyz" />
+            </div>
+        </div>
+
+        <div class="card">
+            <label for="notes">Variant notes</label>
+            <textarea id="notes" readonly>baseline: stable browser baseline
+myers_x1: bit-math sizes (n + 31) >> 5, (m + 31) >> 5
+myers_x2: word index uses z >>> 5
+myers_x3: split charCodeAt from peq lookup
+myers_x4: x1 + x2
+myers_x5: x4 + split charCodeAt
+myers_x6: x4 + const vlast (vsize-1)</textarea>
+        </div>
+
+        <div class="actions">
+            <button id="runBtn">Run benchmark</button>
+            <button id="copyBtn" class="secondary">Copy results</button>
+            <button id="clearBtn" class="secondary">Clear results</button>
+        </div>
+
+        <div class="status" id="status">Ready.</div>
+        <div id="results"></div>
+    </div>
+
+    <script type="module">
+
+
+        import { myers_x_baseline } from "./myers_x_baseline.js";
+        import { myers_x1 } from "./myers_x1.js";
+        import { myers_x2 } from "./myers_x2.js";
+        import { myers_x3 } from "./myers_x3.js";
+        import { myers_x4 } from "./myers_x4.js";
+        import { myers_x5 } from "./myers_x5.js";
+        import { myers_x6 } from "./myers_x6.js";
+        import { myers_x7 } from "./myers_x7.js";
+
+
+        const envEl = document.getElementById('env');
+        envEl.textContent = navigator.userAgent;
+
+        // const peqFactory = () => new Uint32Array(65536);
+
+        // const makeScratch = () => {
+        //     let phcBuf = new Int32Array(0);
+        //     let mhcBuf = new Int32Array(0);
+        //     const ensureScratch = (size) => {
+        //         if (phcBuf.length < size) {
+        //             phcBuf = new Int32Array(size);
+        //             mhcBuf = new Int32Array(size);
+        //         }
+        //         while (size--) {
+        //             phcBuf[size] = -1;
+        //             mhcBuf[size] = 0;
+        //         }
+        //     };
+        //     return {
+        //         ensureScratch,
+        //         get phcBuf() { return phcBuf; },
+        //         get mhcBuf() { return mhcBuf; },
+        //     };
+        // };
+
+        // const buildMyersVariant = ({ useBitSizes = false, useShiftWord = false, splitCode = false }) => {
+        //     const peq = peqFactory();
+        //     const scratch = makeScratch();
+
+        //     return (a, b, n = a.length, m = b.length) => {
+        //         const hsize = useBitSizes ? ((n + 31) >> 5) : Math.ceil(n / 32);
+        //         const vsize = useBitSizes ? ((m + 31) >> 5) : Math.ceil(m / 32);
+
+        //         const last = m - 1;
+        //         const start = (vsize - 1) * 32;
+        //         const end = start + Math.min(32, m - start);
+
+        //         let mv = 0;
+        //         let pv = -1;
+        //         let score = m;
+
+        //         scratch.ensureScratch(hsize);
+        //         const phc = scratch.phcBuf;
+        //         const mhc = scratch.mhcBuf;
+
+        //         for (let j = 0; j < vsize - 1; j++) {
+        //             let pv = -1, mv = 0;
+        //             const start = j * 32;
+        //             const end = start + 32;
+
+        //             for (let z = start; z < end; z++) {
+        //                 peq[b.charCodeAt(z)] |= 1 << z;
+        //             }
+
+        //             for (let z = 0; z < n; z++) {
+        //                 const word = useShiftWord ? (z >>> 5) : ((z / 32) | 0);
+        //                 const eq = splitCode ? peq[a.charCodeAt(z)] : peq[a.charCodeAt(z)];
+        //                 const pb = (phc[word] >>> z) & 1;
+        //                 const mb = (mhc[word] >>> z) & 1;
+        //                 const xv = eq | mv;
+        //                 const xh = ((((eq | mb) & pv) + pv) ^ pv) | eq | mb;
+
+        //                 let ph = mv | ~(xh | pv);
+        //                 let mh = pv & xh;
+
+        //                 if ((ph >>> 31) ^ pb) phc[word] ^= 1 << z;
+        //                 if ((mh >>> 31) ^ mb) mhc[word] ^= 1 << z;
+
+        //                 ph = (ph << 1) | pb;
+        //                 mh = (mh << 1) | mb;
+        //                 pv = mh | ~(xv | ph);
+        //                 mv = ph & xv;
+        //             }
+
+        //             for (let z = start; z < end; z++) {
+        //                 peq[b.charCodeAt(z)] = 0;
+        //             }
+        //         }
+
+        //         for (let z = start; z < end; z++) {
+        //             peq[b.charCodeAt(z)] |= 1 << z;
+        //         }
+
+        //         for (let z = 0; z < n; z++) {
+        //             const word = useShiftWord ? (z >>> 5) : ((z / 32) | 0);
+        //             let eq;
+        //             if (splitCode) {
+        //                 const code = a.charCodeAt(z);
+        //                 eq = peq[code];
+        //             } else {
+        //                 eq = peq[a.charCodeAt(z)];
+        //             }
+
+        //             const pb = (phc[word] >>> z) & 1;
+        //             const mb = (mhc[word] >>> z) & 1;
+        //             const xv = eq | mv;
+        //             const xh = ((((eq | mb) & pv) + pv) ^ pv) | eq | mb;
+
+        //             let ph = mv | ~(xh | pv);
+        //             let mh = pv & xh;
+
+        //             score += (ph >>> last) & 1;
+        //             score -= (mh >>> last) & 1;
+
+        //             if ((ph >>> 31) ^ pb) phc[word] ^= 1 << z;
+        //             if ((mh >>> 31) ^ mb) mhc[word] ^= 1 << z;
+
+        //             ph = (ph << 1) | pb;
+        //             mh = (mh << 1) | mb;
+        //             pv = mh | ~(xv | ph);
+        //             mv = ph & xv;
+        //         }
+
+        //         for (let z = start; z < end; z++) {
+        //             peq[b.charCodeAt(z)] = 0;
+        //         }
+
+        //         return score;
+        //     };
+        // };
+
+        // const myers_x_baseline = buildMyersVariant({});
+        // const myers_x1 = buildMyersVariant({ useBitSizes: true });
+        // const myers_x2 = buildMyersVariant({ useShiftWord: true });
+        // const myers_x3 = buildMyersVariant({ splitCode: true });
+        // const myers_x4 = buildMyersVariant({ useBitSizes: true, useShiftWord: true });
+        // const myers_x5 = buildMyersVariant({ useBitSizes: true, useShiftWord: true, splitCode: true });
+
+        const VARIANTS = [
+            ['baseline', myers_x_baseline],
+            ['myers_x1', myers_x1],
+            ['myers_x2', myers_x2],
+            ['myers_x3', myers_x3],
+            ['myers_x4', myers_x4],
+            ['myers_x5', myers_x5],
+            ['myers_x6', myers_x6],
+            ['myers_x7', myers_x7],
+        ];
+
+        const mulberry32 = (seed) => {
+            let t = seed >>> 0;
+            return () => {
+                t += 0x6D2B79F5;
+                let r = Math.imul(t ^ (t >>> 15), t | 1);
+                r ^= r + Math.imul(r ^ (r >>> 7), r | 61);
+                return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+            };
+        };
+
+        const randomString = (len, rand, alphabet) => {
+            let out = '';
+            for (let i = 0; i < len; i++) {
+                out += alphabet[(rand() * alphabet.length) | 0];
+            }
+            return out;
+        };
+
+        const buildPairs = ({ count, lenA, lenB, seed, alphabet }) => {
+            const rand = mulberry32(seed);
+            const pairs = new Array(count);
+            for (let i = 0; i < count; i++) {
+                pairs[i] = [
+                    randomString(lenA, rand, alphabet),
+                    randomString(lenB, rand, alphabet),
+                ];
+            }
+            return pairs;
+        };
+
+        const warm = (fn, pairs, rounds = 3) => {
+            for (let r = 0; r < rounds; r++) {
+                for (let i = 0; i < pairs.length; i++) {
+                    const [a, b] = pairs[i];
+                    fn(a, b, a.length, b.length);
+                }
+            }
+        };
+
+        const benchOne = (fn, pairs, durationMs) => {
+            let calls = 0;
+            const t0 = performance.now();
+            let elapsed = 0;
+            while (elapsed < durationMs) {
+                for (let i = 0; i < pairs.length; i++) {
+                    const [a, b] = pairs[i];
+                    fn(a, b, a.length, b.length);
+                    calls++;
+                }
+                elapsed = performance.now() - t0;
+            }
+            return { calls, elapsed, opsPerMs: calls / elapsed };
+        };
+
+        const parseList = (value) => value.split(',').map(v => Number(v.trim())).filter(Number.isFinite);
+
+        const statusEl = document.getElementById('status');
+        const resultsEl = document.getElementById('results');
+        const runBtn = document.getElementById('runBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        let lastText = '';
+
+        const escapeHtml = (s) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+        const renderTable = (title, rows) => {
+            const best = Math.max(...rows.map(r => r.opsPerMs));
+            const header = `
+        <div class="card" style="margin-bottom:14px; overflow:auto;">
+          <div style="margin-bottom:10px; font-weight:700;">${escapeHtml(title)}</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Variant</th>
+                <th>Ops/ms</th>
+                <th>Time</th>
+                <th>Calls</th>
+                <th>Δ vs best</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => {
+                const delta = ((r.opsPerMs / best) - 1) * 100;
+                const cls = r.opsPerMs === best ? 'winner' : (delta < -3 ? 'loser' : '');
+                return `
+                  <tr>
+                    <td class="mono ${cls}">${escapeHtml(r.name)}</td>
+                    <td class="${cls}">${r.opsPerMs.toFixed(2)}</td>
+                    <td>${r.elapsed.toFixed(1)}ms</td>
+                    <td>${r.calls.toLocaleString()}</td>
+                    <td class="${cls}">${delta === 0 ? 'best' : `${delta.toFixed(2)}%`}</td>
+                  </tr>
+                `;
+            }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+            return header;
+        };
+
+        const rotate = (arr, offset) =>
+            arr.map((_, i) => arr[(i + offset) % arr.length]);
+
+        const runBenchmark = async () => {
+            const lengths = parseList(document.getElementById('lengths').value);
+            const seeds = parseList(document.getElementById('seeds').value);
+            const pairsCount = Number(document.getElementById('pairs').value);
+            const durationMs = Number(document.getElementById('duration').value);
+            const warmRounds = Number(document.getElementById('warm').value);
+            const alphabet = document.getElementById('alphabet').value;
+
+            if (!lengths.length || !seeds.length || !pairsCount || !durationMs || !alphabet) {
+                statusEl.textContent = 'Please provide valid lengths, seeds, pairs, duration, and alphabet.';
+                return;
+            }
+
+            runBtn.disabled = true;
+            resultsEl.innerHTML = '';
+            lastText = '';
+
+            const textLines = [];
+            let datasetIndex = 0;
+
+            for (const len of lengths) {
+                for (const seed of seeds) {
+                    statusEl.textContent = `Running length ${len}, seed ${seed}...`;
+                    await new Promise(requestAnimationFrame);
+
+                    const pairs = buildPairs({
+                        count: pairsCount,
+                        lenA: len,
+                        lenB: len,
+                        seed,
+                        alphabet,
+                    });
+
+                    const orderedVariants = rotate(VARIANTS, datasetIndex++);
+                    const rows = [];
+
+                    for (const [name, fn] of orderedVariants) {
+                        warm(fn, pairs, warmRounds);
+                        const r = benchOne(fn, pairs, durationMs);
+                        rows.push({ name, ...r });
+                        textLines.push(
+                            `${name.padEnd(12)} -> ${r.opsPerMs.toFixed(2)} ops/ms  ` +
+                            `(time: ${r.elapsed.toFixed(1)}ms, calls: ${r.calls.toLocaleString()})`
+                        );
+                    }
+
+                    const title = `Length ${len} | pairs ${pairsCount} | seed ${seed}`;
+                    textLines.splice(textLines.length - rows.length, 0, ``, title);
+                    resultsEl.insertAdjacentHTML('beforeend', renderTable(title, rows));
+                }
+            }
+
+            lastText = textLines.join('\n');
+            statusEl.textContent = 'Done.';
+            runBtn.disabled = false;
+        };
+
+        runBtn.addEventListener('click', runBenchmark);
+        clearBtn.addEventListener('click', () => {
+            resultsEl.innerHTML = '';
+            statusEl.textContent = 'Cleared.';
+            lastText = '';
+        });
+        copyBtn.addEventListener('click', async () => {
+            if (!lastText) {
+                statusEl.textContent = 'No results to copy yet.';
+                return;
+            }
+            await navigator.clipboard.writeText(lastText);
+            statusEl.textContent = 'Results copied to clipboard.';
+        });
+    </script>
+</body>
+
+</html>

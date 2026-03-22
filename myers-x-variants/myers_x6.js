@@ -1,15 +1,18 @@
+// myers-x-variants/myers_x6.js
 
-// ./src/myers_x.js
+// Change from baseline:
+// - use bit-math sizes: (n + 31) >> 5, (m + 31) >> 5
+// - use unsigned shift for word index: z >>> 5
+// ensureScratch  let i = size;
 
 
 "use strict";
 
-// Global pattern equality table shared across invocations
-const peq = new Uint32Array(65536); // UTF-16 code unit table
-
+const peq = new Uint32Array(65536);
 
 let phcBuf = new Int32Array(0);
 let mhcBuf = new Int32Array(0);
+
 
 const ensureScratch = (size) => {
     if (phcBuf.length < size) {
@@ -24,72 +27,41 @@ const ensureScratch = (size) => {
 };
 
 
-/**
- * Calculates the edit distance (or alignment score) between two strings `a` and `b`
- * using a bit-parallel implementation of the Myers algorithm.
- * This variant partitions the input `b` into 32-bit blocks for performance.
- * 
- * @param {string} a - Longer string, processed horizontally.
- * @param {string} b - Shorter string, processed in 32-bit vertical blocks.
- * @param {number} n - Length of string `a`.
- * @param {number} m - Length of string `b`.
- * @returns {number} edit distance (or score) from `a` to `b`
- */
-export const myers_x = (a1, b1) => {
-
-    const a = a1;
-    const b = b1;
-    const n = a.length;
-    const m = b.length;
-
-    // Horizontal word size: number of 32-bit chunks needed for string `a`
+export const myers_x6 = (a, b, n, m) => {
     const hsize = (n + 31) >> 5;
     const vsize = (m + 31) >> 5;
-    // const hsize = Math.ceil(n / 32);
-    // const vsize = Math.ceil(m / 32);
 
-
-    // Final block processing vars
     const last = m - 1;
     const start = (vsize - 1) * 32;
-    // const start = (vsize - 1) << 5;
     const end = start + Math.min(32, m - start);
 
     let mv = 0;
     let pv = -1;
     let score = m;
 
-    // Initialize horizontal positive and negative bitvectors
     ensureScratch(hsize);
     const phc = phcBuf;
     const mhc = mhcBuf;
 
-
     for (let j = 0; j < vsize - 1; j++) {
         let pv = -1, mv = 0;
         const start = j * 32;
-        // const start = j << 5;
         const end = start + 32;
 
-        // Set bitmasks for current 32-character slice of string `b`a
         for (let z = start; z < end; z++) {
             peq[b.charCodeAt(z)] |= 1 << z;
         }
 
         for (let z = 0; z < n; z++) {
-
-            const word = z >> 5;
-
+            const word = z >>> 5;
             const eq = peq[a.charCodeAt(z)];
             const pb = (phc[word] >>> z) & 1;
             const mb = (mhc[word] >>> z) & 1;
-
             const xv = eq | mv;
             const xh = ((((eq | mb) & pv) + pv) ^ pv) | eq | mb;
 
             let ph = mv | ~(xh | pv);
             let mh = pv & xh;
-
 
             if ((ph >>> 31) ^ pb) phc[word] ^= 1 << z;
             if ((mh >>> 31) ^ mb) mhc[word] ^= 1 << z;
@@ -100,28 +72,20 @@ export const myers_x = (a1, b1) => {
             mv = ph & xv;
         }
 
-        // Reset bitmasks for the next block of `b`
         for (let z = start; z < end; z++) {
             peq[b.charCodeAt(z)] = 0;
         }
-
-
     }
 
-    // Final block processing
     for (let z = start; z < end; z++) {
         peq[b.charCodeAt(z)] |= 1 << z;
     }
 
     for (let z = 0; z < n; z++) {
-
-        const word = z >> 5;
-
+        const word = z >>> 5;
         const eq = peq[a.charCodeAt(z)];
-
         const pb = (phc[word] >>> z) & 1;
         const mb = (mhc[word] >>> z) & 1;
-
         const xv = eq | mv;
         const xh = ((((eq | mb) & pv) + pv) ^ pv) | eq | mb;
 
@@ -140,12 +104,9 @@ export const myers_x = (a1, b1) => {
         mv = ph & xv;
     }
 
-
-    // Clear final bitmask state
     for (let z = start; z < end; z++) {
         peq[b.charCodeAt(z)] = 0;
     }
-
 
     return score;
 };
