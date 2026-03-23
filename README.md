@@ -81,13 +81,14 @@ The package currently exposes both entrypoints through `exports`:
 
 The runtime selects the cheapest correct kernel for the current input size.
 
-* **1–4 chars:** direct specialized dispatch
-* **5–32 chars:** precompiled bit-parallel kernels
-* **33–64 chars:** 64-bit-width specialization
-* **65–96 chars:** 96-bit-width specialization
-* **97–128 chars:** 128-bit-width specialization
-* **129–256 chars:** 256-bit-width specialization
-* **257+ chars:** generalized Myers fallback
+* **1–32 chars:** precompiled bit-parallel kernels
+* **33–64 chars:** fixed-width Myers specialization
+* **65–96 chars:** fixed-width Myers specialization
+* **97–128 chars:** fixed-width Myers specialization
+* **129–224 chars:** generalized macro-block Myers dispatch
+* **225–256 chars:** fixed-width Myers specialization
+* **257–512 chars:** generalized macro-block Myers dispatch
+* **513+ chars:** large-input generalized Myers dispatch
 
 This keeps tiny inputs fast without sacrificing larger-input performance.
 
@@ -98,6 +99,7 @@ The benchmark harness generates the same string pairs for every library at each 
 Benchmarks were run in Node.js:
 
 - **Node version:** `v24.11.0`
+
 
 ### Methodology
 
@@ -135,11 +137,11 @@ Mean ops/sec shown on a log-scaled Y axis across the full tested range.
 
 ![Levenshtein throughput by string length](./bench/packages/mean-ops-loglog-chart.svg)
 
-### Win margin vs the next-fastest competitor
+### Relative throughput vs `fastest-levenshtein`
 
-This chart shows how many times faster `lightning-levenshtein` is than the **second-fastest** library at each tested input length.
+This chart normalizes `fastest-levenshtein` to **100% at each string length** and shows `lightning-levenshtein` relative to that fixed baseline.
 
-This is the cleanest graph for answering the blunt question: “by how much does it win?” If the value is `1.0x`, there is effectively no lead. Anything above that is the size of the advantage at that length.
+We use `fastest-levenshtein` as the canonical public reference point because it is a widely recognized JavaScript Levenshtein implementation. Values above 100% mean faster than `fastest-levenshtein`; values below 100% mean slower.
 
 ![Relative performance vs second-fastest competitor](./bench/packages/relative-performance.svg)
 

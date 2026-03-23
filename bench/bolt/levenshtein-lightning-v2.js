@@ -4,7 +4,6 @@
 
 // Core imports (adjust as needed if you modularize)
 import { myers_table } from './myers32-unrolledA.js';
-// import { myers32_v4 } from './myers32_v4.js';
 
 // import { lev2_dispatch, lev3_dispatch, lev4_dispatch } from './lev-dispatch.js';
 
@@ -13,7 +12,7 @@ import { myers_64 } from './myers_64.js'
 import { myers_96 } from './myers_96.js';
 import { myers_128 } from './myers_128.js';
 import { myers_256 } from './myers_256.js';
-// import { myers_512 } from './myers_512.js';
+
 
 import { myers_x64 } from './myers_x64.js'
 import { myers_x128 } from './myers_x128.js'
@@ -86,15 +85,12 @@ export function levenshteinLightning(a, b) {
   }
 
   // if (n < 4) return lev3_dispatch(a, b);
-
   // if (n < 5) return lev4_dispatch(a, b);
-  // if (n <= 32) return strategy[n](a, b)
   // if (n < 9) return strategy[n](a, b)
 
 
   if (n < 33) return strategy[n](a, b)
-  // if (n < 33) return myers32_v4(a, b, n, b.length)
-  // return myers_x64(a, b);
+
   if (n < 65) return myers_64(a, b);
 
   if (n < 97) return myers_96(a, b);
@@ -107,7 +103,7 @@ export function levenshteinLightning(a, b) {
 
   if (n < 513) return myers_x64(a, b);
 
-  // if (n < 513) return myers_512(a, b);
+
 
   return myers_x128(a, b);
 
