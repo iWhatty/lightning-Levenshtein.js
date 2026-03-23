@@ -10,14 +10,20 @@ import { peq } from './peq.js';
  * with an early-exit threshold. Optimized for scenarios where differences above `maxDistance`
  * can be ignored.
  *
- * @param {string} a - The query string.
- * @param {string} b - The reference string.
+ * @param {string} a1 - The query string.
+ * @param {string} b1 - The reference string.
  * @param {number} n - Length of `a`.
  * @param {number} m - Length of `b`.
  * @param {number} maxDistance - Maximum acceptable edit distance; exits early if exceeded.
  * @returns {number} Final score (edit distance), or partial score if early exit occurred.
  */
-export function myers_x_max(a, b, n, m, maxDistance) {
+export function myers_x_max(a1, b1, maxDistance) {
+
+  const a = a1;
+  const b = b1;
+  const n = a.length;
+  const m = b.length;
+
   let hsize = Math.ceil(n / 32);           // Horizontal bitvector chunks
   const vsize = Math.ceil(m / 32);         // Vertical chunks from `b`
 

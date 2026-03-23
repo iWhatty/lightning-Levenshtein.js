@@ -1,4 +1,4 @@
-// bench/packages/render-readme-chart.js
+// bench/packages/render-relative-bar-chart.js
 
 import fs from "fs";
 import path from "path";
@@ -7,7 +7,8 @@ const ROOT = path.resolve("bench/packages");
 const IN_FILE = path.join(ROOT, "results.json");
 const OUT_FILE = path.join(ROOT, "relative-performance.svg");
 
-const TARGET = "lightning-levenshtein";
+const TARGET = "lightning-levenshtein-v2";
+const BASELINE = "fastest-levenshtein";
 
 const WIDTH = 980;
 const HEIGHT = 560;
@@ -29,14 +30,6 @@ const COLORS = {
   bar: "#38bdf8",
   barDim: "#64748b",
 };
-
-function median(values) {
-  const sorted = [...values].sort((a, b) => a - b);
-  const mid = Math.floor(sorted.length / 2);
-  return sorted.length % 2 === 0
-    ? (sorted[mid - 1] + sorted[mid]) / 2
-    : sorted[mid];
-}
 
 function escapeXml(value) {
   return String(value)
@@ -63,25 +56,27 @@ function buildRatios(data) {
     if (!row || !row[TARGET]) {
       throw new Error(`Missing benchmark row for N=${n} or target=${TARGET}`);
     }
+    if (!row[BASELINE]) {
+      throw new Error(`Missing benchmark row for N=${n} or baseline=${BASELINE}`);
+    }
+
+    const targetVal = row[TARGET].meanOpsPerSec;
+    const baselineVal = row[BASELINE].meanOpsPerSec;
+    const ratio = baselineVal > 0 ? targetVal / baselineVal : 0;
 
     const ranked = Object.entries(row)
-      .map(([name, entry]) => [name, entry.medianOpsPerSec])
+      .map(([name, entry]) => [name, entry.meanOpsPerSec])
       .sort((a, b) => b[1] - a[1]);
 
-    const [topName, topVal] = ranked[0];
-    const [, secondVal = 0] = ranked[1] ?? [null, 0];
-
-    const lightningVal = row[TARGET].medianOpsPerSec;
-    const compareVal = topName === TARGET ? secondVal : topVal;
-    const ratio = compareVal > 0 ? lightningVal / compareVal : 0;
+    const [leader] = ranked[0];
 
     rows.push({
       n,
       ratio,
-      lightningVal,
-      compareVal,
-      leader: topName,
-      isWinner: topName === TARGET,
+      targetVal,
+      baselineVal,
+      leader,
+      isWinner: leader === TARGET,
     });
   }
 
@@ -110,13 +105,12 @@ function renderSvg(rows) {
   );
   parts.push(`<rect width="${WIDTH}" height="${HEIGHT}" fill="${COLORS.bg}" />`);
   parts.push(
-    `<text x="${WIDTH / 2}" y="34" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="${COLORS.text}">lightning-levenshtein relative performance</text>`
+    `<text x="${WIDTH / 2}" y="34" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="${COLORS.text}">${escapeXml(TARGET)} relative performance</text>`
   );
   parts.push(
-    `<text x="${WIDTH / 2}" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="${COLORS.muted}">ratio vs fastest competing library at each string length (mean ops/sec across seeds)</text>`
+    `<text x="${WIDTH / 2}" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="${COLORS.muted}">ratio vs ${escapeXml(BASELINE)} at each string length (mean ops/sec across seeds)</text>`
   );
 
-  // Grid + Y labels
   for (let i = 0; i <= yTicks; i++) {
     const value = (yMax / yTicks) * i;
     const y = yScale(value);
@@ -129,7 +123,6 @@ function renderSvg(rows) {
     );
   }
 
-  // Axes
   parts.push(
     `<line x1="${plotX}" y1="${plotY}" x2="${plotX}" y2="${plotY + plotH}" stroke="${COLORS.axis}" stroke-width="1.5" />`
   );
@@ -137,7 +130,6 @@ function renderSvg(rows) {
     `<line x1="${plotX}" y1="${plotY + plotH}" x2="${plotX + plotW}" y2="${plotY + plotH}" stroke="${COLORS.axis}" stroke-width="1.5" />`
   );
 
-  // Bars
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
     const cx = plotX + slotW * i + slotW / 2;
@@ -149,7 +141,7 @@ function renderSvg(rows) {
 
     parts.push(
       `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${barW.toFixed(2)}" height="${h.toFixed(2)}" rx="6" fill="${fill}">` +
-        `<title>N=${row.n} | ratio=${row.ratio.toFixed(2)}x | lightning=${row.lightningVal.toFixed(2)} | compare=${row.compareVal.toFixed(2)} | leader=${escapeXml(row.leader)}</title>` +
+        `<title>N=${row.n} | ratio=${row.ratio.toFixed(2)}x | target=${row.targetVal.toFixed(2)} | baseline=${row.baselineVal.toFixed(2)} | leader=${escapeXml(row.leader)}</title>` +
       `</rect>`
     );
 
@@ -162,20 +154,18 @@ function renderSvg(rows) {
     );
   }
 
-  // Axis labels
   parts.push(
     `<text x="${plotX + plotW / 2}" y="${HEIGHT - 24}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="${COLORS.text}">String length (N)</text>`
   );
 
   parts.push(
-    `<text x="24" y="${plotY + plotH / 2}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="${COLORS.text}" transform="rotate(-90 24 ${plotY + plotH / 2})">Times faster vs best competitor</text>`
+    `<text x="24" y="${plotY + plotH / 2}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="${COLORS.text}" transform="rotate(-90 24 ${plotY + plotH / 2})">Times faster vs ${escapeXml(BASELINE)}</text>`
   );
 
-  // Legend
   parts.push(`<g transform="translate(${WIDTH - 250}, ${HEIGHT - 30})">`);
   parts.push(`<rect x="0" y="-12" width="18" height="18" rx="4" fill="${COLORS.bar}" />`);
   parts.push(
-    `<text x="26" y="2" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="${COLORS.text}">lightning-levenshtein-v2</text>`
+    `<text x="26" y="2" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="${COLORS.text}">${escapeXml(TARGET)}</text>`
   );
   parts.push(`</g>`);
 

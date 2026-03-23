@@ -20,13 +20,18 @@ import { peq } from './peq.js';
  * Assumes `a.length >= b.length` in the wider dispatcher design, though this function
  * itself just uses the provided inputs directly.
  *
- * @param {string} a - Pattern / source string
- * @param {string} b - Text / target string
+ * @param {string} a1 - Pattern / source string
+ * @param {string} b1 - Text / target string
  * @param {number} n - Length of `a`
  * @param {number} m - Length of `b`
  * @returns {number} Edit distance between `a` and `b`
  */
-export const myers_32 = (a, b, n = a.length, m = b.length) => {
+export const myers_32 = (a1, b1) => {
+
+    const a = a1;
+    const b = b1;
+    const n = a.length;
+    const m = b.length;
 
   // Bit corresponding to the final live position in the pattern.
   // When this bit flips in PH/MH, the total score changes.

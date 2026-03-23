@@ -7,6 +7,7 @@ const ROOT = path.resolve("bench/packages");
 const IN_FILE = path.join(ROOT, "results.json");
 const OUT_FILE = path.join(ROOT, "relative-to-fastest-levenshtein.svg");
 
+
 const BASELINE = "fastest-levenshtein";
 
 const WIDTH = 1100;

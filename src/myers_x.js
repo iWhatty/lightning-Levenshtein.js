@@ -1,36 +1,66 @@
 
 // ./src/myers_x.js
+// FROM --> myers-x-variants\myers_x_old_v2.js
+
+"use strict";
+
 
 // Global pattern equality table shared across invocations
 // const peq = new Uint32Array(0x10000); // One bitmask per Unicode char (up to 16-bit space)
 import { peq } from './peq.js';
+
+
+let phcBuf = new Int32Array(0);
+let mhcBuf = new Int32Array(0);
+
+const ensureScratch = (size) => {
+    if (phcBuf.length < size) {
+        phcBuf = new Int32Array(size);
+        mhcBuf = new Int32Array(size);
+    }
+    let i = size;
+    while (i--) {
+        phcBuf[i] = -1;
+        mhcBuf[i] = 0;
+    }
+};
+
 
 /**
  * Calculates the edit distance (or alignment score) between two strings `a` and `b`
  * using a bit-parallel implementation of the Myers algorithm.
  * This variant partitions the input `b` into 32-bit blocks for performance.
  * 
- * @param {string} a - The source string (query).
- * @param {string} b - The target string (reference).
+ * @param {string} a1 - The source string (query).
+ * @param {string} b1 - The target string (reference).
  * @param {number} n - Length of string `a`.
  * @param {number} m - Length of string `b`.
  * @returns {number} edit distance (or score) from `a` to `b`
  */
-export function myers_x(a, b, n, m) {
+export function myers_x(a1, b1) {
+    
+    const a = a1;
+    const b = b1;
+    const n = a.length;
+    const m = b.length;
+
     // Horizontal word size: number of 32-bit chunks needed for string `a`
-    let hsize = Math.ceil(n / 32);
-    const vsize = Math.ceil(m / 32);
+    const hsize = (n + 31) >> 5;
+    const vsize = (m + 31) >> 5;
 
     // Initialize horizontal positive and negative bitvectors
-    const mhc = new Array(hsize);
-    const phc = new Array(hsize);
-    while (hsize--) {
-        phc[hsize] = -1; // All 1s: start with optimistic assumption
-        mhc[hsize] = 0;  // All 0s
-    }
+    ensureScratch(hsize);
+    const phc = phcBuf;
+    const mhc = mhcBuf;
 
-    let j = 0;
-    for (; j < vsize - 1; j++) {
+    // Final block processing
+    let pv = -1, mv = 0;
+    const start = (vsize - 1) * 32;
+    const end = start + Math.min(32, m - start);
+    const shift = end - start - 1;
+
+
+    for (let j = 0; j < vsize - 1; j++) {
         let pv = -1, mv = 0;
         const start = j * 32;
         const end = Math.min(start + 32, m);
@@ -72,11 +102,7 @@ export function myers_x(a, b, n, m) {
         }
     }
 
-    // Final block processing
-    let pv = -1, mv = 0;
-    const start = j * 32;
-    const end = Math.min(start + 32, m);
-    const shift = end - start - 1;
+
 
     for (let k = start; k < end; k++) {
         peq[b.charCodeAt(k)] |= 1 << (k - start);

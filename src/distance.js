@@ -3,7 +3,7 @@
 
 import { myers_32 } from './myers_32.js';
 import { myers_x } from './myers_x.js';
-
+import { myers_x64 } from './myers_x64.js';
 /**
  * Computes the Levenshtein edit distance between two strings using the fastest available algorithm.
  * Automatically selects an optimized Myers variant based on input length.
@@ -16,24 +16,28 @@ export function distance(a, b) {
   // Fast path: identical strings
   if (a === b) return 0;
 
-  let n = a.length;
-  let m = b.length;
-
   // Always process with the longer string as `a` for bitmask consistency
-  if (n < m) {
-    [a, b] = [b, a];
-    [n, m] = [m, n];
+  if (a.length < b.length) {
+    const t = a;
+    a = b;
+    b = t;
   }
+
+  const n = a.length;
+  const m = b.length;
+
 
   // Handle empty string edge cases
   if (m === 0) return n;
 
   // Algorithm dispatch based on input length
-  if (n <= 32) {
+  if (n < 33) {
     // Use optimized 32-bit Myers for short strings
-    return myers_32(a, b, n, m);
-  } else {
+    return myers_32(a, b);
+  } else if (n < 65) {
     // Use blockwise Myers for longer strings
-    return myers_x(a, b, n, m);
+    return myers_x(a, b);
+  } else {
+    return myers_x64(a, b);
   }
 };

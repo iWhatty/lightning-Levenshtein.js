@@ -17,7 +17,13 @@ import { peq } from './peq.js';
  * @param {number} maxDistance - Maximum allowable edit distance.
  * @returns {number} Edit distance between `a` and `b`
  */
-export function myers_32_max(a, b, n, m, maxDistance) {
+export function myers_32_max(a1, b1, maxDistance) {
+
+
+    const a = a1;
+    const b = b1;
+    const n = a.length;
+    const m = b.length;
 
     let mv = 0;               // Negative bitmask (all zeros)
     let pv = -1;              // Positive bitmask (all ones)
@@ -27,7 +33,7 @@ export function myers_32_max(a, b, n, m, maxDistance) {
     // Build pattern equality masks (peq[char] has 1s at positions where a[i] === char)
     let i = n;
     while (i--) peq[a.charCodeAt(i)] |= 1 << i;
-    
+
 
     for (let i = 0; i < m; i++) {
         const ch = b.charCodeAt(i);

@@ -18,8 +18,8 @@ import leven from "leven";
 
 import { levenshteinEditDistance } from "levenshtein-edit-distance";
 
-import { levenshteinLightning } from "../lightning-Levenshtein-v2.min.js";
-
+import { levenshteinLightning } from "../lightning-levenshtein-v2.min.js";
+import { distance as levenshteinLightning_v1 } from "../../dist/lightning-levenshtein.min.js";
 
 const OUT_DIR = path.resolve("bench/packages");
 const OUT_FILE = path.join(OUT_DIR, "results.json");
@@ -32,7 +32,9 @@ const WARM_ROUNDS = 3;
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 const TARGETS = [
-    ["lightning-levenshtein", (a, b) => levenshteinLightning(a, b)],
+    ["lightning-levenshtein-v2", (a, b) => levenshteinLightning(a, b)],
+    ["lightning-levenshtein-v1", (a, b) => levenshteinLightning_v1(a, b)],
+
     ["fastest-levenshtein", (a, b) => fastestLevenshtein(a, b)],
     ["js-levenshtein", (a, b) => jsLevenshtein(a, b)],
     ["leven", (a, b) => leven(a, b)],

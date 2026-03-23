@@ -9,6 +9,64 @@ Fast Levenshtein distance in pure JavaScript.
 ```bash
 npm install lightning-levenshtein
 ```
+## npm package contents
+
+The published package includes two production builds:
+
+```text
+dist/
+  lightning-levenshtein.min.js
+  lightning-levenshtein-v2.min.js
+```
+
+### Default API
+
+The default package entrypoint exposes the stable core API:
+
+```js
+import { distance, distanceMax, closest } from "lightning-levenshtein";
+```
+
+This resolves to `dist/lightning-levenshtein.min.js`.
+
+### V2 API
+
+A second public subpath export is also available:
+
+```js
+import { levenshteinLightning } from "lightning-levenshtein/v2";
+```
+
+This resolves to `dist/lightning-levenshtein-v2.min.js`.
+
+The `v2` build is a separate optimized runtime that uses more aggressive length-based dispatch, tiny-string fast paths, precompiled 32-bit kernels, fixed-width Myers variants, and a generalized large-input fallback. It is not just a renamed copy of the default package entrypoint.
+
+### Which one should users pick?
+
+Use the default package entrypoint if you want the stable general-purpose npm API:
+
+```js
+import { distance, distanceMax, closest } from "lightning-levenshtein";
+```
+
+Use the `v2` subpath if you specifically want the specialized `levenshteinLightning` runtime:
+
+```js
+import { levenshteinLightning } from "lightning-levenshtein/v2";
+```
+
+### Current package exports
+
+The package currently exposes both entrypoints through `exports`:
+
+```json
+{
+  "exports": {
+    ".": "./dist/lightning-levenshtein.min.js",
+    "./v2": "./dist/lightning-levenshtein-v2.min.js"
+  }
+}
+```
 
 ## What it does
 
@@ -35,7 +93,7 @@ This keeps tiny inputs fast without sacrificing larger-input performance.
 
 ## Benchmark
 
-Benchmarks use the same generated dataset for every library. [/bench/data.js]
+The benchmark harness generates the same string pairs for every library at each tested length and seed.
 
 Benchmarks were run in Node.js:
 
@@ -48,9 +106,9 @@ Benchmarks were run in Node.js:
 * 500 ms measurement window per seed
 * 3 warm-up rounds before timing
 * alphabet: `A-Z`, `a-z`, `0-9`
-* reported table values: **median ops/sec across seeds**
+* reported table values: **mean ops/ms across 3 seeds**
 
-### Median ops/sec
+### Mean ops/sec
 
 | Test Target | N=1 | N=2 | N=4 | N=8 | N=16 | N=32 | N=64 | N=128 | N=256 | N=512 | N=1024 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|

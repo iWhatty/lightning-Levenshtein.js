@@ -34,19 +34,22 @@ export function distanceMax(a, b, maxDistance = Number.MAX_SAFE_INTEGER) {
   }
 
   // Swap `a` and `b` if needed for bit-parallel optimization
-  let n = originalLength, m = bLength;
-  if (n < m) {
-    [a, b] = [b, a];
-    [n, m] = [m, n];
+  if (a.length < b.length) {
+    const t = a;
+    a = b;
+    b = t;
   }
+
+  const n = a.length;
+  const m = b.length;
 
   const maxSafe = n;
 
   return n <= 32
     ? (maxDistance > maxSafe
-        ? myers_32(a, b, n, m)
-        : myers_32_max(a, b, n, m, maxDistance))
+      ? myers_32(a, b)
+      : myers_32_max(a, b, maxDistance))
     : (maxDistance > maxSafe
-        ? myers_x(a, b, n, m)
-        : myers_x_max(a, b, n, m, maxDistance));
+      ? myers_x(a, b)
+      : myers_x_max(a, b, maxDistance));
 }

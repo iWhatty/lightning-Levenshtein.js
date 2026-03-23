@@ -47,7 +47,7 @@ for (const name of targetNames) {
 
 lines.push("");
 
-const fastestName = "lightning-levenshtein";
+const fastestName = "lightning-levenshtein-v2";
 lines.push("## Relative Performance");
 lines.push("");
 lines.push(

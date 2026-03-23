@@ -7,7 +7,7 @@ const peq = new Uint32Array(0x10000);
 
 export const myers32_v4 = (a, b, n = a.length, m = b.length) => {
 
-  const lst = 1 << (n - 1);
+  const lastMask = 1 << (n - 1);
   
   let mv = 0;
   let pv = -1;
@@ -29,8 +29,8 @@ export const myers32_v4 = (a, b, n = a.length, m = b.length) => {
     const ph = mv | nh;
     const mh = pv & eqv;
 
-    const phLst = ph & lst;
-    const mhLst = mh & lst;
+    const phLst = ph & lastMask;
+    const mhLst = mh & lastMask;
     score += (phLst !== 0) - (mhLst !== 0);
 
     const newMv = (ph << 1) | 1;
