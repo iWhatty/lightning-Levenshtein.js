@@ -5,7 +5,8 @@ import { buildPairs } from "../data.js";
 import { myers_x_baseline } from "./myers_x_baseline.js";
 
 
-
+import { myers_512 } from "./myers_512.js";
+import { myers_x128 } from "./myers_x128.js";
 import { myers_x64 } from "./myers_x64.js";
 import { myers_x1 } from "./myers_x1.js";
 import { myers_x2 } from "./myers_x2.js";
@@ -28,6 +29,7 @@ const VARIANTS = [
     ["Lightning-v2", levenshteinLightning],
     ["baseline", myers_x_baseline],
     ["myers_x64", myers_x64],
+    ["myers_x128", myers_x128],
     ["myers_x_old", myers_x_old],
     ["myers_x_old_v2", myers_x_old_v2],
     ["myers_x_old_v3", myers_x_old_v3],
@@ -39,7 +41,9 @@ const VARIANTS = [
     ["myers_x6", myers_x6],
     ["myers_x7", myers_x7],
 ];
-const LENGTHS = [129, 160, 200, 256, 512];
+// const LENGTHS = [129, 160, 200, 256, 512];
+
+const LENGTHS = [600, 700, 800, 900, 1000];
 const SEEDS = [1337, 7331, 20250321];
 const PAIRS = 200;
 const DURATION_MS = 500;

@@ -13,9 +13,10 @@ import { myers_64 } from './myers_64.js'
 import { myers_96 } from './myers_96.js';
 import { myers_128 } from './myers_128.js';
 import { myers_256 } from './myers_256.js';
-
+// import { myers_512 } from './myers_512.js';
 
 import { myers_x64 } from './myers_x64.js'
+import { myers_x128 } from './myers_x128.js'
 
 
 
@@ -100,9 +101,15 @@ export function levenshteinLightning(a, b) {
 
   if (n < 129) return myers_128(a, b);
 
+  if (n < 225) return myers_x64(a, b);
+
   if (n < 257) return myers_256(a, b);
 
-  return myers_x64(a, b);
+  if (n < 513) return myers_x64(a, b);
+
+  // if (n < 513) return myers_512(a, b);
+
+  return myers_x128(a, b);
 
 }
 

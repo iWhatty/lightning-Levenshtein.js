@@ -213,7 +213,7 @@ function renderSvg({ algorithms, series, lengths }) {
   );
 
   // Legend
-  const legendX = WIDTH - MARGIN.right + 24;
+  const legendX = WIDTH - MARGIN.right + 10;
   const legendY = MARGIN.top + 10;
   const legendRowH = 26;
 

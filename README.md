@@ -189,8 +189,9 @@ bench/bolt/
 bench/packages/
   run-bench.js
   render-readme-table.js
-  render-readme-chart.js
   render-readme-line-chart.js
+  render-readme-rank-chart.js
+  render-relative-bar-chart.js
   render-readme-relative-fastest-chart.js
   results.json
 ```
