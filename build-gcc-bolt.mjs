@@ -1,28 +1,36 @@
-// ./build-gcc.js
+// ./build-gcc-bolt.mjs
+"use strict";
 
+import {
+  mkdirSync,
+  unlinkSync,
+  readFileSync,
+  writeFileSync,
+  existsSync,
+  copyFileSync
+} from "fs";
+import { execSync } from "child_process";
+import { resolve } from "path";
 
-import { unlinkSync } from 'fs';
-import { execSync } from 'child_process';
-import { resolve } from 'path';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+const srcDir = resolve("./bench/bolt/");
+const benchDir = resolve("./bench/");
+const distDir = resolve("./dist/");
 
+const entryFile = resolve(srcDir, "levenshtein-lightning-v2.js");
+const externsFile = resolve("./", "externs.js");
 
-const srcDir = resolve('./bench/bolt/');
-const distDir = resolve('./bench/');
+const benchOutputFile = resolve(benchDir, "lightning-levenshtein-v2.min.js");
+const distOutputFile = resolve(distDir, "lightning-levenshtein-v2.min.js");
+const tempWrappedFile = resolve(srcDir, "index_temp.js");
 
-const entryFile = resolve(srcDir, 'levenshtein-lightning-v2.js');
-const externsFile = resolve("./", 'externs.js');
+mkdirSync(benchDir, { recursive: true });
+mkdirSync(distDir, { recursive: true });
 
-const closureFile = resolve(distDir, 'lightning-Levenshtein-v2.min.js');
-const tempWrappedFile = resolve(srcDir, 'index_temp.js');
-
-// Ensure externs file exists
 if (!existsSync(externsFile)) {
-  writeFileSync(externsFile, '/** @externs */\n');
+  writeFileSync(externsFile, "/** @externs */\n");
 }
 
-// Inject global exports safely
-const base = readFileSync(entryFile, 'utf8');
+const base = readFileSync(entryFile, "utf8");
 const globalExport = `
 if (typeof globalThis !== 'undefined') {
   globalThis['levenshteinLightning'] = levenshteinLightning;
@@ -30,77 +38,55 @@ if (typeof globalThis !== 'undefined') {
 `;
 writeFileSync(tempWrappedFile, base + globalExport);
 
-
-// ✅ IMPORTANT: No backslashes, no stdin redirection
 const cmd = [
-  'npx',
-  'google-closure-compiler',
-  // '--module_resolution=node',
-  `--js="${srcDir}"/**.js`,
+  "npx",
+  "google-closure-compiler",
+  `--js="${srcDir}/*.js"`,
   `--entry_point="${tempWrappedFile}"`,
-  // `--js="${bundleFile}"`,
-  // `--js="${tempWrappedFile}"`,
-  // `--externs="${externsFile}"`,
-  '--language_in=ECMASCRIPT_NEXT',
-  '--language_out=ECMASCRIPT_NEXT',
-  '--compilation_level=ADVANCED',
-  '--assume_function_wrapper',
-  '--warning_level=VERBOSE',
-  `--js_output_file="${closureFile}"`,
-  '--rewrite_polyfills=false', // prevent unexpected polyfill insertions`
-
+  "--language_in=ECMASCRIPT_NEXT",
+  "--language_out=ECMASCRIPT_NEXT",
+  "--compilation_level=ADVANCED",
+  "--assume_function_wrapper",
+  "--warning_level=VERBOSE",
+  `--js_output_file="${benchOutputFile}"`,
+  "--rewrite_polyfills=false",
   "--dependency_mode=PRUNE",
-  "--module_resolution=node",
-  // "--formatting=PRETTY_PRINT",
+  "--module_resolution=NODE"
+].join(" ");
 
-
-].join(' ');
-
-console.log('🔒 Running Closure Compiler (ADVANCED)...');
+console.log("Running Closure Compiler for v2...");
 try {
-  execSync(cmd, { stdio: 'pipe' });
+  execSync(cmd, { stdio: "pipe" });
 } catch (err) {
-  console.error('❌ Closure Compiler failed:\n');
-  console.error(err.stdout?.toString() || '');
-  console.error(err.stderr?.toString() || '');
+  console.error("Closure Compiler failed:\n");
+  console.error(err.stdout?.toString() || "");
+  console.error(err.stderr?.toString() || "");
   throw err;
 }
 
+console.log("Rewriting preserved global export to ESM export...");
+const closureCode = readFileSync(benchOutputFile, "utf8");
 
-
-console.log('🧹 Replacing globalThis export with ESM export...');
-const closureCode = readFileSync(closureFile, 'utf8');
-
-// Match and capture globalThis exports
 let fixedCode = closureCode.replace(
   /"undefined"!==typeof globalThis&&\(\s*globalThis\.levenshteinLightning=([a-zA-Z_$][\w$]*)\);?/,
-  '\nexport {$1 as levenshteinLightning};'
+  "\nexport {$1 as levenshteinLightning};"
 );
 
-// Inserts "use strict"
 fixedCode = addUseStrict(fixedCode);
-writeFileSync(closureFile, fixedCode);
+writeFileSync(benchOutputFile, fixedCode);
 
+console.log(`Primary v2 output written to: ${benchOutputFile}`);
 
-console.log(`✅ Output written to: ${closureFile}`);
+copyFileSync(benchOutputFile, distOutputFile);
+console.log(`Copied v2 output to: ${distOutputFile}`);
 
-
-// 🧼 Cleanup: remove temporary index file
 try {
   unlinkSync(tempWrappedFile);
-  console.log('🗑️  Cleaned up temporary file: index_temp.js');
+  console.log("Cleaned up temporary file: index_temp.js");
 } catch (err) {
-  console.warn('⚠️  Failed to remove temporary file:', err.message);
+  console.warn("Failed to remove temporary file:", err.message);
 }
 
-
-
-
-/**
- * Inserts "use strict"; below a shebang (if present) or at the top of JS code.
- * @param {string} code - JavaScript source code.
- * @returns {string} - Code with "use strict"; properly inserted.
- */
 function addUseStrict(code) {
   const strictRegex = /^\s*["']use strict["'];?/;
   if (strictRegex.test(code)) return code;

@@ -1,0 +1,1648 @@
+{
+  "meta": {
+    "generatedAt": "2026-03-22T23:42:01.438Z",
+    "pairs": 500,
+    "durationMs": 500,
+    "warmRounds": 3,
+    "lengths": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024
+    ],
+    "seeds": [
+      1337,
+      7331,
+      20250321
+    ],
+    "alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    "unit": "ops/sec",
+    "note": "Median across seeds. 500 random equal-length string pairs per N."
+  },
+  "results": {
+    "1": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 108488000,
+            "elapsed": 500.0015000000001,
+            "opsPerMs": 216975.34907395273,
+            "opsPerSec": 216975349.07395273
+          },
+          {
+            "seed": 7331,
+            "calls": 82741500,
+            "elapsed": 500.0014000000001,
+            "opsPerMs": 165482.53664889734,
+            "opsPerSec": 165482536.64889735
+          },
+          {
+            "seed": 20250321,
+            "calls": 80670000,
+            "elapsed": 500.0009999999993,
+            "opsPerMs": 161339.6773206456,
+            "opsPerSec": 161339677.3206456
+          }
+        ],
+        "meanOpsPerMs": 181265.8543478319,
+        "meanOpsPerSec": 181265854.34783188,
+        "medianOpsPerMs": 165482.53664889734,
+        "medianOpsPerSec": 165482536.64889735
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 49523000,
+            "elapsed": 500.0028,
+            "opsPerMs": 99045.44534550607,
+            "opsPerSec": 99045445.34550607
+          },
+          {
+            "seed": 7331,
+            "calls": 50915000,
+            "elapsed": 500.0006000000003,
+            "opsPerMs": 101829.87780414657,
+            "opsPerSec": 101829877.80414657
+          },
+          {
+            "seed": 20250321,
+            "calls": 46387000,
+            "elapsed": 500.0019000000002,
+            "opsPerMs": 92773.64746013962,
+            "opsPerSec": 92773647.46013962
+          }
+        ],
+        "meanOpsPerMs": 97882.9902032641,
+        "meanOpsPerSec": 97882990.2032641,
+        "medianOpsPerMs": 99045.44534550607,
+        "medianOpsPerSec": 99045445.34550607
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 58736500,
+            "elapsed": 500.0014000000001,
+            "opsPerMs": 117472.67107652096,
+            "opsPerSec": 117472671.07652096
+          },
+          {
+            "seed": 7331,
+            "calls": 59934500,
+            "elapsed": 500.0003999999999,
+            "opsPerMs": 119868.90410487674,
+            "opsPerSec": 119868904.10487674
+          },
+          {
+            "seed": 20250321,
+            "calls": 57520000,
+            "elapsed": 500.0005999999994,
+            "opsPerMs": 115039.8619521658,
+            "opsPerSec": 115039861.9521658
+          }
+        ],
+        "meanOpsPerMs": 117460.47904452117,
+        "meanOpsPerSec": 117460479.04452117,
+        "medianOpsPerMs": 117472.67107652096,
+        "medianOpsPerSec": 117472671.07652096
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 41651500,
+            "elapsed": 500.0027,
+            "opsPerMs": 83302.5501662291,
+            "opsPerSec": 83302550.1662291
+          },
+          {
+            "seed": 7331,
+            "calls": 41469000,
+            "elapsed": 500.00210000000015,
+            "opsPerMs": 82937.651661863,
+            "opsPerSec": 82937651.661863
+          },
+          {
+            "seed": 20250321,
+            "calls": 41534000,
+            "elapsed": 500.0056999999997,
+            "opsPerMs": 83067.05303559544,
+            "opsPerSec": 83067053.03559545
+          }
+        ],
+        "meanOpsPerMs": 83102.41828789585,
+        "meanOpsPerSec": 83102418.28789584,
+        "medianOpsPerMs": 83067.05303559544,
+        "medianOpsPerSec": 83067053.03559545
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 56931000,
+            "elapsed": 500.0025999999998,
+            "opsPerMs": 113861.40792067886,
+            "opsPerSec": 113861407.92067885
+          },
+          {
+            "seed": 7331,
+            "calls": 58182000,
+            "elapsed": 500.0018999999993,
+            "opsPerMs": 116363.55781848045,
+            "opsPerSec": 116363557.81848045
+          },
+          {
+            "seed": 20250321,
+            "calls": 57569000,
+            "elapsed": 500.0010000000002,
+            "opsPerMs": 115137.76972446051,
+            "opsPerSec": 115137769.72446051
+          }
+        ],
+        "meanOpsPerMs": 115120.91182120661,
+        "meanOpsPerSec": 115120911.82120661,
+        "medianOpsPerMs": 115137.76972446051,
+        "medianOpsPerSec": 115137769.72446051
+      }
+    },
+    "2": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 44275000,
+            "elapsed": 500.0010000000002,
+            "opsPerMs": 88549.82290035416,
+            "opsPerSec": 88549822.90035416
+          },
+          {
+            "seed": 7331,
+            "calls": 43764500,
+            "elapsed": 500.0053000000007,
+            "opsPerMs": 87528.07220243453,
+            "opsPerSec": 87528072.20243452
+          },
+          {
+            "seed": 20250321,
+            "calls": 44207500,
+            "elapsed": 500.0036999999993,
+            "opsPerMs": 88414.34573384169,
+            "opsPerSec": 88414345.73384169
+          }
+        ],
+        "meanOpsPerMs": 88164.0802788768,
+        "meanOpsPerSec": 88164080.2788768,
+        "medianOpsPerMs": 88414.34573384169,
+        "medianOpsPerSec": 88414345.73384169
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 37152500,
+            "elapsed": 500.0058999999992,
+            "opsPerMs": 74304.12321134623,
+            "opsPerSec": 74304123.21134624
+          },
+          {
+            "seed": 7331,
+            "calls": 36576000,
+            "elapsed": 500.0043000000005,
+            "opsPerMs": 73151.3708982102,
+            "opsPerSec": 73151370.8982102
+          },
+          {
+            "seed": 20250321,
+            "calls": 37068500,
+            "elapsed": 500.0063000000009,
+            "opsPerMs": 74136.06588556971,
+            "opsPerSec": 74136065.8855697
+          }
+        ],
+        "meanOpsPerMs": 73863.85333170871,
+        "meanOpsPerSec": 73863853.33170871,
+        "medianOpsPerMs": 74136.06588556971,
+        "medianOpsPerSec": 74136065.8855697
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 44126500,
+            "elapsed": 500.0041999999994,
+            "opsPerMs": 88252.25868102719,
+            "opsPerSec": 88252258.68102719
+          },
+          {
+            "seed": 7331,
+            "calls": 43225000,
+            "elapsed": 500.0017000000007,
+            "opsPerMs": 86449.70607099924,
+            "opsPerSec": 86449706.07099923
+          },
+          {
+            "seed": 20250321,
+            "calls": 44132500,
+            "elapsed": 500.0014999999985,
+            "opsPerMs": 88264.73520579466,
+            "opsPerSec": 88264735.20579466
+          }
+        ],
+        "meanOpsPerMs": 87655.56665260701,
+        "meanOpsPerSec": 87655566.65260704,
+        "medianOpsPerMs": 88252.25868102719,
+        "medianOpsPerSec": 88252258.68102719
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 21152500,
+            "elapsed": 500.0087999999996,
+            "opsPerMs": 42304.2554451042,
+            "opsPerSec": 42304255.445104204
+          },
+          {
+            "seed": 7331,
+            "calls": 21035000,
+            "elapsed": 500.0071000000007,
+            "opsPerMs": 42069.40261448282,
+            "opsPerSec": 42069402.61448282
+          },
+          {
+            "seed": 20250321,
+            "calls": 20857500,
+            "elapsed": 500.0088999999989,
+            "opsPerMs": 41714.25748621684,
+            "opsPerSec": 41714257.48621684
+          }
+        ],
+        "meanOpsPerMs": 42029.30518193462,
+        "meanOpsPerSec": 42029305.181934625,
+        "medianOpsPerMs": 42069.40261448282,
+        "medianOpsPerSec": 42069402.61448282
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 28036000,
+            "elapsed": 500.0005999999994,
+            "opsPerMs": 56071.93271368081,
+            "opsPerSec": 56071932.71368081
+          },
+          {
+            "seed": 7331,
+            "calls": 27814500,
+            "elapsed": 500.0059000000001,
+            "opsPerMs": 55628.34358554568,
+            "opsPerSec": 55628343.585545674
+          },
+          {
+            "seed": 20250321,
+            "calls": 28017500,
+            "elapsed": 500.0077000000001,
+            "opsPerMs": 56034.13707428904,
+            "opsPerSec": 56034137.074289046
+          }
+        ],
+        "meanOpsPerMs": 55911.47112450518,
+        "meanOpsPerSec": 55911471.124505185,
+        "medianOpsPerMs": 56034.13707428904,
+        "medianOpsPerSec": 56034137.074289046
+      }
+    },
+    "4": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 21777500,
+            "elapsed": 500.0072,
+            "opsPerMs": 43554.372817031435,
+            "opsPerSec": 43554372.817031436
+          },
+          {
+            "seed": 7331,
+            "calls": 23477000,
+            "elapsed": 500.00480000000243,
+            "opsPerMs": 46953.54924592701,
+            "opsPerSec": 46953549.24592701
+          },
+          {
+            "seed": 20250321,
+            "calls": 23355000,
+            "elapsed": 500.0034999999989,
+            "opsPerMs": 46709.673032288876,
+            "opsPerSec": 46709673.03228888
+          }
+        ],
+        "meanOpsPerMs": 45739.19836508244,
+        "meanOpsPerSec": 45739198.36508244,
+        "medianOpsPerMs": 46709.673032288876,
+        "medianOpsPerSec": 46709673.03228888
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 21757000,
+            "elapsed": 500.001400000001,
+            "opsPerMs": 43513.87816114106,
+            "opsPerSec": 43513878.16114106
+          },
+          {
+            "seed": 7331,
+            "calls": 22023500,
+            "elapsed": 500.0090999999993,
+            "opsPerMs": 44046.198359189926,
+            "opsPerSec": 44046198.35918993
+          },
+          {
+            "seed": 20250321,
+            "calls": 22295500,
+            "elapsed": 500.0054999999993,
+            "opsPerMs": 44590.509504395515,
+            "opsPerSec": 44590509.504395515
+          }
+        ],
+        "meanOpsPerMs": 44050.195341575505,
+        "meanOpsPerSec": 44050195.3415755,
+        "medianOpsPerMs": 44046.198359189926,
+        "medianOpsPerSec": 44046198.35918993
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 11781500,
+            "elapsed": 500.01300000000083,
+            "opsPerMs": 23562.387377928135,
+            "opsPerSec": 23562387.377928134
+          },
+          {
+            "seed": 7331,
+            "calls": 11689000,
+            "elapsed": 500.0120999999999,
+            "opsPerMs": 23377.434266090764,
+            "opsPerSec": 23377434.266090766
+          },
+          {
+            "seed": 20250321,
+            "calls": 11914000,
+            "elapsed": 500.0025999999998,
+            "opsPerMs": 23827.876095044314,
+            "opsPerSec": 23827876.095044315
+          }
+        ],
+        "meanOpsPerMs": 23589.232579687738,
+        "meanOpsPerSec": 23589232.57968774,
+        "medianOpsPerMs": 23562.387377928135,
+        "medianOpsPerSec": 23562387.377928134
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 10087500,
+            "elapsed": 500.01600000000326,
+            "opsPerMs": 20174.35442065841,
+            "opsPerSec": 20174354.42065841
+          },
+          {
+            "seed": 7331,
+            "calls": 10808500,
+            "elapsed": 500.0112999999983,
+            "opsPerMs": 21616.511466840922,
+            "opsPerSec": 21616511.466840923
+          },
+          {
+            "seed": 20250321,
+            "calls": 10696500,
+            "elapsed": 500.01520000000164,
+            "opsPerMs": 21392.349672569882,
+            "opsPerSec": 21392349.672569882
+          }
+        ],
+        "meanOpsPerMs": 21061.071853356403,
+        "meanOpsPerSec": 21061071.853356406,
+        "medianOpsPerMs": 21392.349672569882,
+        "medianOpsPerSec": 21392349.672569882
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 12379500,
+            "elapsed": 500.0103999999992,
+            "opsPerMs": 24758.485023511552,
+            "opsPerSec": 24758485.02351155
+          },
+          {
+            "seed": 7331,
+            "calls": 12498000,
+            "elapsed": 500.00900000000183,
+            "opsPerMs": 24995.550080098466,
+            "opsPerSec": 24995550.080098465
+          },
+          {
+            "seed": 20250321,
+            "calls": 12291500,
+            "elapsed": 500.0180999999975,
+            "opsPerMs": 24582.1101276135,
+            "opsPerSec": 24582110.1276135
+          }
+        ],
+        "meanOpsPerMs": 24778.715077074507,
+        "meanOpsPerSec": 24778715.07707451,
+        "medianOpsPerMs": 24758.485023511552,
+        "medianOpsPerSec": 24758485.02351155
+      }
+    },
+    "8": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 16022000,
+            "elapsed": 500.0120999999999,
+            "opsPerMs": 32043.2245539658,
+            "opsPerSec": 32043224.5539658
+          },
+          {
+            "seed": 7331,
+            "calls": 16142000,
+            "elapsed": 500.0069999999978,
+            "opsPerMs": 32283.548030327718,
+            "opsPerSec": 32283548.03032772
+          },
+          {
+            "seed": 20250321,
+            "calls": 16003000,
+            "elapsed": 500.0057000000015,
+            "opsPerMs": 32005.635135759356,
+            "opsPerSec": 32005635.135759357
+          }
+        ],
+        "meanOpsPerMs": 32110.802573350957,
+        "meanOpsPerSec": 32110802.573350955,
+        "medianOpsPerMs": 32043.2245539658,
+        "medianOpsPerSec": 32043224.5539658
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 11678500,
+            "elapsed": 500.0169999999998,
+            "opsPerMs": 23356.205888999782,
+            "opsPerSec": 23356205.888999783
+          },
+          {
+            "seed": 7331,
+            "calls": 11589000,
+            "elapsed": 500.0043000000005,
+            "opsPerMs": 23177.800670914206,
+            "opsPerSec": 23177800.670914207
+          },
+          {
+            "seed": 20250321,
+            "calls": 11548000,
+            "elapsed": 500.0207999999984,
+            "opsPerMs": 23095.039246367425,
+            "opsPerSec": 23095039.246367425
+          }
+        ],
+        "meanOpsPerMs": 23209.68193542714,
+        "meanOpsPerSec": 23209681.93542714,
+        "medianOpsPerMs": 23177.800670914206,
+        "medianOpsPerSec": 23177800.670914207
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 5683500,
+            "elapsed": 500.0097999999998,
+            "opsPerMs": 11366.777211166665,
+            "opsPerSec": 11366777.211166665
+          },
+          {
+            "seed": 7331,
+            "calls": 5653500,
+            "elapsed": 500.01460000000225,
+            "opsPerMs": 11306.669845240469,
+            "opsPerSec": 11306669.845240468
+          },
+          {
+            "seed": 20250321,
+            "calls": 5551000,
+            "elapsed": 500.03769999999713,
+            "opsPerMs": 11101.162972311951,
+            "opsPerSec": 11101162.972311951
+          }
+        ],
+        "meanOpsPerMs": 11258.203342906361,
+        "meanOpsPerSec": 11258203.342906361,
+        "medianOpsPerMs": 11306.669845240469,
+        "medianOpsPerSec": 11306669.845240468
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 4060000,
+            "elapsed": 500.0059999999976,
+            "opsPerMs": 8119.902561169305,
+            "opsPerSec": 8119902.561169305
+          },
+          {
+            "seed": 7331,
+            "calls": 4010000,
+            "elapsed": 500.0512999999992,
+            "opsPerMs": 8019.177232415967,
+            "opsPerSec": 8019177.232415968
+          },
+          {
+            "seed": 20250321,
+            "calls": 4058000,
+            "elapsed": 500.0470999999998,
+            "opsPerMs": 8115.235544811682,
+            "opsPerSec": 8115235.544811682
+          }
+        ],
+        "meanOpsPerMs": 8084.771779465652,
+        "meanOpsPerSec": 8084771.779465652,
+        "medianOpsPerMs": 8115.235544811682,
+        "medianOpsPerSec": 8115235.544811682
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 4244500,
+            "elapsed": 500.0479000000014,
+            "opsPerMs": 8488.1868317015,
+            "opsPerSec": 8488186.8317015
+          },
+          {
+            "seed": 7331,
+            "calls": 4179000,
+            "elapsed": 500.0128000000004,
+            "opsPerMs": 8357.78604067735,
+            "opsPerSec": 8357786.040677351
+          },
+          {
+            "seed": 20250321,
+            "calls": 4220000,
+            "elapsed": 500.0025999999998,
+            "opsPerMs": 8439.95611222822,
+            "opsPerSec": 8439956.112228218
+          }
+        ],
+        "meanOpsPerMs": 8428.642994869022,
+        "meanOpsPerSec": 8428642.994869024,
+        "medianOpsPerMs": 8439.95611222822,
+        "medianOpsPerSec": 8439956.112228218
+      }
+    },
+    "16": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 5945500,
+            "elapsed": 500.01100000000224,
+            "opsPerMs": 11890.738403755064,
+            "opsPerSec": 11890738.403755063
+          },
+          {
+            "seed": 7331,
+            "calls": 5996000,
+            "elapsed": 500.0184000000045,
+            "opsPerMs": 11991.558710639341,
+            "opsPerSec": 11991558.71063934
+          },
+          {
+            "seed": 20250321,
+            "calls": 6013000,
+            "elapsed": 500.02470000000176,
+            "opsPerMs": 12025.405944946277,
+            "opsPerSec": 12025405.944946276
+          }
+        ],
+        "meanOpsPerMs": 11969.234353113561,
+        "meanOpsPerSec": 11969234.35311356,
+        "medianOpsPerMs": 11991.558710639341,
+        "medianOpsPerSec": 11991558.71063934
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 3944000,
+            "elapsed": 500.0433000000012,
+            "opsPerMs": 7887.316958351388,
+            "opsPerSec": 7887316.958351389
+          },
+          {
+            "seed": 7331,
+            "calls": 4122500,
+            "elapsed": 500.0184999999983,
+            "opsPerMs": 8244.694946287014,
+            "opsPerSec": 8244694.9462870145
+          },
+          {
+            "seed": 20250321,
+            "calls": 4053500,
+            "elapsed": 500.04149999999936,
+            "opsPerMs": 8106.327174844499,
+            "opsPerSec": 8106327.174844499
+          }
+        ],
+        "meanOpsPerMs": 8079.446359827634,
+        "meanOpsPerSec": 8079446.359827634,
+        "medianOpsPerMs": 8106.327174844499,
+        "medianOpsPerSec": 8106327.174844499
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 1636000,
+            "elapsed": 500.0141000000003,
+            "opsPerMs": 3271.90773220195,
+            "opsPerSec": 3271907.7322019497
+          },
+          {
+            "seed": 7331,
+            "calls": 1669000,
+            "elapsed": 500.0722999999998,
+            "opsPerMs": 3337.5173949846862,
+            "opsPerSec": 3337517.3949846863
+          },
+          {
+            "seed": 20250321,
+            "calls": 1674500,
+            "elapsed": 500.1408999999985,
+            "opsPerMs": 3348.05651767333,
+            "opsPerSec": 3348056.51767333
+          }
+        ],
+        "meanOpsPerMs": 3319.1605482866557,
+        "meanOpsPerSec": 3319160.5482866555,
+        "medianOpsPerMs": 3337.5173949846862,
+        "medianOpsPerSec": 3337517.3949846863
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 897500,
+            "elapsed": 500.1713000000018,
+            "opsPerMs": 1794.385243615531,
+            "opsPerSec": 1794385.243615531
+          },
+          {
+            "seed": 7331,
+            "calls": 885000,
+            "elapsed": 500.0150999999969,
+            "opsPerMs": 1769.946547614273,
+            "opsPerSec": 1769946.547614273
+          },
+          {
+            "seed": 20250321,
+            "calls": 904000,
+            "elapsed": 500.18879999999626,
+            "opsPerMs": 1807.3175568905317,
+            "opsPerSec": 1807317.5568905317
+          }
+        ],
+        "meanOpsPerMs": 1790.5497827067786,
+        "meanOpsPerSec": 1790549.7827067785,
+        "medianOpsPerMs": 1794.385243615531,
+        "medianOpsPerSec": 1794385.243615531
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 898000,
+            "elapsed": 500.21689999999944,
+            "opsPerMs": 1795.221233029114,
+            "opsPerSec": 1795221.233029114
+          },
+          {
+            "seed": 7331,
+            "calls": 882500,
+            "elapsed": 500.04469999999856,
+            "opsPerMs": 1764.8422231052596,
+            "opsPerSec": 1764842.2231052595
+          },
+          {
+            "seed": 20250321,
+            "calls": 901000,
+            "elapsed": 500.0957000000053,
+            "opsPerMs": 1801.655163201744,
+            "opsPerSec": 1801655.163201744
+          }
+        ],
+        "meanOpsPerMs": 1787.2395397787059,
+        "meanOpsPerSec": 1787239.5397787057,
+        "medianOpsPerMs": 1795.221233029114,
+        "medianOpsPerSec": 1795221.233029114
+      }
+    },
+    "32": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 3522500,
+            "elapsed": 500.0593999999983,
+            "opsPerMs": 7044.1631534173985,
+            "opsPerSec": 7044163.153417398
+          },
+          {
+            "seed": 7331,
+            "calls": 3239500,
+            "elapsed": 500.0297999999966,
+            "opsPerMs": 6478.613874613117,
+            "opsPerSec": 6478613.874613117
+          },
+          {
+            "seed": 20250321,
+            "calls": 3237500,
+            "elapsed": 500.01060000000143,
+            "opsPerMs": 6474.862732910044,
+            "opsPerSec": 6474862.732910044
+          }
+        ],
+        "meanOpsPerMs": 6665.87992031352,
+        "meanOpsPerSec": 6665879.920313519,
+        "medianOpsPerMs": 6478.613874613117,
+        "medianOpsPerSec": 6478613.874613117
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 2627500,
+            "elapsed": 500.0587000000014,
+            "opsPerMs": 5254.3831354198865,
+            "opsPerSec": 5254383.135419887
+          },
+          {
+            "seed": 7331,
+            "calls": 2122500,
+            "elapsed": 500.07220000000234,
+            "opsPerMs": 4244.387110501224,
+            "opsPerSec": 4244387.110501224
+          },
+          {
+            "seed": 20250321,
+            "calls": 2128500,
+            "elapsed": 500.0309999999954,
+            "opsPerMs": 4256.736082362932,
+            "opsPerSec": 4256736.082362932
+          }
+        ],
+        "meanOpsPerMs": 4585.168776094681,
+        "meanOpsPerSec": 4585168.776094682,
+        "medianOpsPerMs": 4256.736082362932,
+        "medianOpsPerSec": 4256736.082362932
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 461000,
+            "elapsed": 500.184699999998,
+            "opsPerMs": 921.6595389663096,
+            "opsPerSec": 921659.5389663096
+          },
+          {
+            "seed": 7331,
+            "calls": 451500,
+            "elapsed": 500.3564999999944,
+            "opsPerMs": 902.3566197301425,
+            "opsPerSec": 902356.6197301425
+          },
+          {
+            "seed": 20250321,
+            "calls": 455500,
+            "elapsed": 500.26490000000194,
+            "opsPerMs": 910.5176077713992,
+            "opsPerSec": 910517.6077713992
+          }
+        ],
+        "meanOpsPerMs": 911.5112554892838,
+        "meanOpsPerSec": 911511.2554892838,
+        "medianOpsPerMs": 910.5176077713992,
+        "medianOpsPerSec": 910517.6077713992
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 210500,
+            "elapsed": 500.0699999999997,
+            "opsPerMs": 420.9410682504452,
+            "opsPerSec": 420941.0682504452
+          },
+          {
+            "seed": 7331,
+            "calls": 210000,
+            "elapsed": 500.75039999999717,
+            "opsPerMs": 419.37060859062956,
+            "opsPerSec": 419370.60859062953
+          },
+          {
+            "seed": 20250321,
+            "calls": 206500,
+            "elapsed": 500.3498999999938,
+            "opsPerMs": 412.711184712943,
+            "opsPerSec": 412711.184712943
+          }
+        ],
+        "meanOpsPerMs": 417.67428718467255,
+        "meanOpsPerSec": 417674.2871846726,
+        "medianOpsPerMs": 419.37060859062956,
+        "medianOpsPerSec": 419370.60859062953
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 198000,
+            "elapsed": 500.11389999999665,
+            "opsPerMs": 395.9098117448872,
+            "opsPerSec": 395909.8117448872
+          },
+          {
+            "seed": 7331,
+            "calls": 198000,
+            "elapsed": 500.4806000000026,
+            "opsPerMs": 395.61973031521893,
+            "opsPerSec": 395619.7303152189
+          },
+          {
+            "seed": 20250321,
+            "calls": 197500,
+            "elapsed": 500.02640000000247,
+            "opsPerMs": 394.97914510113674,
+            "opsPerSec": 394979.14510113676
+          }
+        ],
+        "meanOpsPerMs": 395.5028957204143,
+        "meanOpsPerSec": 395502.8957204143,
+        "medianOpsPerMs": 395.61973031521893,
+        "medianOpsPerSec": 395619.7303152189
+      }
+    },
+    "64": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 892000,
+            "elapsed": 500.23049999999785,
+            "opsPerMs": 1783.17795496277,
+            "opsPerSec": 1783177.95496277
+          },
+          {
+            "seed": 7331,
+            "calls": 909500,
+            "elapsed": 500.1933999999965,
+            "opsPerMs": 1818.2966828430892,
+            "opsPerSec": 1818296.6828430893
+          },
+          {
+            "seed": 20250321,
+            "calls": 907000,
+            "elapsed": 500.22299999999814,
+            "opsPerMs": 1813.1913166727707,
+            "opsPerSec": 1813191.3166727705
+          }
+        ],
+        "meanOpsPerMs": 1804.8886514928765,
+        "meanOpsPerSec": 1804888.6514928767,
+        "medianOpsPerMs": 1813.1913166727707,
+        "medianOpsPerSec": 1813191.3166727705
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 539000,
+            "elapsed": 500.14300000000367,
+            "opsPerMs": 1077.691780150869,
+            "opsPerSec": 1077691.780150869
+          },
+          {
+            "seed": 7331,
+            "calls": 545500,
+            "elapsed": 500.39949999999953,
+            "opsPerMs": 1090.1289869394363,
+            "opsPerSec": 1090128.9869394363
+          },
+          {
+            "seed": 20250321,
+            "calls": 541500,
+            "elapsed": 500.03080000000045,
+            "opsPerMs": 1082.9332913092544,
+            "opsPerSec": 1082933.2913092545
+          }
+        ],
+        "meanOpsPerMs": 1083.5846861331866,
+        "meanOpsPerSec": 1083584.6861331866,
+        "medianOpsPerMs": 1082.9332913092544,
+        "medianOpsPerSec": 1082933.2913092545
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 121500,
+            "elapsed": 501.7272000000012,
+            "opsPerMs": 242.1634705074784,
+            "opsPerSec": 242163.4705074784
+          },
+          {
+            "seed": 7331,
+            "calls": 122000,
+            "elapsed": 501.95700000000215,
+            "opsPerMs": 243.04870735939429,
+            "opsPerSec": 243048.7073593943
+          },
+          {
+            "seed": 20250321,
+            "calls": 121500,
+            "elapsed": 500.015999999996,
+            "opsPerMs": 242.99222424882598,
+            "opsPerSec": 242992.22424882598
+          }
+        ],
+        "meanOpsPerMs": 242.7348007052329,
+        "meanOpsPerSec": 242734.8007052329,
+        "medianOpsPerMs": 242.99222424882598,
+        "medianOpsPerSec": 242992.22424882598
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 57000,
+            "elapsed": 500.0115000000005,
+            "opsPerMs": 113.9973780603045,
+            "opsPerSec": 113997.3780603045
+          },
+          {
+            "seed": 7331,
+            "calls": 57500,
+            "elapsed": 501.1484000000055,
+            "opsPerMs": 114.73647326819635,
+            "opsPerSec": 114736.47326819635
+          },
+          {
+            "seed": 20250321,
+            "calls": 57000,
+            "elapsed": 502.3787999999986,
+            "opsPerMs": 113.4602017441822,
+            "opsPerSec": 113460.2017441822
+          }
+        ],
+        "meanOpsPerMs": 114.06468435756102,
+        "meanOpsPerSec": 114064.68435756101,
+        "medianOpsPerMs": 113.9973780603045,
+        "medianOpsPerSec": 113997.3780603045
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 53000,
+            "elapsed": 500.0254999999961,
+            "opsPerMs": 105.99459427569276,
+            "opsPerSec": 105994.59427569277
+          },
+          {
+            "seed": 7331,
+            "calls": 54000,
+            "elapsed": 504.47269999999844,
+            "opsPerMs": 107.04246235722997,
+            "opsPerSec": 107042.46235722996
+          },
+          {
+            "seed": 20250321,
+            "calls": 53500,
+            "elapsed": 503.7916000000041,
+            "opsPerMs": 106.19470431821325,
+            "opsPerSec": 106194.70431821325
+          }
+        ],
+        "meanOpsPerMs": 106.410586983712,
+        "meanOpsPerSec": 106410.586983712,
+        "medianOpsPerMs": 106.19470431821325,
+        "medianOpsPerSec": 106194.70431821325
+      }
+    },
+    "128": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 291000,
+            "elapsed": 500.5395999999964,
+            "opsPerMs": 581.3725827087449,
+            "opsPerSec": 581372.5827087449
+          },
+          {
+            "seed": 7331,
+            "calls": 331500,
+            "elapsed": 500.5855999999985,
+            "opsPerMs": 662.2244027794667,
+            "opsPerSec": 662224.4027794667
+          },
+          {
+            "seed": 20250321,
+            "calls": 292000,
+            "elapsed": 500.1399999999994,
+            "opsPerMs": 583.8365257727843,
+            "opsPerSec": 583836.5257727843
+          }
+        ],
+        "meanOpsPerMs": 609.1445037536652,
+        "meanOpsPerSec": 609144.5037536654,
+        "medianOpsPerMs": 583.8365257727843,
+        "medianOpsPerSec": 583836.5257727843
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 148500,
+            "elapsed": 501.719600000004,
+            "opsPerMs": 295.98205850438933,
+            "opsPerSec": 295982.0585043893
+          },
+          {
+            "seed": 7331,
+            "calls": 151000,
+            "elapsed": 501.3165999999983,
+            "opsPerMs": 301.2068620907437,
+            "opsPerSec": 301206.86209074367
+          },
+          {
+            "seed": 20250321,
+            "calls": 150000,
+            "elapsed": 500.00640000000567,
+            "opsPerMs": 299.996160049148,
+            "opsPerSec": 299996.16004914796
+          }
+        ],
+        "meanOpsPerMs": 299.0616935480937,
+        "meanOpsPerSec": 299061.6935480936,
+        "medianOpsPerMs": 299.996160049148,
+        "medianOpsPerSec": 299996.16004914796
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 31000,
+            "elapsed": 503.6895999999979,
+            "opsPerMs": 61.54584093060514,
+            "opsPerSec": 61545.84093060514
+          },
+          {
+            "seed": 7331,
+            "calls": 31000,
+            "elapsed": 503.08170000000246,
+            "opsPerMs": 61.620209997699874,
+            "opsPerSec": 61620.20999769987
+          },
+          {
+            "seed": 20250321,
+            "calls": 31000,
+            "elapsed": 505.3523999999961,
+            "opsPerMs": 61.34333190067018,
+            "opsPerSec": 61343.33190067018
+          }
+        ],
+        "meanOpsPerMs": 61.5031276096584,
+        "meanOpsPerSec": 61503.127609658404,
+        "medianOpsPerMs": 61.54584093060514,
+        "medianOpsPerSec": 61545.84093060514
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 15000,
+            "elapsed": 502.3671000000031,
+            "opsPerMs": 29.858643211308834,
+            "opsPerSec": 29858.643211308834
+          },
+          {
+            "seed": 7331,
+            "calls": 15000,
+            "elapsed": 503.0222999999969,
+            "opsPerMs": 29.819751529902536,
+            "opsPerSec": 29819.751529902536
+          },
+          {
+            "seed": 20250321,
+            "calls": 15000,
+            "elapsed": 500.83150000000023,
+            "opsPerMs": 29.95019282932482,
+            "opsPerSec": 29950.19282932482
+          }
+        ],
+        "meanOpsPerMs": 29.876195856845396,
+        "meanOpsPerSec": 29876.195856845396,
+        "medianOpsPerMs": 29.858643211308834,
+        "medianOpsPerSec": 29858.643211308834
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 14000,
+            "elapsed": 509.21370000000024,
+            "opsPerMs": 27.493368697660713,
+            "opsPerSec": 27493.368697660713
+          },
+          {
+            "seed": 7331,
+            "calls": 14000,
+            "elapsed": 508.65810000000056,
+            "opsPerMs": 27.523399312819326,
+            "opsPerSec": 27523.399312819325
+          },
+          {
+            "seed": 20250321,
+            "calls": 14000,
+            "elapsed": 509.35860000000685,
+            "opsPerMs": 27.48554751014278,
+            "opsPerSec": 27485.54751014278
+          }
+        ],
+        "meanOpsPerMs": 27.500771840207605,
+        "meanOpsPerSec": 27500.77184020761,
+        "medianOpsPerMs": 27.493368697660713,
+        "medianOpsPerSec": 27493.368697660713
+      }
+    },
+    "256": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 76000,
+            "elapsed": 503.35339999999997,
+            "opsPerMs": 150.98735798744977,
+            "opsPerSec": 150987.35798744977
+          },
+          {
+            "seed": 7331,
+            "calls": 77500,
+            "elapsed": 502.94840000000113,
+            "opsPerMs": 154.09135410312436,
+            "opsPerSec": 154091.35410312435
+          },
+          {
+            "seed": 20250321,
+            "calls": 77500,
+            "elapsed": 502.02099999999336,
+            "opsPerMs": 154.37601215885596,
+            "opsPerSec": 154376.01215885597
+          }
+        ],
+        "meanOpsPerMs": 153.15157474981004,
+        "meanOpsPerSec": 153151.57474981,
+        "medianOpsPerMs": 154.09135410312436,
+        "medianOpsPerSec": 154091.35410312435
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 41000,
+            "elapsed": 505.62170000000333,
+            "opsPerMs": 81.08829189886377,
+            "opsPerSec": 81088.29189886377
+          },
+          {
+            "seed": 7331,
+            "calls": 39500,
+            "elapsed": 504.2019,
+            "opsPerMs": 78.34163258805648,
+            "opsPerSec": 78341.63258805648
+          },
+          {
+            "seed": 20250321,
+            "calls": 39000,
+            "elapsed": 506.0421999999962,
+            "opsPerMs": 77.06867134796326,
+            "opsPerSec": 77068.67134796326
+          }
+        ],
+        "meanOpsPerMs": 78.8328652782945,
+        "meanOpsPerSec": 78832.8652782945,
+        "medianOpsPerMs": 78.34163258805648,
+        "medianOpsPerSec": 78341.63258805648
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 8000,
+            "elapsed": 501.79299999999785,
+            "opsPerMs": 15.942829015151734,
+            "opsPerSec": 15942.829015151734
+          },
+          {
+            "seed": 7331,
+            "calls": 8000,
+            "elapsed": 501.4290000000037,
+            "opsPerMs": 15.95440231817454,
+            "opsPerSec": 15954.40231817454
+          },
+          {
+            "seed": 20250321,
+            "calls": 8000,
+            "elapsed": 505.9137000000046,
+            "opsPerMs": 15.8129736356219,
+            "opsPerSec": 15812.9736356219
+          }
+        ],
+        "meanOpsPerMs": 15.903401656316058,
+        "meanOpsPerSec": 15903.401656316057,
+        "medianOpsPerMs": 15.942829015151734,
+        "medianOpsPerSec": 15942.829015151734
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 4000,
+            "elapsed": 530.3047000000006,
+            "opsPerMs": 7.54283339370742,
+            "opsPerSec": 7542.83339370742
+          },
+          {
+            "seed": 7331,
+            "calls": 4000,
+            "elapsed": 523.6543000000092,
+            "opsPerMs": 7.638627239382794,
+            "opsPerSec": 7638.627239382794
+          },
+          {
+            "seed": 20250321,
+            "calls": 4000,
+            "elapsed": 528.2776999999915,
+            "opsPerMs": 7.57177522352366,
+            "opsPerSec": 7571.775223523659
+          }
+        ],
+        "meanOpsPerMs": 7.584411952204625,
+        "meanOpsPerSec": 7584.411952204624,
+        "medianOpsPerMs": 7.57177522352366,
+        "medianOpsPerSec": 7571.775223523659
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 3500,
+            "elapsed": 503.3463999999949,
+            "opsPerMs": 6.953461870393899,
+            "opsPerSec": 6953.4618703938995
+          },
+          {
+            "seed": 7331,
+            "calls": 3500,
+            "elapsed": 500.5656000000017,
+            "opsPerMs": 6.992090547173014,
+            "opsPerSec": 6992.090547173014
+          },
+          {
+            "seed": 20250321,
+            "calls": 4000,
+            "elapsed": 576.3748999999953,
+            "opsPerMs": 6.939927467348133,
+            "opsPerSec": 6939.927467348132
+          }
+        ],
+        "meanOpsPerMs": 6.9618266283050145,
+        "meanOpsPerSec": 6961.826628305015,
+        "medianOpsPerMs": 6.953461870393899,
+        "medianOpsPerSec": 6953.4618703938995
+      }
+    },
+    "512": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 18000,
+            "elapsed": 504.01540000000386,
+            "opsPerMs": 35.71319447778751,
+            "opsPerSec": 35713.19447778751
+          },
+          {
+            "seed": 7331,
+            "calls": 18000,
+            "elapsed": 504.5398000000132,
+            "opsPerMs": 35.676075504845265,
+            "opsPerSec": 35676.07550484526
+          },
+          {
+            "seed": 20250321,
+            "calls": 18000,
+            "elapsed": 503.7887999999948,
+            "opsPerMs": 35.729257974770746,
+            "opsPerSec": 35729.25797477075
+          }
+        ],
+        "meanOpsPerMs": 35.706175985801174,
+        "meanOpsPerSec": 35706.17598580117,
+        "medianOpsPerMs": 35.71319447778751,
+        "medianOpsPerSec": 35713.19447778751
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 10000,
+            "elapsed": 516.153999999995,
+            "opsPerMs": 19.37406277971322,
+            "opsPerSec": 19374.062779713222
+          },
+          {
+            "seed": 7331,
+            "calls": 10000,
+            "elapsed": 518.0578000000096,
+            "opsPerMs": 19.302865433161735,
+            "opsPerSec": 19302.865433161736
+          },
+          {
+            "seed": 20250321,
+            "calls": 10000,
+            "elapsed": 518.241399999999,
+            "opsPerMs": 19.296026909467326,
+            "opsPerSec": 19296.026909467324
+          }
+        ],
+        "meanOpsPerMs": 19.324318374114096,
+        "meanOpsPerSec": 19324.318374114097,
+        "medianOpsPerMs": 19.302865433161735,
+        "medianOpsPerSec": 19302.865433161736
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 2500,
+            "elapsed": 624.1199000000051,
+            "opsPerMs": 4.005640582843103,
+            "opsPerSec": 4005.6405828431034
+          },
+          {
+            "seed": 7331,
+            "calls": 2500,
+            "elapsed": 622.5597000000125,
+            "opsPerMs": 4.01567913888411,
+            "opsPerSec": 4015.67913888411
+          },
+          {
+            "seed": 20250321,
+            "calls": 2500,
+            "elapsed": 625.6049000000057,
+            "opsPerMs": 3.996132383234174,
+            "opsPerSec": 3996.132383234174
+          }
+        ],
+        "meanOpsPerMs": 4.0058173683204625,
+        "meanOpsPerSec": 4005.8173683204623,
+        "medianOpsPerMs": 4.005640582843103,
+        "medianOpsPerSec": 4005.6405828431034
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 1000,
+            "elapsed": 525.0481,
+            "opsPerMs": 1.9045874082774512,
+            "opsPerSec": 1904.5874082774512
+          },
+          {
+            "seed": 7331,
+            "calls": 1000,
+            "elapsed": 519.7907999999879,
+            "opsPerMs": 1.9238509030941355,
+            "opsPerSec": 1923.8509030941354
+          },
+          {
+            "seed": 20250321,
+            "calls": 1000,
+            "elapsed": 520.8303000000014,
+            "opsPerMs": 1.9200111821451196,
+            "opsPerSec": 1920.0111821451196
+          }
+        ],
+        "meanOpsPerMs": 1.9161498311722351,
+        "meanOpsPerSec": 1916.1498311722353,
+        "medianOpsPerMs": 1.9200111821451196,
+        "medianOpsPerSec": 1920.0111821451196
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 1000,
+            "elapsed": 568.930600000007,
+            "opsPerMs": 1.7576836260872377,
+            "opsPerSec": 1757.6836260872378
+          },
+          {
+            "seed": 7331,
+            "calls": 1000,
+            "elapsed": 571.3399999999965,
+            "opsPerMs": 1.7502712920502785,
+            "opsPerSec": 1750.2712920502786
+          },
+          {
+            "seed": 20250321,
+            "calls": 1000,
+            "elapsed": 569.9441000000079,
+            "opsPerMs": 1.7545580347265393,
+            "opsPerSec": 1754.5580347265393
+          }
+        ],
+        "meanOpsPerMs": 1.7541709842880184,
+        "meanOpsPerSec": 1754.1709842880184,
+        "medianOpsPerMs": 1.7545580347265393,
+        "medianOpsPerSec": 1754.5580347265393
+      }
+    },
+    "1024": {
+      "lightning-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 5000,
+            "elapsed": 536.0342999999993,
+            "opsPerMs": 9.327761301842076,
+            "opsPerSec": 9327.761301842076
+          },
+          {
+            "seed": 7331,
+            "calls": 5000,
+            "elapsed": 539.9814000000042,
+            "opsPerMs": 9.259578200286086,
+            "opsPerSec": 9259.578200286085
+          },
+          {
+            "seed": 20250321,
+            "calls": 5000,
+            "elapsed": 538.5010000000038,
+            "opsPerMs": 9.285033825378159,
+            "opsPerSec": 9285.03382537816
+          }
+        ],
+        "meanOpsPerMs": 9.290791109168772,
+        "meanOpsPerSec": 9290.791109168773,
+        "medianOpsPerMs": 9.285033825378159,
+        "medianOpsPerSec": 9285.03382537816
+      },
+      "fastest-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 2500,
+            "elapsed": 501.62080000000424,
+            "opsPerMs": 4.983844370089875,
+            "opsPerSec": 4983.844370089874
+          },
+          {
+            "seed": 7331,
+            "calls": 2500,
+            "elapsed": 501.9347000000125,
+            "opsPerMs": 4.980727572729954,
+            "opsPerSec": 4980.727572729954
+          },
+          {
+            "seed": 20250321,
+            "calls": 2500,
+            "elapsed": 502.9244999999937,
+            "opsPerMs": 4.970925059328053,
+            "opsPerSec": 4970.925059328053
+          }
+        ],
+        "meanOpsPerMs": 4.978499000715961,
+        "meanOpsPerSec": 4978.49900071596,
+        "medianOpsPerMs": 4.980727572729954,
+        "medianOpsPerSec": 4980.727572729954
+      },
+      "js-levenshtein": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 1000,
+            "elapsed": 994.1075999999885,
+            "opsPerMs": 1.0059273261767756,
+            "opsPerSec": 1005.9273261767756
+          },
+          {
+            "seed": 7331,
+            "calls": 1000,
+            "elapsed": 991.1619000000064,
+            "opsPerMs": 1.008916908529266,
+            "opsPerSec": 1008.9169085292659
+          },
+          {
+            "seed": 20250321,
+            "calls": 1000,
+            "elapsed": 991.1572999999917,
+            "opsPerMs": 1.0089215909523226,
+            "opsPerSec": 1008.9215909523226
+          }
+        ],
+        "meanOpsPerMs": 1.0079219418861214,
+        "meanOpsPerSec": 1007.9219418861213,
+        "medianOpsPerMs": 1.008916908529266,
+        "medianOpsPerSec": 1008.9169085292659
+      },
+      "leven": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 500,
+            "elapsed": 1038.8049000000028,
+            "opsPerMs": 0.48132233492545007,
+            "opsPerSec": 481.3223349254501
+          },
+          {
+            "seed": 7331,
+            "calls": 500,
+            "elapsed": 1043.8139999999985,
+            "opsPerMs": 0.47901254438051294,
+            "opsPerSec": 479.01254438051296
+          },
+          {
+            "seed": 20250321,
+            "calls": 500,
+            "elapsed": 1041.482799999998,
+            "opsPerMs": 0.48008474071775453,
+            "opsPerSec": 480.0847407177545
+          }
+        ],
+        "meanOpsPerMs": 0.4801398733412392,
+        "meanOpsPerSec": 480.13987334123925,
+        "medianOpsPerMs": 0.48008474071775453,
+        "medianOpsPerSec": 480.0847407177545
+      },
+      "levenshtein-edit-distance": {
+        "seedRuns": [
+          {
+            "seed": 1337,
+            "calls": 500,
+            "elapsed": 1141.1759999999922,
+            "opsPerMs": 0.4381445105750589,
+            "opsPerSec": 438.14451057505886
+          },
+          {
+            "seed": 7331,
+            "calls": 500,
+            "elapsed": 1138.8122000000003,
+            "opsPerMs": 0.439053954637999,
+            "opsPerSec": 439.053954637999
+          },
+          {
+            "seed": 20250321,
+            "calls": 500,
+            "elapsed": 1140.097299999994,
+            "opsPerMs": 0.4385590598276153,
+            "opsPerSec": 438.5590598276153
+          }
+        ],
+        "meanOpsPerMs": 0.4385858416802244,
+        "meanOpsPerSec": 438.5858416802244,
+        "medianOpsPerMs": 0.4385590598276153,
+        "medianOpsPerSec": 438.5590598276153
+      }
+    }
+  }
+}

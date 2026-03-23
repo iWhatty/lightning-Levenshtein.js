@@ -27,7 +27,7 @@ lines.push(
 );
 lines.push("");
 lines.push(
-  `Reported values are median ops/sec across ${data.meta.seeds.length} seeds.`
+  `Reported values are median ops/ms across ${data.meta.seeds.length} seeds.`
 );
 lines.push("");
 
@@ -40,7 +40,7 @@ lines.push(
 
 for (const name of targetNames) {
   const row = lengths.map((len) =>
-    fmt(data.results[len][name].medianOpsPerSec)
+    fmt(data.results[len][name].meanOpsPerMs)
   );
   lines.push(`| ${name} | ${row.join(" | ")} |`);
 }

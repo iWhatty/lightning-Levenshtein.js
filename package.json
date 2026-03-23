@@ -10,14 +10,15 @@
         ".": "./dist/lightning-levenshtein.min.js"
     },
     "files": [
-        "src",
-        "dist/lightning-Levenshtein.min.js",
+        "dist/lightning-levenshtein.min.js",
+        "dist/lightning-levenshtein-v2.min.js",
         "LICENSE.md",
         "README.md"
     ],
     "scripts": {
         "build": "node ./build-gcc.mjs",
-        "build-bolt": "node ./build-gcc-bolt.mjs",
+        "build:v2": "node ./build-gcc-bolt.mjs",
+        "build:all": "npm run build && npm run build:v2",
         "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
         "html": "http-server . -p 8000 -c-1",
         "html:open": "start http://localhost:8000/bench/benchmark.html",
@@ -25,6 +26,7 @@
         "bench:peq": "node ./bench/peq-benchmark.mjs",
         "bench:myersx": "node ./bench/myers-x-variants/run-bench.js",
         "bench:myers32": "node ./bench/myers32-variants/run-bench.js",
+        "bench:small": "node ./bench/small_kernals/bench-2x-small.js",
         "bench:packages": "node ./bench/packages/run-bench.js",
         "bench:packages:table": "node ./bench/packages/render-readme-table.js",
         "bench:packages:chart": "node ./bench/packages/render-readme-chart.js && npm run bench:packages:linechart && npm run bench:packages:percent",

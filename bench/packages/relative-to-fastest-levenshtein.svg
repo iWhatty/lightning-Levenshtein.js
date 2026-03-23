@@ -2,16 +2,16 @@
 <rect width="1100" height="620" fill="#0f172a" />
 <text x="550" y="36" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#e5e7eb">Relative performance vs fastest-levenshtein</text>
 <text x="550" y="60" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#cbd5e1">Y axis = mean ops/sec as % of fastest-levenshtein at the same length, X axis = string length (log2)</text>
-<line x1="100" y1="448" x2="920" y2="448" stroke="#334155" stroke-width="1" opacity="0.6" />
-<text x="88" y="452" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">50%</text>
-<line x1="100" y1="341.0232558139535" x2="920" y2="341.0232558139535" stroke="#334155" stroke-width="1" opacity="0.6" />
-<text x="88" y="345.0232558139535" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">100%</text>
-<line x1="100" y1="234.04651162790697" x2="920" y2="234.04651162790697" stroke="#334155" stroke-width="1" opacity="0.6" />
-<text x="88" y="238.04651162790697" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">150%</text>
-<line x1="100" y1="127.06976744186045" x2="920" y2="127.06976744186045" stroke="#334155" stroke-width="1" opacity="0.6" />
-<text x="88" y="131.06976744186045" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">200%</text>
-<line x1="100" y1="341.0232558139535" x2="920" y2="341.0232558139535" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.9" />
-<text x="914" y="333.0232558139535" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#ffffff">100% = fastest-levenshtein</text>
+<line x1="100" y1="445.3588516746412" x2="920" y2="445.3588516746412" stroke="#334155" stroke-width="1" opacity="0.6" />
+<text x="88" y="449.3588516746412" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">50%</text>
+<line x1="100" y1="335.311004784689" x2="920" y2="335.311004784689" stroke="#334155" stroke-width="1" opacity="0.6" />
+<text x="88" y="339.311004784689" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">100%</text>
+<line x1="100" y1="225.26315789473682" x2="920" y2="225.26315789473682" stroke="#334155" stroke-width="1" opacity="0.6" />
+<text x="88" y="229.26315789473682" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">150%</text>
+<line x1="100" y1="115.21531100478467" x2="920" y2="115.21531100478467" stroke="#334155" stroke-width="1" opacity="0.6" />
+<text x="88" y="119.21531100478467" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">200%</text>
+<line x1="100" y1="335.311004784689" x2="920" y2="335.311004784689" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.9" />
+<text x="914" y="327.311004784689" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#ffffff">100% = fastest-levenshtein</text>
 <line x1="100" y1="80" x2="100" y2="540" stroke="#334155" stroke-width="1" opacity="0.45" />
 <text x="100" y="564" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">1</text>
 <line x1="182" y1="80" x2="182" y2="540" stroke="#334155" stroke-width="1" opacity="0.45" />
@@ -36,66 +36,66 @@
 <text x="920" y="564" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8">1024</text>
 <line x1="100" y1="80" x2="100" y2="540" stroke="#94a3b8" stroke-width="1.5" />
 <line x1="100" y1="540" x2="920" y2="540" stroke="#94a3b8" stroke-width="1.5" />
-<path d="M 100.00 341.02 L 182.00 341.02 L 264.00 341.02 L 346.00 341.02 L 428.00 341.02 L 510.00 341.02 L 592.00 341.02 L 674.00 341.02 L 756.00 341.02 L 838.00 341.02 L 920.00 341.02" fill="none" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
-<circle cx="100.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=1 | 100.00% of fastest-levenshtein | mean=99691785.90 ops/sec</title></circle>
-<circle cx="182.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=2 | 100.00% of fastest-levenshtein | mean=74681255.42 ops/sec</title></circle>
-<circle cx="264.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=4 | 100.00% of fastest-levenshtein | mean=44272872.30 ops/sec</title></circle>
-<circle cx="346.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=8 | 100.00% of fastest-levenshtein | mean=23291954.75 ops/sec</title></circle>
-<circle cx="428.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=16 | 100.00% of fastest-levenshtein | mean=8250642.80 ops/sec</title></circle>
-<circle cx="510.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=32 | 100.00% of fastest-levenshtein | mean=4580353.64 ops/sec</title></circle>
-<circle cx="592.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=64 | 100.00% of fastest-levenshtein | mean=1087051.21 ops/sec</title></circle>
-<circle cx="674.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=128 | 100.00% of fastest-levenshtein | mean=299493.98 ops/sec</title></circle>
-<circle cx="756.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=256 | 100.00% of fastest-levenshtein | mean=78743.22 ops/sec</title></circle>
-<circle cx="838.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=512 | 100.00% of fastest-levenshtein | mean=19360.17 ops/sec</title></circle>
-<circle cx="920.00" cy="341.02" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=1024 | 100.00% of fastest-levenshtein | mean=4975.43 ops/sec</title></circle>
-<path d="M 100.00 115.99 L 182.00 299.88 L 264.00 323.16 L 346.00 250.93 L 428.00 243.31 L 510.00 243.04 L 592.00 201.75 L 674.00 144.73 L 756.00 125.48 L 838.00 158.27 L 920.00 152.61" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
-<circle cx="100.00" cy="115.99" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=1 | 205.18% of fastest-levenshtein | mean=204547830.09 ops/sec</title></circle>
-<circle cx="182.00" cy="299.88" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=2 | 119.23% of fastest-levenshtein | mean=89042436.38 ops/sec</title></circle>
-<circle cx="264.00" cy="323.16" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=4 | 108.35% of fastest-levenshtein | mean=47969858.88 ops/sec</title></circle>
-<circle cx="346.00" cy="250.93" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=8 | 142.11% of fastest-levenshtein | mean=33099631.44 ops/sec</title></circle>
-<circle cx="428.00" cy="243.31" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=16 | 145.67% of fastest-levenshtein | mean=12018654.55 ops/sec</title></circle>
-<circle cx="510.00" cy="243.04" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=32 | 145.80% of fastest-levenshtein | mean=6678008.26 ops/sec</title></circle>
-<circle cx="592.00" cy="201.75" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=64 | 165.10% of fastest-levenshtein | mean=1794675.67 ops/sec</title></circle>
-<circle cx="674.00" cy="144.73" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=128 | 191.75% of fastest-levenshtein | mean=574273.96 ops/sec</title></circle>
-<circle cx="756.00" cy="125.48" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=256 | 200.74% of fastest-levenshtein | mean=158071.85 ops/sec</title></circle>
-<circle cx="838.00" cy="158.27" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=512 | 185.42% of fastest-levenshtein | mean=35897.44 ops/sec</title></circle>
-<circle cx="920.00" cy="152.61" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=1024 | 188.06% of fastest-levenshtein | mean=9356.84 ops/sec</title></circle>
-<path d="M 100.00 301.39 L 182.00 302.90 L 264.00 440.53 L 346.00 450.68 L 428.00 467.58 L 510.00 511.86 L 592.00 507.22 L 674.00 510.61 L 756.00 511.63 L 838.00 510.62 L 920.00 511.62" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
-<circle cx="100.00" cy="301.39" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=1 | 118.52% of fastest-levenshtein | mean=118159506.09 ops/sec</title></circle>
-<circle cx="182.00" cy="302.90" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=2 | 117.82% of fastest-levenshtein | mean=87989151.48 ops/sec</title></circle>
-<circle cx="264.00" cy="440.53" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=4 | 53.49% of fastest-levenshtein | mean=23682411.76 ops/sec</title></circle>
-<circle cx="346.00" cy="450.68" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=8 | 48.75% of fastest-levenshtein | mean=11354238.07 ops/sec</title></circle>
-<circle cx="428.00" cy="467.58" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=16 | 40.85% of fastest-levenshtein | mean=3370357.48 ops/sec</title></circle>
-<circle cx="510.00" cy="511.86" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=32 | 20.15% of fastest-levenshtein | mean=923120.00 ops/sec</title></circle>
-<circle cx="592.00" cy="507.22" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=64 | 22.32% of fastest-levenshtein | mean=242660.50 ops/sec</title></circle>
-<circle cx="674.00" cy="510.61" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=128 | 20.73% of fastest-levenshtein | mean=62099.31 ops/sec</title></circle>
-<circle cx="756.00" cy="511.63" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=256 | 20.26% of fastest-levenshtein | mean=15953.78 ops/sec</title></circle>
-<circle cx="838.00" cy="510.62" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=512 | 20.73% of fastest-levenshtein | mean=4013.73 ops/sec</title></circle>
-<circle cx="920.00" cy="511.62" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=1024 | 20.27% of fastest-levenshtein | mean=1008.29 ops/sec</title></circle>
-<path d="M 100.00 377.56 L 182.00 436.84 L 264.00 450.70 L 346.00 479.99 L 428.00 508.64 L 510.00 535.51 L 592.00 532.58 L 674.00 533.67 L 756.00 534.30 L 838.00 533.93 L 920.00 534.30" fill="none" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
-<circle cx="100.00" cy="377.56" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=1 | 82.92% of fastest-levenshtein | mean=82666105.30 ops/sec</title></circle>
-<circle cx="182.00" cy="436.84" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=2 | 55.21% of fastest-levenshtein | mean=41235025.90 ops/sec</title></circle>
-<circle cx="264.00" cy="450.70" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=4 | 48.74% of fastest-levenshtein | mean=21577594.02 ops/sec</title></circle>
-<circle cx="346.00" cy="479.99" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=8 | 35.05% of fastest-levenshtein | mean=8162950.28 ops/sec</title></circle>
-<circle cx="428.00" cy="508.64" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=16 | 21.66% of fastest-levenshtein | mean=1786934.07 ops/sec</title></circle>
-<circle cx="510.00" cy="535.51" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=32 | 9.10% of fastest-levenshtein | mean=416682.70 ops/sec</title></circle>
-<circle cx="592.00" cy="532.58" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=64 | 10.47% of fastest-levenshtein | mean=113798.42 ops/sec</title></circle>
-<circle cx="674.00" cy="533.67" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=128 | 9.96% of fastest-levenshtein | mean=29820.90 ops/sec</title></circle>
-<circle cx="756.00" cy="534.30" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=256 | 9.66% of fastest-levenshtein | mean=7609.67 ops/sec</title></circle>
-<circle cx="838.00" cy="533.93" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=512 | 9.84% of fastest-levenshtein | mean=1904.57 ops/sec</title></circle>
-<circle cx="920.00" cy="534.30" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=1024 | 9.66% of fastest-levenshtein | mean=480.79 ops/sec</title></circle>
-<path d="M 100.00 306.77 L 182.00 393.96 L 264.00 434.71 L 346.00 477.44 L 428.00 508.42 L 510.00 536.43 L 592.00 533.98 L 674.00 535.36 L 756.00 535.99 L 838.00 535.56 L 920.00 536.13" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
-<circle cx="100.00" cy="306.77" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=1 | 116.01% of fastest-levenshtein | mean=115653600.85 ops/sec</title></circle>
-<circle cx="182.00" cy="393.96" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=2 | 75.26% of fastest-levenshtein | mean=56201775.55 ops/sec</title></circle>
-<circle cx="264.00" cy="434.71" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=4 | 56.21% of fastest-levenshtein | mean=24887195.62 ops/sec</title></circle>
-<circle cx="346.00" cy="477.44" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=8 | 36.24% of fastest-levenshtein | mean=8441079.79 ops/sec</title></circle>
-<circle cx="428.00" cy="508.42" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=16 | 21.76% of fastest-levenshtein | mean=1795343.42 ops/sec</title></circle>
-<circle cx="510.00" cy="536.43" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=32 | 8.67% of fastest-levenshtein | mean=397080.25 ops/sec</title></circle>
-<circle cx="592.00" cy="533.98" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=64 | 9.81% of fastest-levenshtein | mean=106664.20 ops/sec</title></circle>
-<circle cx="674.00" cy="535.36" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=128 | 9.17% of fastest-levenshtein | mean=27455.65 ops/sec</title></circle>
-<circle cx="756.00" cy="535.99" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=256 | 8.88% of fastest-levenshtein | mean=6989.70 ops/sec</title></circle>
-<circle cx="838.00" cy="535.56" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=512 | 9.08% of fastest-levenshtein | mean=1757.05 ops/sec</title></circle>
-<circle cx="920.00" cy="536.13" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=1024 | 8.81% of fastest-levenshtein | mean=438.27 ops/sec</title></circle>
+<path d="M 100.00 335.31 L 182.00 335.31 L 264.00 335.31 L 346.00 335.31 L 428.00 335.31 L 510.00 335.31 L 592.00 335.31 L 674.00 335.31 L 756.00 335.31 L 838.00 335.31 L 920.00 335.31" fill="none" stroke="#e5e7eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<circle cx="100.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=1 | 100.00% of fastest-levenshtein | mean=101486333.00 ops/sec</title></circle>
+<circle cx="182.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=2 | 100.00% of fastest-levenshtein | mean=74491610.61 ops/sec</title></circle>
+<circle cx="264.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=4 | 100.00% of fastest-levenshtein | mean=44315801.23 ops/sec</title></circle>
+<circle cx="346.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=8 | 100.00% of fastest-levenshtein | mean=23318506.30 ops/sec</title></circle>
+<circle cx="428.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=16 | 100.00% of fastest-levenshtein | mean=8104861.99 ops/sec</title></circle>
+<circle cx="510.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=32 | 100.00% of fastest-levenshtein | mean=4236126.25 ops/sec</title></circle>
+<circle cx="592.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=64 | 100.00% of fastest-levenshtein | mean=1088003.15 ops/sec</title></circle>
+<circle cx="674.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=128 | 100.00% of fastest-levenshtein | mean=302154.17 ops/sec</title></circle>
+<circle cx="756.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=256 | 100.00% of fastest-levenshtein | mean=77751.74 ops/sec</title></circle>
+<circle cx="838.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=512 | 100.00% of fastest-levenshtein | mean=19316.53 ops/sec</title></circle>
+<circle cx="920.00" cy="335.31" r="4.5" fill="#e5e7eb" stroke="#0f172a" stroke-width="1.5"><title>fastest-levenshtein | N=1024 | 100.00% of fastest-levenshtein | mean=4978.63 ops/sec</title></circle>
+<path d="M 100.00 166.18 L 182.00 290.28 L 264.00 305.51 L 346.00 251.90 L 428.00 234.06 L 510.00 219.72 L 592.00 167.52 L 674.00 130.42 L 756.00 117.20 L 838.00 144.54 L 920.00 141.65" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<circle cx="100.00" cy="166.18" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=1 | 176.84% of fastest-levenshtein | mean=179471121.07 ops/sec</title></circle>
+<circle cx="182.00" cy="290.28" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=2 | 120.46% of fastest-levenshtein | mean=89731250.74 ops/sec</title></circle>
+<circle cx="264.00" cy="305.51" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=4 | 113.54% of fastest-levenshtein | mean=50316167.66 ops/sec</title></circle>
+<circle cx="346.00" cy="251.90" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=8 | 137.90% of fastest-levenshtein | mean=32155211.22 ops/sec</title></circle>
+<circle cx="428.00" cy="234.06" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=16 | 146.00% of fastest-levenshtein | mean=11833496.99 ops/sec</title></circle>
+<circle cx="510.00" cy="219.72" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=32 | 152.52% of fastest-levenshtein | mean=6460812.81 ops/sec</title></circle>
+<circle cx="592.00" cy="167.52" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=64 | 176.23% of fastest-levenshtein | mean=1917439.42 ops/sec</title></circle>
+<circle cx="674.00" cy="130.42" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=128 | 193.09% of fastest-levenshtein | mean=583440.31 ops/sec</title></circle>
+<circle cx="756.00" cy="117.20" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=256 | 199.10% of fastest-levenshtein | mean=154803.15 ops/sec</title></circle>
+<circle cx="838.00" cy="144.54" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=512 | 186.67% of fastest-levenshtein | mean=36059.08 ops/sec</title></circle>
+<circle cx="920.00" cy="141.65" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"><title>lightning-levenshtein | N=1024 | 187.99% of fastest-levenshtein | mean=9359.36 ops/sec</title></circle>
+<path d="M 100.00 300.64 L 182.00 296.67 L 264.00 441.81 L 346.00 450.61 L 428.00 463.77 L 510.00 507.47 L 592.00 506.24 L 674.00 510.33 L 756.00 510.28 L 838.00 509.61 L 920.00 510.88" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<circle cx="100.00" cy="300.64" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=1 | 115.75% of fastest-levenshtein | mean=117471340.41 ops/sec</title></circle>
+<circle cx="182.00" cy="296.67" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=2 | 117.56% of fastest-levenshtein | mean=87570994.13 ops/sec</title></circle>
+<circle cx="264.00" cy="441.81" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=4 | 51.61% of fastest-levenshtein | mean=22871944.46 ops/sec</title></circle>
+<circle cx="346.00" cy="450.61" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=8 | 47.61% of fastest-levenshtein | mean=11102645.19 ops/sec</title></circle>
+<circle cx="428.00" cy="463.77" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=16 | 41.64% of fastest-levenshtein | mean=3374569.00 ops/sec</title></circle>
+<circle cx="510.00" cy="507.47" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=32 | 21.78% of fastest-levenshtein | mean=922585.53 ops/sec</title></circle>
+<circle cx="592.00" cy="506.24" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=64 | 22.34% of fastest-levenshtein | mean=243068.95 ops/sec</title></circle>
+<circle cx="674.00" cy="510.33" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=128 | 20.48% of fastest-levenshtein | mean=61883.68 ops/sec</title></circle>
+<circle cx="756.00" cy="510.28" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=256 | 20.51% of fastest-levenshtein | mean=15943.04 ops/sec</title></circle>
+<circle cx="838.00" cy="509.61" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=512 | 20.81% of fastest-levenshtein | mean=4019.07 ops/sec</title></circle>
+<circle cx="920.00" cy="510.88" r="4.5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"><title>js-levenshtein | N=1024 | 20.23% of fastest-levenshtein | mean=1007.24 ops/sec</title></circle>
+<path d="M 100.00 373.94 L 182.00 433.63 L 264.00 449.13 L 346.00 478.34 L 428.00 506.18 L 510.00 534.13 L 592.00 532.37 L 674.00 533.61 L 756.00 533.80 L 838.00 533.66 L 920.00 534.10" fill="none" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<circle cx="100.00" cy="373.94" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=1 | 82.45% of fastest-levenshtein | mean=83672780.85 ops/sec</title></circle>
+<circle cx="182.00" cy="433.63" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=2 | 55.33% of fastest-levenshtein | mean=41214862.23 ops/sec</title></circle>
+<circle cx="264.00" cy="449.13" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=4 | 48.29% of fastest-levenshtein | mean=21399415.09 ops/sec</title></circle>
+<circle cx="346.00" cy="478.34" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=8 | 35.02% of fastest-levenshtein | mean=8165237.90 ops/sec</title></circle>
+<circle cx="428.00" cy="506.18" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=16 | 22.37% of fastest-levenshtein | mean=1812758.09 ops/sec</title></circle>
+<circle cx="510.00" cy="534.13" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=32 | 9.67% of fastest-levenshtein | mean=409436.88 ops/sec</title></circle>
+<circle cx="592.00" cy="532.37" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=64 | 10.47% of fastest-levenshtein | mean=113872.31 ops/sec</title></circle>
+<circle cx="674.00" cy="533.61" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=128 | 9.90% of fastest-levenshtein | mean=29926.61 ops/sec</title></circle>
+<circle cx="756.00" cy="533.80" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=256 | 9.82% of fastest-levenshtein | mean=7631.67 ops/sec</title></circle>
+<circle cx="838.00" cy="533.66" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=512 | 9.88% of fastest-levenshtein | mean=1908.63 ops/sec</title></circle>
+<circle cx="920.00" cy="534.10" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="1.5"><title>leven | N=1024 | 9.68% of fastest-levenshtein | mean=481.98 ops/sec</title></circle>
+<path d="M 100.00 302.86 L 182.00 392.45 L 264.00 432.90 L 346.00 475.60 L 428.00 506.67 L 510.00 534.78 L 592.00 533.89 L 674.00 535.44 L 756.00 535.68 L 838.00 535.40 L 920.00 536.03" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+<circle cx="100.00" cy="302.86" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=1 | 114.74% of fastest-levenshtein | mean=116447364.12 ops/sec</title></circle>
+<circle cx="182.00" cy="392.45" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=2 | 74.04% of fastest-levenshtein | mean=55151218.09 ops/sec</title></circle>
+<circle cx="264.00" cy="432.90" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=4 | 55.66% of fastest-levenshtein | mean=24666764.92 ops/sec</title></circle>
+<circle cx="346.00" cy="475.60" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=8 | 36.26% of fastest-levenshtein | mean=8455326.99 ops/sec</title></circle>
+<circle cx="428.00" cy="506.67" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=16 | 22.14% of fastest-levenshtein | mean=1794680.95 ops/sec</title></circle>
+<circle cx="510.00" cy="534.78" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=32 | 9.37% of fastest-levenshtein | mean=396953.38 ops/sec</title></circle>
+<circle cx="592.00" cy="533.89" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=64 | 9.78% of fastest-levenshtein | mean=106382.65 ops/sec</title></circle>
+<circle cx="674.00" cy="535.44" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=128 | 9.07% of fastest-levenshtein | mean=27408.75 ops/sec</title></circle>
+<circle cx="756.00" cy="535.68" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=256 | 8.96% of fastest-levenshtein | mean=6967.91 ops/sec</title></circle>
+<circle cx="838.00" cy="535.40" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=512 | 9.09% of fastest-levenshtein | mean=1755.89 ops/sec</title></circle>
+<circle cx="920.00" cy="536.03" r="4.5" fill="#a78bfa" stroke="#0f172a" stroke-width="1.5"><title>levenshtein-edit-distance | N=1024 | 8.80% of fastest-levenshtein | mean=438.31 ops/sec</title></circle>
 <text x="510" y="596" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#e5e7eb">String length (log2 scale)</text>
 <text x="28" y="310" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#e5e7eb" transform="rotate(-90 28 310)">Relative throughput (% of fastest-levenshtein)</text>
 <g>

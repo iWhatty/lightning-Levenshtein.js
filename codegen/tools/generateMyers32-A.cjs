@@ -10,7 +10,7 @@ out.push('const peq = new Uint32Array(65536);');
 out.push('export const myers_table = [];');
 
 for (let n = 1; n <= 32; n++) {
-  const lst = 1 << (n - 1);
+  const lastMask = 1 << (n - 1);
 
   out.push('');
   out.push(`function myers_${n}(a, b) {`);
@@ -18,7 +18,7 @@ for (let n = 1; n <= 32; n++) {
   out.push(`  let mv = 0;`);
   out.push(`  let pv = -1;`);
   out.push(`  let sc = ${n};`);
-  out.push(`  const lst = ${lst};`);
+  out.push(`  const lastMask = ${lastMask};`);
 
   // Setup peq (fixed A-length unrolled)
   for (let i = 0; i < n; i++) {
@@ -34,8 +34,8 @@ for (let n = 1; n <= 32; n++) {
   out.push(`    const nh = ~(eqv | pv);`);
   out.push(`    const ph = mv | nh;`);
   out.push(`    const mh = pv & eqv;`);
-  out.push(`    const phLst = ph & lst;`);
-  out.push(`    const mhLst = mh & lst;`);
+  out.push(`    const phLst = ph & lastMask;`);
+  out.push(`    const mhLst = mh & lastMask;`);
   out.push(`    sc += (phLst !== 0) - (mhLst !== 0);`);
   out.push(`    const newMv = (ph << 1) | 1;`);
   out.push(`    const newPv = (mh << 1) | ~(xv | newMv);`);

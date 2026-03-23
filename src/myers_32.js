@@ -1,281 +1,101 @@
-
 // ./src/myers_32.js
 
-// Global pattern equality table shared across invocations
-// const peq = new Uint32Array(0x10000); // One bitmask per Unicode char (up to 16-bit space)
-import { peq } from './peq.js';
+"use strict";
 
+// Shared pattern-equality table.
+// For each character code, peq[ch] stores a bitmask of all positions in `a`
+// where that character appears.
+//
+// Example:
+//   a = "ABCA"
+//   peq['A'] => 1001b
+//   peq['B'] => 0010b
+//   peq['C'] => 0100b
+import { peq } from './peq.js';
 
 /**
  * Bit-parallel Myers' algorithm for Levenshtein distance.
- * Optimized for pattern strings ≤ 32 characters.
+ * Specialized for pattern lengths <= 32, so the entire DP column fits in one 32-bit word.
  *
- * @param {string} a - Pattern string (must be longer or equal to `b`)
- * @param {string} b - Text string to compare
+ * Assumes `a.length >= b.length` in the wider dispatcher design, though this function
+ * itself just uses the provided inputs directly.
+ *
+ * @param {string} a - Pattern / source string
+ * @param {string} b - Text / target string
  * @param {number} n - Length of `a`
  * @param {number} m - Length of `b`
  * @returns {number} Edit distance between `a` and `b`
  */
-export function myers_32(a, b, n, m) {
+export const myers_32 = (a, b, n = a.length, m = b.length) => {
 
-    let mv = 0;             // Negative bitmask (all zeros). represents delete state
-    let pv = -1;            // Positive bitmask (all ones). represents insert state
-    let score = n;          // Worst-case initial score (all insertions)
+  // Bit corresponding to the final live position in the pattern.
+  // When this bit flips in PH/MH, the total score changes.
+  const lastMask = 1 << (n - 1);
 
-    // Build pattern equality masks (peq[char] has 1s at positions where a[i] === char)
-    let i = n;
-    var lst = 1 << (n - 1);
-    while (i--) peq[a.charCodeAt(i)] |= 1 << i;
+  // Myers bit-vectors:
+  // pv = positive differences / "plus" frontier
+  // mv = negative differences / "minus" frontier
+  //
+  // Initial state:
+  // - pv starts as all 1s
+  // - mv starts as all 0s
+  //
+  // score starts at n, which is the cost of transforming `a` into an empty string.
+  let mv = 0;
+  let pv = -1;
+  let score = n;
 
-    // for (let i = 0; i < m; i++) {
-    //     const bCode = b.charCodeAt(i);
-    //     const eq = peq[bCode];
-        
-    //     const xv = eq | mv;
-    //     const eqv = eq | (((eq & pv) + pv) ^ pv); // merged eq update inline
-      
-    //     const nh = ~(eqv | pv);
-    //     const ph = mv | nh;
-    //     const mh = pv & eqv;
-      
-    //     const phLst = ph & lst;
-    //     const mhLst = mh & lst;
-      
-    //     score += (phLst !== 0) - (mhLst !== 0); // branchless scoring
-      
-    //     const newMv = (ph << 1) | 1;
-    //     const newPv = (mh << 1) | ~(xv | newMv);
-      
-    //     pv = newPv;
-    //     mv = newMv & xv;
-    //   }
-      
-    // for (let i = 0; i < m; i++) {
-    //     const bCode = b.charCodeAt(i);
-    //     let eq = peq[bCode];
-      
-    //     const xv = eq | mv;
-    //     eq |= ((eq & pv) + pv) ^ pv;
-      
-    //     const nh = ~(eq | pv);
-    //     const ph = mv | nh;
-    //     const mh = pv & eq;
-      
-    //     if (ph & lst) score++;
-    //     if (mh & lst) score--;
-      
-    //     const newMv = (ph << 1) | 1;
-    //     pv = (mh << 1) | ~(xv | newMv);
-    //     mv = newMv & xv;
-    //   }
+  // Build PEQ masks for the pattern string `a`.
+  // Each bit i marks that a[i] == current character.
+  let i = n;
+  while (i--) {
+    peq[a.charCodeAt(i)] |= 1 << i;
+  }
 
+  // Process each character of `b`, updating one DP column per iteration.
+  for (i = 0; i < m; i++) {
+    const bCode = b.charCodeAt(i);
+    const eq = peq[bCode]; // bitmask of positions in `a` matching b[i]
 
-    for (let i = 0; i < m; i++) {
-        let eq = peq[b.charCodeAt(i)];
-        const xv = eq | mv;
-        eq |= ((eq & pv) + pv) ^ pv;
-        mv |= ~(eq | pv);
-        pv &= eq;
-        if (mv & lst) score++;
-        if (pv & lst) score--;
-        mv = ((mv << 1) | 1) >>> 0;
-        pv = ((pv << 1) | ~(xv | mv)) >>> 0;
-        // mv = ((mv << 1) | 1);
-        // pv = ((pv << 1) | ~(xv | mv));
-        mv &= xv;
-      }
+    // Core Myers recurrence.
+    //
+    // xv marks candidate positions where vertical transitions can occur.
+    // eqv is the expanded equality mask after incorporating the current pv state.
+    const xv = eq | mv;
+    const eqv = eq | (((eq & pv) + pv) ^ pv);
 
+    // nh = positions that become "negative horizontal"
+    // ph = positive horizontal differences
+    // mh = negative horizontal differences
+    const nh = ~(eqv | pv);
+    const ph = mv | nh;
+    const mh = pv & eqv;
 
-    // for (i = 0; i < m; i++) {
-    //     var eq = peq[b.charCodeAt(i)];
-    //     var xv = eq | mv;
-    //     eq |= ((eq & pv) + pv) ^ pv;
-    //     mv |= ~(eq | pv);
-    //     pv &= eq;
-    //     if (mv & lst) {
-    //         score++;
-    //     }
-    //     if (pv & lst) {
-    //         score--;
-    //     }
-    //     mv = (mv << 1) | 1;
-    //     pv = (pv << 1) | ~(xv | mv);
-    //     mv &= xv;
-    // }
+    // Only the last pattern bit changes the overall edit score.
+    // If PH hits the last bit, score increases.
+    // If MH hits the last bit, score decreases.
+    const phLst = ph & lastMask;
+    const mhLst = mh & lastMask;
+    score += (phLst !== 0) - (mhLst !== 0);
 
-    // for (let i = 0; i < m; i++) {
-    //     let eq = peq[b.charCodeAt(i)];
-    //     const xv = eq | mv;
-    //     eq |= ((eq & pv) + pv) ^ pv;
-      
-    //     let ph = mv | ~(eq | pv);
-    //     let mh = pv & eq;
-      
-    //     score += ((ph >>> (n - 1)) & 1) - ((mh >>> (n - 1)) & 1);
-      
-    //     ph = (ph << 1) | 1;
-    //     mh <<= 1;
-      
-    //     pv = mh | ~(xv | ph);
-    //     mv = ph & xv;
-    //   }
+    // Shift horizontal state for the next column.
+    //
+    // - PH shifted left becomes the new minus candidate stream
+    // - MH shifted left contributes to the new positive stream
+    //
+    // The low bit is seeded with 1 for insertion boundary handling.
+    const newMv = (ph << 1) | 1;
+    const newPv = (mh << 1) | ~(xv | newMv);
 
+    pv = newPv;
+    mv = newMv & xv;
+  }
 
-    // for (let i = 0; i < m; i++) {
-    //     const ch = b.charCodeAt(i);
-    //     const eq = peq[ch];               // EQ: match vector for b[i] over a[0..n]
-    //     const xv = eq | mv;               // EQ or previously deleted
-    //     const xh = (((eq & pv) + pv) ^ pv) | eq; // Horizontal transitions
+  // Clear PEQ entries touched by this call so the shared table can be reused safely.
+  i = n;
+  while (i--) {
+    peq[a.charCodeAt(i)] = 0;
+  }
 
-    //     let ph = mv | ~(xh | pv);         // Insertion positions
-    //     let mh = pv & xh;                 // Deletion positions
-
-    //     // Branchless score adjustment using only the top (n-1)th bit
-    //     // Scoring logic: update score based on bit at the highest tracked position
-    //     const inc = (ph >>> (n - 1)) & 1;
-    //     const dec = (mh >>> (n - 1)) & 1;
-    //     score += inc - dec;
-
-    //     // Advance state vectors by 1 position
-    //     // Shift and update bitvectors for next iteration
-    //     ph = (ph << 1) | 1;
-    //     mh = (mh << 1);
-
-    //     pv = mh | ~(xv | ph);
-    //     mv = ph & xv;
-    // }
-
-    // Clear used bitmasks for reuse
-    i = n;
-    while (i--) peq[a.charCodeAt(i)] = 0;
-
-    return score;
+  return score;
 };
-
-
-
-
-
-
-///// v5
-
-// for (let i = 0; i < m; i++) {
-//     const bCode = b.charCodeAt(i);
-//     const eq = peq[bCode];
-    
-//     const xv = eq | mv;
-//     const eqv = eq | (((eq & pv) + pv) ^ pv); // merged eq update inline
-  
-//     const nh = ~(eqv | pv);
-//     const ph = mv | nh;
-//     const mh = pv & eqv;
-  
-//     const phLst = ph & lst;
-//     const mhLst = mh & lst;
-  
-//     score += (phLst !== 0) - (mhLst !== 0); // branchless scoring
-  
-//     const newMv = (ph << 1) | 1;
-//     const newPv = (mh << 1) | ~(xv | newMv);
-  
-//     pv = newPv;
-//     mv = newMv & xv;
-//   }
-  
-
-
-
-//// v4
-
-// for (let i = 0; i < m; i++) {
-//     const bCode = b.charCodeAt(i);
-//     let eq = peq[bCode];
-  
-//     const xv = eq | mv;
-//     eq |= ((eq & pv) + pv) ^ pv;
-  
-//     const nh = ~(eq | pv);
-//     const ph = mv | nh;
-//     const mh = pv & eq;
-  
-//     if (ph & lst) score++;
-//     if (mh & lst) score--;
-  
-//     const newMv = (ph << 1) | 1;
-//     pv = (mh << 1) | ~(xv | newMv);
-//     mv = newMv & xv;
-//   }
-
-
-//  /// v1
-
-// for (let i = 0; i < m; i++) {
-//     const ch = b.charCodeAt(i);
-//     const eq = peq[ch];                         // Match vector
-//     const xv = eq | mv;
-//     const xh = (((eq & pv) + pv) ^ pv) | eq;
-  
-//     let ph = mv | ~(xh | pv);                   // Insertions
-//     let mh = pv & xh;                           // Deletions
-  
-//     // Branch-based score update — same logic, different perf profile
-//     if ((ph >>> (n - 1)) & 1) score++;
-//     if ((mh >>> (n - 1)) & 1) score--;
-  
-//     ph = (ph << 1) | 1;
-//     mh <<= 1;
-  
-//     pv = mh | ~(xv | ph);
-//     mv = ph & xv;
-//   }
-
-
-
-///// v2
-
-
-// for (let i = 0; i < m; i++) {
-//     let eq = peq[b.charCodeAt(i)];
-//     const xv = eq | mv;
-//     eq |= ((eq & pv) + pv) ^ pv;           // Reuse `eq` as horizontal transitions (xh)
-  
-//     let ph = mv | ~(eq | pv);
-//     let mh = pv & eq;
-  
-//     // Fast score update with explicit bit test
-//     score += ((ph >>> (n - 1)) & 1) - ((mh >>> (n - 1)) & 1);
-  
-//     // Advance bitvectors
-//     ph = (ph << 1) | 1;
-//     mh <<= 1;
-  
-//     pv = mh | ~(xv | ph);
-//     mv = ph & xv;
-//   }
-
-
-
-
-/// v3 -- slower than v2
-
-// const topBit = 1 << (n - 1);
-
-// for (let i = 0; i < m; i++) {
-//   let eq = peq[b.charCodeAt(i)];
-//   const xv = eq | mv;
-//   eq |= ((eq & pv) + pv) ^ pv;
-
-//   let ph = mv | ~(eq | pv);
-//   let mh = pv & eq;
-
-//   // Extract top bits and use subtraction for score change
-//   const phBit = ph & topBit;
-//   const mhBit = mh & topBit;
-//   score += (phBit >>> (n - 1)) - (mhBit >>> (n - 1));
-
-//   ph = (ph << 1) | 1;
-//   mh <<= 1;
-
-//   pv = mh | ~(xv | ph);
-//   mv = ph & xv;
-// }

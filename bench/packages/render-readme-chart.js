@@ -113,7 +113,7 @@ function renderSvg(rows) {
     `<text x="${WIDTH / 2}" y="34" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="${COLORS.text}">lightning-levenshtein relative performance</text>`
   );
   parts.push(
-    `<text x="${WIDTH / 2}" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="${COLORS.muted}">ratio vs fastest competing library at each string length (median ops/sec across seeds)</text>`
+    `<text x="${WIDTH / 2}" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="${COLORS.muted}">ratio vs fastest competing library at each string length (mean ops/sec across seeds)</text>`
   );
 
   // Grid + Y labels
@@ -172,10 +172,10 @@ function renderSvg(rows) {
   );
 
   // Legend
-  parts.push(`<g transform="translate(${WIDTH - 250}, ${HEIGHT - 50})">`);
+  parts.push(`<g transform="translate(${WIDTH - 250}, ${HEIGHT - 30})">`);
   parts.push(`<rect x="0" y="-12" width="18" height="18" rx="4" fill="${COLORS.bar}" />`);
   parts.push(
-    `<text x="26" y="2" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="${COLORS.text}">lightning is fastest</text>`
+    `<text x="26" y="2" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="${COLORS.text}">lightning-levenshtein-v2</text>`
   );
   parts.push(`</g>`);
 
