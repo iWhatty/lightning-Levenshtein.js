@@ -2,6 +2,8 @@
 
 Guidance for future Codex/agent runs in this repository.
 
+Current project/release handoff: `docs/agent-handoff.md`.
+
 ## Project Shape
 
 - `src/` contains the stable public API used for the default package entrypoint.
